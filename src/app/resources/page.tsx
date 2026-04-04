@@ -1,0 +1,200 @@
+"use client";
+
+import { useLang } from "@/lib/i18n";
+
+interface Resource {
+  name: string;
+  desc: string;
+  descZh: string;
+  href: string;
+  type: "youtube" | "bilibili" | "xiaohongshu" | "wechat" | "newsletter" | "podcast" | "blog" | "tool";
+  tags?: string[];
+  recommended?: boolean;
+  note?: string;
+  noteZh?: string;
+}
+
+const resources: Resource[] = [
+  // YouTube
+  { name: "Andrej Karpathy", href: "https://www.youtube.com/@AndrejKarpathy", type: "youtube",
+    desc: "Code-first explanations of LLMs from scratch. The best for building deep intuition.", descZh: "从零开始的代码优先 LLM 讲解。建立深度直觉的最佳资源。", recommended: true, tags: ["LLM", "Architecture"] },
+  { name: "Yannic Kilcher", href: "https://www.youtube.com/@YannicKilcher", type: "youtube",
+    desc: "Deep paper reads with live commentary. Strong research taste, goes beyond the abstract.", descZh: "深度论文阅读加实时评论。研究品味高，不止步于摘要。", recommended: true, tags: ["Paper Reading", "NLP"] },
+  { name: "Umar Jamil", href: "https://www.youtube.com/@umarjamilai", type: "youtube",
+    desc: "Implementation-focused — watches you build Transformers, VAEs, etc from scratch in PyTorch.", descZh: "以实现为主 — 带你用 PyTorch 从零实现 Transformer、VAE 等。", tags: ["Implementation", "PyTorch"] },
+  { name: "Two Minute Papers", href: "https://www.youtube.com/@TwoMinutePapers", type: "youtube",
+    desc: "Fast 2-5 min overviews of new papers. Good for staying current, not for depth.", descZh: "2-5 分钟快速概览新论文。适合跟进最新进展，不适合深入理解。", tags: ["News", "Overview"] },
+  { name: "3Blue1Brown", href: "https://www.youtube.com/@3blue1brown", type: "youtube",
+    desc: "Beautiful visualizations of math/ML fundamentals. The neural network series is required viewing.", descZh: "数学/ML 基础的精美可视化。神经网络系列是必看内容。", recommended: true, tags: ["Math", "Visualization"] },
+  // Bilibili
+  { name: "跟李沐学AI", href: "https://space.bilibili.com/1567748478", type: "bilibili",
+    desc: "Best Chinese ML content. Paper reading sessions, course lectures, intuitive explanations.", descZh: "中文最好的 ML 内容。论文精读、课程讲座、直觉讲解。", recommended: true, tags: ["Chinese", "Paper Reading", "Course"] },
+  { name: "3Blue1Brown 中文", href: "https://space.bilibili.com/88461692", type: "bilibili",
+    desc: "Chinese re-upload of 3Blue1Brown's animation videos.", descZh: "3Blue1Brown 的中文搬运，动画视频。", tags: ["Chinese", "Math"] },
+  { name: "深度之眼", href: "https://space.bilibili.com/375038855", type: "bilibili",
+    desc: "Systematic ML course series, covers fundamentals to advanced topics.", descZh: "系统性 ML 课程系列，从基础到进阶。", tags: ["Chinese", "Course"] },
+  // Xiaohongshu
+  { name: "搜索关键词: \"大模型\" \"LLM科研\" \"AI论文\" \"机器学习入门\"",
+    href: "https://www.xiaohongshu.com",
+    type: "xiaohongshu",
+    desc: "Xiaohongshu has a large volume of AI/ML study notes, great for bite-sized learning. Search keywords like \"大模型\", \"AI科研\", \"论文精读\".",
+    descZh: "小红书上有大量 AI/ML 学习笔记，适合碎片化学习。搜索「大模型」「AI科研」「论文精读」等关键词。",
+    tags: ["Chinese", "Notes", "Beginner-Friendly"] },
+  { name: "@AI_frontier", href: "https://www.xiaohongshu.com", type: "xiaohongshu",
+    desc: "Frontier paper overviews, accessible explanations.", descZh: "前沿论文速览，通俗易懂。", tags: ["Chinese", "Paper Reading"] },
+  { name: "@ML_notes", href: "https://www.xiaohongshu.com", type: "xiaohongshu",
+    desc: "Machine learning formula derivation notes.", descZh: "机器学习公式推导笔记。", tags: ["Chinese", "Math"] },
+  // Newsletters
+  { name: "The Batch (DeepLearning.AI)", href: "https://www.deeplearning.ai/the-batch/", type: "newsletter",
+    desc: "Weekly AI newsletter by Andrew Ng. Balanced coverage of research + industry.", descZh: "吴恩达的每周 AI 简报。研究与工业界均衡报道。", recommended: true, tags: ["Weekly", "Broad Coverage"] },
+  { name: "Ahead of AI (Sebastian Raschka)", href: "https://magazine.sebastianraschka.com", type: "newsletter",
+    desc: "Deep technical dives. Best for understanding recent LLM research thoroughly.", descZh: "深度技术解析。深入理解最新 LLM 研究的最佳选择。", recommended: true, tags: ["Technical", "LLM"] },
+  { name: "Import AI (Jack Clark)", href: "https://importai.substack.com", type: "newsletter",
+    desc: "Weekly policy + research mix. Nuanced takes on AI safety and governance.", descZh: "每周政策 + 研究混合。对 AI 安全和治理的细致分析。", tags: ["Safety", "Policy"] },
+  { name: "The Gradient", href: "https://thegradient.pub", type: "newsletter",
+    desc: "Long-form technical articles. High quality, peer-reviewed content.", descZh: "长篇技术文章。高质量经过同行评审的内容。", tags: ["Technical", "Long-form"] },
+  // WeChat
+  { name: "机器之心", href: "https://www.jiqizhixin.com", type: "wechat",
+    desc: "Top Chinese AI media. Fastest news coverage, industry updates.", descZh: "顶级中文 AI 媒体。最快的新闻报道，行业动态。", tags: ["News", "Chinese"] },
+  { name: "量子位", href: "https://www.qbitai.com", type: "wechat",
+    desc: "Chinese AI news + analysis. Covers both research papers and product launches.", descZh: "中文 AI 新闻 + 分析。同时报道研究论文和产品发布。", tags: ["News", "Chinese"] },
+  { name: "PaperWeekly", href: "https://www.paperweekly.site", type: "wechat",
+    desc: "Chinese ML paper summaries and reading groups. Community-driven.", descZh: "中文 ML 论文摘要和读书会。社区驱动。", tags: ["Paper Reading", "Chinese"], recommended: true },
+  // Blogs — International
+  { name: "Lil'Log (Lilian Weng, OpenAI)", href: "https://lilianweng.github.io", type: "blog",
+    desc: "Deep technical posts on RL, diffusion, and attention. The best technical summaries of entire subfields.", descZh: "关于 RL、扩散模型和注意力机制的深度技术文章。整个子领域最好的技术摘要。", recommended: true, tags: ["Survey", "LLM", "RL"] },
+  { name: "Sebastian Ruder's Blog", href: "https://www.ruder.io", type: "blog",
+    desc: "NLP and transfer learning deep-dives. Essential reading for language model researchers.", descZh: "NLP 和迁移学习的深度解析。语言模型研究者的必读内容。", tags: ["NLP", "Transfer Learning"] },
+  { name: "The Gradient", href: "https://thegradient.pub", type: "blog",
+    desc: "Long-form AI research journalism. High-quality editorial coverage of the field.", descZh: "长篇 AI 研究报道。高质量的领域编辑报道。", tags: ["Long-form", "Research"] },
+  { name: "Andrej Karpathy's Blog", href: "https://karpathy.github.io", type: "blog",
+    desc: "Classic posts like 'The Unreasonable Effectiveness of RNNs'. Rare but gold posts on LLMs and neural nets.", descZh: "经典文章如「RNN 的不合理有效性」。关于 LLM 和神经网络的稀少但精品的文章。", tags: ["Classic", "LLM"] },
+  { name: "Eugene Yan", href: "https://eugeneyan.com", type: "blog",
+    desc: "ML systems and LLM applications. Practical, engineering-focused perspective.", descZh: "ML 系统和 LLM 应用。实践性强，工程视角。", tags: ["ML Systems", "LLM Applications"] },
+  // Blogs — Chinese
+  { name: "苏剑林 (科学空间)", href: "https://kexue.fm", type: "blog",
+    desc: "Deep mathematical derivations in Chinese. The go-to for understanding the theory behind attention, diffusion, etc.", descZh: "国内最深度的 NLP/扩散模型技术博客。理解注意力、扩散等理论的首选。", recommended: true, tags: ["Math", "Chinese", "Theory"] },
+  { name: "张俊林博客", href: "https://blog.csdn.net/malefactor", type: "blog",
+    desc: "One of the best Chinese explanations of BERT and pre-trained language models.", descZh: "BERT/预训练模型中文最好解读之一。", tags: ["Chinese", "BERT", "Pre-training"] },
+  // Podcasts
+  { name: "Lex Fridman Podcast", href: "https://lexfridman.com/podcast/", type: "podcast",
+    desc: "Long-form interviews with top AI researchers. Better for inspiration than technical depth.", descZh: "与顶级 AI 研究者的长篇访谈。更适合激励而非技术深度。", tags: ["Interview", "Inspiration", "English"] },
+  { name: "The TWIML AI Podcast", href: "https://twimlai.com/podcast/twimlai/", type: "podcast",
+    desc: "This Week in ML & AI — weekly research interviews covering the breadth of the field.", descZh: "This Week in ML & AI — 每周研究访谈，覆盖领域广泛。", tags: ["Weekly", "Research", "English"] },
+  { name: "Machine Learning Street Talk", href: "https://www.youtube.com/@MachineLearningStreetTalk", type: "podcast",
+    desc: "Technical ML podcast, researcher-first perspective. Challenging and rewarding.", descZh: "技术 ML 播客，研究者视角。有挑战性但很有价值。", tags: ["Technical", "Research"] },
+  { name: "张小珺Jungle (小宇宙 / Apple Podcasts)", href: "https://www.xiaoyuzhoufm.com", type: "podcast",
+    desc: "In-depth Chinese interviews with AI startup founders and researchers. Search '张小珺Jungle' on Xiaoyuzhou. Notable guests: Kimi founders, DeepSeek team, AI leads at major tech companies.",
+    descZh: "访谈 AI 行业创业者、研究者，中文深度对话。小宇宙搜索「张小珺Jungle」。代表访谈：Kimi创始人、DeepSeek团队、各大厂AI负责人。",
+    recommended: true, tags: ["Chinese", "Interview", "Startup"] },
+  { name: "AI浪潮 (小宇宙)", href: "https://www.xiaoyuzhoufm.com", type: "podcast",
+    desc: "Chinese AI news and trends. Good for keeping up with the Chinese AI ecosystem.", descZh: "中文 AI 新闻和趋势。适合了解中国 AI 生态。", tags: ["Chinese", "News"] },
+  { name: "硬地骇客 (小宇宙)", href: "https://www.xiaoyuzhoufm.com", type: "podcast",
+    desc: "Tech startup founder interviews including AI content. Practical builder perspective.", descZh: "技术创业者访谈，含 AI 内容。实践创业者视角。", tags: ["Chinese", "Startup"] },
+  // Tools
+  { name: "Distill.pub", href: "https://distill.pub", type: "tool",
+    desc: "Interactive ML articles with visualizations (attention, CNNs, etc.). Inactive since 2021 but all articles remain gold.", descZh: "带可视化的交互式 ML 文章（注意力、CNN 等）。2021 年后停更，但所有文章仍是精品。", recommended: true, tags: ["Visualization", "Interactive"] },
+  { name: "3B1B Neural Networks", href: "https://www.3blue1brown.com/topics/neural-networks", type: "tool",
+    desc: "Visual math explanations for neural networks. Best companion for learning the fundamentals.", descZh: "神经网络的视觉化数学讲解。学习基础知识的最佳伴侣。", recommended: true, tags: ["Visualization", "Math"] },
+  { name: "Transformer Explainer", href: "https://poloclub.github.io/transformer-explainer", type: "tool",
+    desc: "Interactive GPT-2 walkthrough in your browser. Visualize how tokens flow through the transformer.", descZh: "在浏览器中交互式体验 GPT-2。可视化 token 如何流经 Transformer。", tags: ["Interactive", "Transformer"] },
+  { name: "Attention Visualizer (BertViz)", href: "https://github.com/jessevig/bertviz", type: "tool",
+    desc: "Visualize BERT/GPT attention heads. Great for building intuition about what attention actually learns.", descZh: "可视化 BERT/GPT 的注意力头。非常适合建立对注意力机制实际学习内容的直觉。", tags: ["Visualization", "Attention"] },
+  { name: "PyTorch Tutorials", href: "https://pytorch.org/tutorials", type: "tool",
+    desc: "Official PyTorch learning path. The most reliable way to learn the framework from the ground up.", descZh: "官方 PyTorch 学习路径。从零开始学习框架的最可靠方式。", tags: ["PyTorch", "Tutorial"] },
+  { name: "Hugging Face Courses", href: "https://huggingface.co/learn", type: "tool",
+    desc: "Free NLP/diffusion courses with code. Practical and up-to-date with current ecosystem.", descZh: "免费的 NLP/扩散模型课程，含代码。实用且与当前生态同步。", recommended: true, tags: ["NLP", "Course", "Free"] },
+  { name: "Fast.ai", href: "https://www.fast.ai", type: "tool",
+    desc: "Practical DL course with a top-down approach. Start coding immediately, understand theory later.", descZh: "自上而下的实用深度学习课程。立即开始编码，之后再理解理论。", tags: ["Course", "Practical"] },
+  { name: "Weights & Biases Blog", href: "https://wandb.ai/fully-connected", type: "tool",
+    desc: "ML practitioner blog with great tutorials on training, experiment tracking, and LLM fine-tuning.", descZh: "ML 实践者博客，有关于训练、实验跟踪和 LLM 微调的优质教程。", tags: ["Tutorial", "MLOps"] },
+];
+
+const typeConfig: Record<Resource["type"], { label: string; labelZh: string; icon: string; color: string }> = {
+  youtube: { label: "YouTube", labelZh: "YouTube", icon: "▶", color: "bg-red-100 text-red-700" },
+  bilibili: { label: "Bilibili", labelZh: "B 站", icon: "📺", color: "bg-blue-100 text-blue-700" },
+  xiaohongshu: { label: "Xiaohongshu", labelZh: "小红书", icon: "📕", color: "bg-rose-100 text-rose-700" },
+  wechat: { label: "WeChat / Blog", labelZh: "公众号 / 博客", icon: "📰", color: "bg-green-100 text-green-700" },
+  newsletter: { label: "Newsletter", labelZh: "Newsletter", icon: "📬", color: "bg-purple-100 text-purple-700" },
+  podcast: { label: "Podcast", labelZh: "播客", icon: "🎙", color: "bg-orange-100 text-orange-700" },
+  blog: { label: "Blog", labelZh: "博客", icon: "✍️", color: "bg-teal-100 text-teal-700" },
+  tool: { label: "Tool / Course", labelZh: "工具 / 课程", icon: "🔧", color: "bg-gray-100 text-gray-700" },
+};
+
+const sections: { type: Resource["type"] | Resource["type"][]; title: string; titleZh: string }[] = [
+  { type: "youtube", title: "YouTube", titleZh: "YouTube" },
+  { type: "bilibili", title: "Bilibili (中文)", titleZh: "B 站 (中文)" },
+  { type: "xiaohongshu", title: "小红书 (Xiaohongshu)", titleZh: "小红书 (Xiaohongshu)" },
+  { type: "newsletter", title: "Newsletters", titleZh: "Newsletter" },
+  { type: ["wechat", "blog"], title: "Blogs & WeChat Accounts", titleZh: "博客 & 公众号" },
+  { type: "podcast", title: "Podcasts", titleZh: "播客" },
+  { type: "tool", title: "Tools for Learning & Visualization", titleZh: "学习工具 & 可视化" },
+];
+
+export default function ResourcesPage() {
+  const { t, lang } = useLang();
+
+  return (
+    <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="mb-10">
+        <h1 className="text-3xl font-bold tracking-tight mb-2">
+          {t("Resources", "学习资源")}
+        </h1>
+        <p className="text-paper-800/60 max-w-2xl leading-relaxed">
+          {t(
+            "Quality over quantity. These are the sources worth your time — curated for ML researchers and practitioners. ⭐ = particularly recommended.",
+            "质量优于数量。这些是值得你花时间的资源 — 为 ML 研究者和实践者精心整理。⭐ = 特别推荐。"
+          )}
+        </p>
+      </div>
+
+      <div className="space-y-12">
+        {sections.map((section) => {
+          const types = Array.isArray(section.type) ? section.type : [section.type];
+          const items = resources.filter((r) => types.includes(r.type));
+          return (
+            <section key={section.title}>
+              <h2 className="text-lg font-bold mb-4 pb-2 border-b border-paper-200">
+                {t(section.title, section.titleZh)}
+              </h2>
+              <div className="space-y-3">
+                {items.map((r) => {
+                  const tc = typeConfig[r.type];
+                  return (
+                    <a
+                      key={r.name}
+                      href={r.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-start gap-4 p-4 bg-white border border-paper-200 rounded-lg hover:border-blue-300 hover:shadow-sm transition-all"
+                    >
+                      <span className="text-xl mt-0.5">{tc.icon}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="font-semibold text-sm">{r.name}</span>
+                          {r.recommended && <span className="text-xs">⭐</span>}
+                          <span className={`text-xs px-2 py-0.5 rounded-full ${tc.color}`}>
+                            {t(tc.label, tc.labelZh)}
+                          </span>
+                          {r.tags?.map((tag) => (
+                            <span key={tag} className="text-xs px-2 py-0.5 bg-paper-100 text-paper-800/50 rounded-full">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        <p className="text-sm text-paper-800/60 mt-1 leading-relaxed">
+                          {lang === "en" ? r.desc : r.descZh}
+                        </p>
+                      </div>
+                      <span className="text-paper-800/30 text-sm mt-1">↗</span>
+                    </a>
+                  );
+                })}
+              </div>
+            </section>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

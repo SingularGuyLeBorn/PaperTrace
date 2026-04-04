@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "katex/dist/katex.min.css";
+
+:root {
+  --color-accent: #2563eb;
+  --color-accent-light: #dbeafe;
+}
+
+body {
+  @apply bg-paper-50 text-paper-900 antialiased;
+}
+
+/* Paper content styling */
+.paper-content h2 {
+  @apply text-2xl font-bold mt-12 mb-4 pb-2 border-b border-paper-200;
+}
+
+.paper-content h3 {
+  @apply text-xl font-semibold mt-8 mb-3;
+}
+
+.paper-content p {
+  @apply text-base leading-7 mb-4;
+}
+
+.paper-content ul {
+  @apply list-disc pl-6 mb-4 space-y-1;
+}
+
+.paper-content ol {
+  @apply list-decimal pl-6 mb-4 space-y-1;
+}
+
+/* Math block styling */
+.math-block {
+  @apply bg-white border border-paper-200 rounded-lg p-6 my-6 overflow-x-auto;
+}
+
+.math-block .katex-display {
+  @apply m-0;
+}
+
+.math-inline .katex {
+  font-size: 1.05em;
+}
+
+/* Interactive widget */
+.widget-container {
+  @apply bg-white border border-paper-200 rounded-lg my-8 overflow-hidden;
+}
+
+.widget-header {
+  @apply bg-paper-100 px-4 py-3 border-b border-paper-200 font-medium text-sm flex items-center gap-2;
+}
+
+.widget-body {
+  @apply p-4;
+}
+
+/* Attention matrix cells */
+.attn-cell {
+  @apply transition-all duration-150 cursor-pointer border border-white/30;
+}
+
+.attn-cell:hover {
+  @apply ring-2 ring-blue-400 ring-offset-1;
+}
+
+/* Collapsible sections */
+.collapsible-trigger {
+  @apply flex items-center gap-2 cursor-pointer select-none hover:text-blue-600 transition-colors;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Code blocks */
+code {
+  @apply bg-paper-100 px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+/* Tooltip */
+.tooltip {
+  @apply absolute z-50 bg-paper-900 text-white text-xs px-3 py-2 rounded-lg shadow-lg;
+  max-width: 300px;
+}
+
+/* Fade-in animation for sections */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.5s ease-out both;
+}
+
+/* Stagger delays for paper cards */
+.delay-1 { animation-delay: 0.05s; }
+.delay-2 { animation-delay: 0.10s; }
+.delay-3 { animation-delay: 0.15s; }
+.delay-4 { animation-delay: 0.20s; }
+.delay-5 { animation-delay: 0.25s; }
