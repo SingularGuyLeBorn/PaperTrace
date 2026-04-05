@@ -6,8 +6,8 @@ import { Collapsible } from "@/components/Collapsible";
 function Section({ title, titleZh, children }: { title: string; titleZh: string; children: React.ReactNode }) {
   const { t } = useLang();
   return (
-    <section className="mb-12">
-      <h2 className="text-xl font-bold mb-4 pb-2 border-b border-paper-200">
+    <section className="mb-14">
+      <h2 className="font-display text-2xl font-bold mb-5 pb-3 border-b border-paper-200 dark:border-slate-700 tracking-tight dark:text-slate-100">
         {t(title, titleZh)}
       </h2>
       {children}
@@ -20,10 +20,10 @@ function Card({ icon, title, titleZh, desc, descZh, href }: {
 }) {
   const { t } = useLang();
   const inner = (
-    <div className="bg-white border border-paper-200 rounded-lg p-4 hover:border-blue-300 hover:shadow-sm transition-all h-full">
+    <div className="bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-xl p-4 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-sm transition-all h-full">
       <div className="text-xl mb-2">{icon}</div>
-      <div className="font-semibold text-sm mb-1">{t(title, titleZh)}</div>
-      <div className="text-xs text-paper-800/60 leading-relaxed">{t(desc, descZh)}</div>
+      <div className="font-semibold text-sm mb-1 dark:text-slate-100">{t(title, titleZh)}</div>
+      <div className="text-xs text-paper-800/60 dark:text-slate-400 leading-relaxed">{t(desc, descZh)}</div>
     </div>
   );
   if (href) return <a href={href} target="_blank" rel="noopener noreferrer">{inner}</a>;
@@ -35,11 +35,11 @@ export default function GuidePage() {
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
-      <div className="mb-10">
-        <h1 className="text-3xl font-bold tracking-tight mb-2">
+      <div className="mb-12">
+        <h1 className="font-display text-4xl font-bold tracking-tight mb-3 dark:text-white">
           {t("Research Guide", "科研指南")}
         </h1>
-        <p className="text-paper-800/60 max-w-2xl leading-relaxed">
+        <p className="text-base text-paper-800/60 dark:text-slate-400 max-w-2xl leading-relaxed">
           {t(
             "How to read papers efficiently, tools to use, prompts that work, and how to write. Distilled from practice.",
             "如何高效精读论文、工具推荐、有效的 prompt、以及如何写作。来自实践的提炼。"
@@ -48,8 +48,8 @@ export default function GuidePage() {
       </div>
 
       {/* ============ Why PaperTrace: Learning Science Motivation ============ */}
-      <section className="mb-12 p-6 bg-amber-50 border border-amber-200 rounded-xl">
-        <h2 className="text-lg font-bold mb-3">
+      <section className="mb-14 p-6 bg-amber-50 dark:bg-amber-900/15 border border-amber-200 dark:border-amber-700/30 rounded-xl">
+        <h2 className="font-display text-xl font-bold mb-3 dark:text-amber-200">
           {t("Why Visualizations + Examples?", "为什么要可视化 + 举例？")}
         </h2>
         <p className="text-sm text-paper-800/80 leading-relaxed mb-4">
@@ -234,7 +234,7 @@ Please analyze:
       <Section title="Essential Tools" titleZh="必备工具">
         <div className="space-y-6">
           <div>
-            <h3 className="text-sm font-semibold text-paper-800/50 uppercase tracking-wider mb-3">
+            <h3 className="text-xs font-semibold text-paper-800/40 dark:text-slate-500 uppercase tracking-widest mb-3">
               {t("Finding Papers", "找论文")}
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -266,7 +266,7 @@ Please analyze:
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-paper-800/50 uppercase tracking-wider mb-3">
+            <h3 className="text-xs font-semibold text-paper-800/40 dark:text-slate-500 uppercase tracking-widest mb-3">
               {t("Managing Literature", "管理文献")}
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -286,7 +286,7 @@ Please analyze:
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-paper-800/50 uppercase tracking-wider mb-3">
+            <h3 className="text-xs font-semibold text-paper-800/40 dark:text-slate-500 uppercase tracking-widest mb-3">
               {t("Writing & Experiments", "写作与实验")}
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">

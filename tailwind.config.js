@@ -1,11 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
+        sans:  ["var(--font-inter)", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["var(--font-sora)", "var(--font-inter)", "ui-sans-serif", "sans-serif"],
         serif: ["Georgia", "Cambria", "Times New Roman", "serif"],
-        mono: ["JetBrains Mono", "Fira Code", "monospace"],
+        mono:  ["JetBrains Mono", "Fira Code", "ui-monospace", "monospace"],
       },
       colors: {
         paper: {

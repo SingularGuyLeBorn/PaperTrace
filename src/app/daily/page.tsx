@@ -19,31 +19,51 @@ interface NewsItem {
 const newsItems: NewsItem[] = [
   // ── 2026 ──
   {
-    date: "2026-03-25",
-    title: "Claude 4 (Opus 4.6 / Sonnet 4.6) Released",
-    titleZh: "Claude 4 系列发布（Opus 4.6 / Sonnet 4.6）",
-    description: "Anthropic released Claude Opus 4.6 and Sonnet 4.6. Opus 4.6 features extended thinking, improved agentic capabilities, and is the model powering Claude Code. Sonnet 4.6 is the default for most workloads with strong reasoning at lower cost.",
-    descriptionZh: "Anthropic 发布 Claude Opus 4.6 和 Sonnet 4.6。Opus 4.6 具备扩展思考模式和增强的智能体能力，是驱动 Claude Code 的模型。Sonnet 4.6 以较低成本提供强大推理，适合大多数工作负载。",
+    date: "2026-04-04",
+    title: "Claude Code Source Leaked via npm Source Maps",
+    titleZh: "Claude Code 源码通过 npm Source Map 泄露",
+    description: "Anthropic's Claude Code CLI source code was inadvertently exposed via npm source maps, revealing 1,884 TypeScript files across 36 folders. The leak exposed internal feature flags, unreleased agent modes (ultraplan, kairos-proactive), and architecture details. Anthropic has since patched the package.",
+    descriptionZh: "Anthropic 的 Claude Code CLI 源码通过 npm source map 意外暴露，揭示了 36 个文件夹中的 1,884 个 TypeScript 文件。泄露内容包括内部功能标志、未发布的智能体模式（ultraplan、kairos-proactive）和架构细节。Anthropic 已修补该包。",
+    source: "ccleaks.com Analysis",
+    sourceUrl: "https://ccleaks.com/",
+    tag: "Industry",
+  },
+  {
+    date: "2026-04-03",
+    title: "3 Security Flaws in Claude Code Allow Remote Code Execution",
+    titleZh: "Claude Code 3 个安全漏洞允许远程代码执行",
+    description: "Check Point Research identified three vulnerabilities (CVE-2025-59536, CVE-2026-21852) in Claude Code that allow attackers to run arbitrary code and steal API keys via malicious repositories.",
+    descriptionZh: "Check Point Research 在 Claude Code 中发现三个漏洞（CVE-2025-59536、CVE-2026-21852），允许攻击者通过恶意仓库执行任意代码并窃取 API 密钥。",
+    source: "Check Point Research",
+    sourceUrl: "https://research.checkpoint.com/",
+    tag: "Industry",
+  },
+  {
+    date: "2026-02-17",
+    title: "Claude Sonnet 4.6 Released",
+    titleZh: "Claude Sonnet 4.6 发布",
+    description: "Anthropic released Claude Sonnet 4.6, delivering frontier performance across coding, agents, and professional work at scale.",
+    descriptionZh: "Anthropic 发布 Claude Sonnet 4.6，在代码、智能体和专业工作中提供前沿性能。",
     source: "Anthropic News",
     sourceUrl: "https://www.anthropic.com/news",
     tag: "Release",
   },
   {
-    date: "2026-02-10",
-    title: "Gemini 2.0 Ultra — Google's Strongest Model Yet",
-    titleZh: "Gemini 2.0 Ultra — 谷歌最强模型",
-    description: "Google released Gemini 2.0 Ultra with native multimodal reasoning, agentic tool use, and improved coding abilities. Benchmarks show improvements over 2.5 Pro on most tasks.",
-    descriptionZh: "谷歌发布 Gemini 2.0 Ultra，支持原生多模态推理、智能体工具调用和增强编码能力。在多数任务上基准测试优于 2.5 Pro。",
-    source: "Google DeepMind Blog",
-    sourceUrl: "https://deepmind.google/technologies/gemini/",
+    date: "2026-02-05",
+    title: "Claude Opus 4.6 Released — Powers Claude Code",
+    titleZh: "Claude Opus 4.6 发布 — 驱动 Claude Code",
+    description: "Anthropic released Claude Opus 4.6, upgrading their smartest model. Features extended thinking, improved agentic capabilities (coding, computer use, tool use, search, finance). An industry-leading model for agentic tasks.",
+    descriptionZh: "Anthropic 发布 Claude Opus 4.6，升级最聪明的模型。具备扩展思考、增强智能体能力（代码、电脑操控、工具使用、搜索、金融）。在智能体任务上具有业界领先性能。",
+    source: "Anthropic News",
+    sourceUrl: "https://www.anthropic.com/news",
     tag: "Release",
   },
   {
-    date: "2026-01-20",
+    date: "2026-01-26",
     title: "DeepSeek-V3 Released — Efficient MoE at Scale",
     titleZh: "DeepSeek-V3 发布 — 高效大规模 MoE",
-    description: "DeepSeek released V3, a mixture-of-experts model trained with novel load-balancing and multi-token prediction. Strong coding and math performance at a fraction of the training cost of comparable models.",
-    descriptionZh: "DeepSeek 发布 V3，采用新型负载均衡和多 token 预测的混合专家模型。以极低训练成本实现强大的代码和数学性能。",
+    description: "DeepSeek released V3, a 671B mixture-of-experts model trained with novel load-balancing and multi-token prediction. Strong coding and math performance at a fraction of the training cost of comparable models.",
+    descriptionZh: "DeepSeek 发布 V3，671B 混合专家模型，采用新型负载均衡和多 token 预测。以极低训练成本实现强大的代码和数学性能。",
     source: "DeepSeek Blog",
     sourceUrl: "https://api-docs.deepseek.com/",
     tag: "Release",
@@ -111,10 +131,11 @@ const newsItems: NewsItem[] = [
   },
 ];
 
+// Include dark: variants so Tailwind JIT picks them up
 const tagColors: Record<NewsItem["tag"], string> = {
-  Research: "bg-blue-100 text-blue-700",
-  Release:  "bg-green-100 text-green-700",
-  Industry: "bg-amber-100 text-amber-700",
+  Research: "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300",
+  Release:  "bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-300",
+  Industry: "bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300",
 };
 
 const NEWS_PER_PAGE = 6;
@@ -156,17 +177,6 @@ export default function DailyPage() {
       .sort((a, b) => b.date.localeCompare(a.date));
   }, [searchQuery, activeTag, showPicksOnly]);
 
-  // Group by year-month
-  const grouped = useMemo(() => {
-    const map = new Map<string, typeof filtered>();
-    for (const p of filtered) {
-      const key = p.date.slice(0, 7); // YYYY-MM
-      if (!map.has(key)) map.set(key, []);
-      map.get(key)!.push(p);
-    }
-    return Array.from(map.entries()).sort(([a], [b]) => b.localeCompare(a));
-  }, [filtered]);
-
   const formatMonth = (ym: string) => {
     const [y, m] = ym.split("-");
     const months = lang === "en"
@@ -179,10 +189,10 @@ export default function DailyPage() {
     <div className="max-w-4xl mx-auto px-6 py-12">
       {/* Header */}
       <div className="mb-10">
-        <h1 className="text-3xl font-bold tracking-tight mb-2">
+        <h1 className="text-3xl font-bold tracking-tight mb-2 dark:text-slate-50">
           {t("Paper Feed", "论文推荐")}
         </h1>
-        <p className="text-paper-800/60 leading-relaxed max-w-2xl">
+        <p className="text-paper-800/60 dark:text-slate-400 leading-relaxed max-w-2xl">
           {t(
             "Curated ML papers with one-line takes on why they matter. Editor's picks are ⭐ papers worth your full attention.",
             "精选 ML 论文，每篇附一句话点评。⭐ 是编辑精选，值得你花时间精读的论文。"
@@ -193,67 +203,89 @@ export default function DailyPage() {
       {/* News & Events */}
       <section className="mb-12">
         <div className="flex items-center justify-between mb-1">
-          <h2 className="text-xl font-bold tracking-tight">{t("News & Events", "行业动态")}</h2>
+          <h2 className="text-xl font-bold tracking-tight dark:text-slate-100">{t("News & Events", "行业动态")}</h2>
           <button
             onClick={() => setShowNewsArchive((v) => !v)}
-            className="text-xs text-blue-600 hover:underline"
+            className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
           >
             {showNewsArchive ? t("Hide archive", "收起归档") : t("Show all", "查看全部")}
           </button>
         </div>
-        <p className="text-sm text-paper-800/50 mb-4">
+        <p className="text-sm text-paper-800/50 dark:text-slate-500 mb-4">
           {t("Recent happenings in AI research.", "AI 研究领域的近期动态。")}
         </p>
 
-        {/* Recent: horizontal scroll strip */}
-        <div className="flex gap-3 overflow-x-auto pb-3 -mx-1 px-1 scrollbar-hide mb-4">
-          {sortedNews.slice(0, 3).map((item) => (
+        {/* Featured hero — latest article */}
+        {sortedNews[0] && (
+          <div className="mb-4 bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-xl overflow-hidden hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md transition-all">
+            <div className="p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-xs text-paper-800/40 dark:text-slate-500 font-mono">{sortedNews[0].date}</span>
+                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${tagColors[sortedNews[0].tag]}`}>
+                  {sortedNews[0].tag}
+                </span>
+                <span className="text-xs font-bold text-blue-600 dark:text-blue-400 ml-1">LATEST</span>
+              </div>
+              <h3 className="font-bold text-lg leading-snug dark:text-slate-50 mb-2">
+                {lang === "en" ? sortedNews[0].title : sortedNews[0].titleZh}
+              </h3>
+              <p className="text-sm text-paper-800/60 dark:text-slate-400 leading-relaxed mb-3">
+                {lang === "en" ? sortedNews[0].description : sortedNews[0].descriptionZh}
+              </p>
+              <a href={sortedNews[0].sourceUrl} target="_blank" rel="noopener noreferrer"
+                className="text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                {sortedNews[0].source} ↗
+              </a>
+            </div>
+          </div>
+        )}
+
+        {/* 2-column grid for next 4 items */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+          {sortedNews.slice(1, 5).map((item) => (
             <div
               key={item.title}
-              className="flex-none w-72 bg-white border border-paper-200 rounded-lg p-4 hover:border-blue-300 hover:shadow-md transition-all flex flex-col gap-2"
+              className="bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg p-4 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-sm transition-all flex flex-col gap-2"
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="text-xs text-paper-800/40 font-mono">{item.date}</span>
+                <span className="text-xs text-paper-800/40 dark:text-slate-500 font-mono">{item.date}</span>
                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${tagColors[item.tag]}`}>
                   {item.tag}
                 </span>
               </div>
-              <h3 className="font-semibold text-sm leading-snug">
+              <h3 className="font-semibold text-sm leading-snug dark:text-slate-100 line-clamp-2">
                 {lang === "en" ? item.title : item.titleZh}
               </h3>
-              <p className="text-xs text-paper-800/60 leading-relaxed line-clamp-3 flex-1">
+              <p className="text-xs text-paper-800/60 dark:text-slate-400 leading-relaxed line-clamp-2 flex-1">
                 {lang === "en" ? item.description : item.descriptionZh}
               </p>
-              <a
-                href={item.sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-blue-600 hover:underline"
-              >
+              <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer"
+                className="text-xs text-blue-600 dark:text-blue-400 hover:underline">
                 {item.source} ↗
               </a>
             </div>
           ))}
-          {sortedNews.length > 3 && (
-            <button
-              onClick={() => setShowNewsArchive(true)}
-              className="flex-none w-32 border-2 border-dashed border-paper-200 rounded-lg flex items-center justify-center text-xs text-paper-800/40 hover:border-paper-300 transition-colors"
-            >
-              +{sortedNews.length - 3} {t("more", "条")} →
-            </button>
-          )}
         </div>
+
+        {sortedNews.length > 5 && (
+          <button
+            onClick={() => setShowNewsArchive(true)}
+            className="w-full py-2 text-xs text-paper-800/40 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 border border-dashed border-paper-200 dark:border-slate-700 rounded-lg transition-colors"
+          >
+            +{sortedNews.length - 5} {t("more articles", "条更多")} →
+          </button>
+        )}
 
         {/* Archive: searchable paginated list */}
         {showNewsArchive && (
-          <div className="border border-paper-200 rounded-lg p-4 bg-paper-50">
+          <div className="border border-paper-200 dark:border-slate-700 rounded-lg p-4 bg-paper-50 dark:bg-slate-900/60">
             <div className="flex items-center gap-3 mb-4">
               <input
                 type="text"
                 placeholder={t("Search news...", "搜索动态...")}
                 value={newsSearch}
                 onChange={(e) => { setNewsSearch(e.target.value); setNewsPage(1); }}
-                className="flex-1 px-3 py-1.5 text-sm border border-paper-200 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
+                className="flex-1 px-3 py-1.5 text-sm border border-paper-200 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 dark:text-slate-200 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-700/50"
               />
             </div>
             {(() => {
@@ -274,18 +306,18 @@ export default function DailyPage() {
                 <>
                   <div className="space-y-3">
                     {pageItems.map((item) => (
-                      <div key={item.title} className="bg-white border border-paper-200 rounded-lg p-3 hover:border-paper-300 transition-all">
+                      <div key={item.title} className="bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg p-3 hover:border-paper-300 dark:hover:border-slate-600 transition-all">
                         <div className="flex items-start gap-3">
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
-                              <span className="text-xs text-paper-800/40 font-mono">{item.date}</span>
+                              <span className="text-xs text-paper-800/40 dark:text-slate-500 font-mono">{item.date}</span>
                               <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${tagColors[item.tag]}`}>{item.tag}</span>
                             </div>
-                            <h3 className="font-semibold text-sm mb-1">{lang === "en" ? item.title : item.titleZh}</h3>
-                            <p className="text-xs text-paper-800/60 leading-relaxed">{lang === "en" ? item.description : item.descriptionZh}</p>
+                            <h3 className="font-semibold text-sm mb-1 dark:text-slate-100">{lang === "en" ? item.title : item.titleZh}</h3>
+                            <p className="text-xs text-paper-800/60 dark:text-slate-400 leading-relaxed">{lang === "en" ? item.description : item.descriptionZh}</p>
                           </div>
                           <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer"
-                            className="flex-none text-xs text-blue-600 hover:underline whitespace-nowrap">{item.source} ↗</a>
+                            className="flex-none text-xs text-blue-600 dark:text-blue-400 hover:underline whitespace-nowrap">{item.source} ↗</a>
                         </div>
                       </div>
                     ))}
@@ -293,12 +325,12 @@ export default function DailyPage() {
                   {totalPages > 1 && (
                     <div className="flex items-center justify-center gap-2 mt-4">
                       <button onClick={() => setNewsPage((p) => Math.max(1, p - 1))} disabled={newsPage === 1}
-                        className="px-3 py-1 text-xs rounded-md border border-paper-200 disabled:opacity-30 hover:bg-paper-100">
+                        className="px-3 py-1 text-xs rounded-md border border-paper-200 dark:border-slate-600 dark:text-slate-300 disabled:opacity-30 hover:bg-paper-100 dark:hover:bg-slate-700">
                         {t("Prev", "上一页")}
                       </button>
-                      <span className="text-xs text-paper-800/50">{newsPage} / {totalPages}</span>
+                      <span className="text-xs text-paper-800/50 dark:text-slate-500">{newsPage} / {totalPages}</span>
                       <button onClick={() => setNewsPage((p) => Math.min(totalPages, p + 1))} disabled={newsPage === totalPages}
-                        className="px-3 py-1 text-xs rounded-md border border-paper-200 disabled:opacity-30 hover:bg-paper-100">
+                        className="px-3 py-1 text-xs rounded-md border border-paper-200 dark:border-slate-600 dark:text-slate-300 disabled:opacity-30 hover:bg-paper-100 dark:hover:bg-slate-700">
                         {t("Next", "下一页")}
                       </button>
                     </div>
@@ -317,7 +349,7 @@ export default function DailyPage() {
           placeholder={t("Search papers, authors, topics...", "搜索论文、作者、主题...")}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full px-4 py-2.5 border border-paper-200 rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+          className="w-full px-4 py-2.5 border border-paper-200 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 dark:text-slate-200 dark:placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-700/50"
         />
         <div className="flex flex-wrap gap-2 items-center">
           <button
@@ -325,12 +357,12 @@ export default function DailyPage() {
             className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${
               showPicksOnly
                 ? "bg-amber-500 text-white"
-                : "bg-paper-200 text-paper-800/60 hover:bg-paper-200/80"
+                : "bg-paper-200 dark:bg-slate-700 text-paper-800/60 dark:text-slate-300 hover:bg-paper-200/80 dark:hover:bg-slate-600"
             }`}
           >
             ⭐ {t("Editor's picks", "编辑精选")}
           </button>
-          <div className="w-px h-4 bg-paper-200" />
+          <div className="w-px h-4 bg-paper-200 dark:bg-slate-700" />
           {allTags.map((tag) => (
             <button
               key={tag}
@@ -338,7 +370,7 @@ export default function DailyPage() {
               className={`text-xs px-3 py-1.5 rounded-full transition-colors ${
                 activeTag === tag
                   ? "bg-blue-600 text-white"
-                  : "bg-paper-100 text-paper-800/60 hover:bg-paper-200"
+                  : "bg-paper-100 dark:bg-slate-800 text-paper-800/60 dark:text-slate-400 hover:bg-paper-200 dark:hover:bg-slate-700"
               }`}
             >
               {tag}
@@ -348,12 +380,12 @@ export default function DailyPage() {
       </div>
 
       {/* Results count */}
-      <p className="text-xs text-paper-800/40 mb-6">
+      <p className="text-xs text-paper-800/40 dark:text-slate-500 mb-6">
         {filtered.length} {t("papers", "篇论文")}
         {(searchQuery || activeTag || showPicksOnly) && (
           <button
             onClick={() => { setSearchQuery(""); setActiveTag(null); setShowPicksOnly(false); setPapersPage(1); }}
-            className="ml-2 text-blue-600 hover:underline"
+            className="ml-2 text-blue-600 dark:text-blue-400 hover:underline"
           >
             {t("Clear filters", "清除筛选")}
           </button>
@@ -377,22 +409,24 @@ export default function DailyPage() {
         return (
           <>
             {pageGrouped.size === 0 ? (
-              <div className="text-center py-12 text-paper-800/40">
+              <div className="text-center py-12 text-paper-800/40 dark:text-slate-600">
                 {t("No papers found.", "没有找到相关论文。")}
               </div>
             ) : (
               <div className="space-y-10">
                 {pageGroupedArr.map(([month, papers]) => (
                   <section key={month}>
-                    <h2 className="text-sm font-semibold uppercase tracking-wider text-paper-800/40 mb-4">
+                    <h2 className="text-sm font-semibold uppercase tracking-wider text-paper-800/40 dark:text-slate-500 mb-4">
                       {formatMonth(month)}
                     </h2>
                     <div className="space-y-3">
                       {papers.map((paper) => (
                         <div
                           key={paper.arxivId}
-                          className={`bg-white border rounded-lg p-4 transition-all hover:shadow-sm ${
-                            paper.pick ? "border-amber-200 hover:border-amber-300" : "border-paper-200 hover:border-paper-300"
+                          className={`bg-white dark:bg-slate-800 border rounded-lg p-4 transition-all hover:shadow-sm ${
+                            paper.pick
+                              ? "border-amber-200 dark:border-amber-700/40 hover:border-amber-300 dark:hover:border-amber-600/50"
+                              : "border-paper-200 dark:border-slate-700 hover:border-paper-300 dark:hover:border-slate-600"
                           }`}
                         >
                           <div className="flex items-start gap-3">
@@ -400,31 +434,31 @@ export default function DailyPage() {
                             <div className="flex-1 min-w-0">
                               <div className="flex items-start justify-between gap-3">
                                 <div>
-                                  <h3 className="font-semibold text-sm leading-snug">
+                                  <h3 className="font-semibold text-sm leading-snug dark:text-slate-100">
                                     {lang === "en" ? paper.title : paper.titleZh ?? paper.title}
                                   </h3>
-                                  <p className="text-xs text-paper-800/40 mt-0.5">
+                                  <p className="text-xs text-paper-800/40 dark:text-slate-500 mt-0.5">
                                     {paper.authors} &middot; {paper.date.slice(0, 7)}
                                   </p>
                                 </div>
                                 <div className="flex gap-2 flex-shrink-0">
                                   <a href={`https://arxiv.org/abs/${paper.arxivId}`} target="_blank" rel="noopener noreferrer"
-                                    className="text-xs text-paper-800/40 hover:text-blue-600 transition-colors">arXiv ↗</a>
+                                    className="text-xs text-paper-800/40 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">arXiv ↗</a>
                                   {paper.slug && (
                                     <Link href={`${basePath}/papers/${paper.slug}`}
-                                      className="text-xs text-blue-600 hover:underline font-medium">
+                                      className="text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium">
                                       {t("Deep-dive →", "精读 →")}
                                     </Link>
                                   )}
                                 </div>
                               </div>
-                              <p className="text-sm text-paper-800/70 mt-1.5 leading-relaxed">
+                              <p className="text-sm text-paper-800/70 dark:text-slate-300 mt-1.5 leading-relaxed">
                                 {lang === "en" ? paper.why : paper.whyZh}
                               </p>
                               <div className="flex gap-1.5 mt-2 flex-wrap">
                                 {paper.tags.map((tag) => (
                                   <button key={tag} onClick={() => setActiveTag(activeTag === tag ? null : tag)}
-                                    className="text-xs px-2 py-0.5 bg-blue-50 text-blue-600 rounded-full hover:bg-blue-100 transition-colors">
+                                    className="text-xs px-2 py-0.5 bg-blue-50 dark:bg-blue-500/15 text-blue-600 dark:text-blue-300 rounded-full hover:bg-blue-100 dark:hover:bg-blue-500/25 transition-colors">
                                     {tag}
                                   </button>
                                 ))}
@@ -441,23 +475,25 @@ export default function DailyPage() {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-3 mt-10 pt-6 border-t border-paper-100">
+              <div className="flex items-center justify-center gap-3 mt-10 pt-6 border-t border-paper-100 dark:border-slate-800">
                 <button onClick={() => setPapersPage((p) => Math.max(1, p - 1))} disabled={papersPage === 1}
-                  className="px-4 py-1.5 text-sm rounded-lg border border-paper-200 disabled:opacity-30 hover:bg-paper-50 transition-colors">
+                  className="px-4 py-1.5 text-sm rounded-lg border border-paper-200 dark:border-slate-600 dark:text-slate-300 disabled:opacity-30 hover:bg-paper-50 dark:hover:bg-slate-800 transition-colors">
                   ← {t("Prev", "上一页")}
                 </button>
                 <div className="flex gap-1">
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((pg) => (
                     <button key={pg} onClick={() => setPapersPage(pg)}
                       className={`w-8 h-8 text-xs rounded-md transition-colors ${
-                        pg === papersPage ? "bg-blue-600 text-white" : "hover:bg-paper-100 text-paper-800/60"
+                        pg === papersPage
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-paper-100 dark:hover:bg-slate-700 text-paper-800/60 dark:text-slate-400"
                       }`}>
                       {pg}
                     </button>
                   ))}
                 </div>
                 <button onClick={() => setPapersPage((p) => Math.min(totalPages, p + 1))} disabled={papersPage === totalPages}
-                  className="px-4 py-1.5 text-sm rounded-lg border border-paper-200 disabled:opacity-30 hover:bg-paper-50 transition-colors">
+                  className="px-4 py-1.5 text-sm rounded-lg border border-paper-200 dark:border-slate-600 dark:text-slate-300 disabled:opacity-30 hover:bg-paper-50 dark:hover:bg-slate-800 transition-colors">
                   {t("Next", "下一页")} →
                 </button>
               </div>

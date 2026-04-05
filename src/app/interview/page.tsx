@@ -20,16 +20,16 @@ function SectionHeader({
   t: (en: string, zh: string) => string;
 }) {
   const bg: Record<string, string> = {
-    blue: "bg-blue-50 border-blue-200 text-blue-900",
-    violet: "bg-violet-50 border-violet-200 text-violet-900",
-    emerald: "bg-emerald-50 border-emerald-200 text-emerald-900",
-    rose: "bg-rose-50 border-rose-200 text-rose-900",
+    blue: "bg-blue-50 border-blue-200 text-blue-900 dark:bg-blue-900/20 dark:border-blue-700/40 dark:text-blue-100",
+    violet: "bg-violet-50 border-violet-200 text-violet-900 dark:bg-violet-900/20 dark:border-violet-700/40 dark:text-violet-100",
+    emerald: "bg-emerald-50 border-emerald-200 text-emerald-900 dark:bg-emerald-900/20 dark:border-emerald-700/40 dark:text-emerald-100",
+    rose: "bg-rose-50 border-rose-200 text-rose-900 dark:bg-rose-900/20 dark:border-rose-700/40 dark:text-rose-100",
   };
   const badge: Record<string, string> = {
-    blue: "bg-blue-100 text-blue-700",
-    violet: "bg-violet-100 text-violet-700",
-    emerald: "bg-emerald-100 text-emerald-700",
-    rose: "bg-rose-100 text-rose-700",
+    blue: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
+    violet: "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300",
+    emerald: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
+    rose: "bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300",
   };
 
   return (
@@ -56,11 +56,11 @@ function KeyInsight({
   t: (en: string, zh: string) => string;
 }) {
   return (
-    <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 my-5">
+    <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 my-5 dark:bg-amber-900/15 dark:border-amber-700/40">
       <p className="text-sm mb-0">
-        <strong className="text-amber-800">{t("Key insight", "关键洞察")}</strong>
+        <strong className="text-amber-800 dark:text-amber-300">{t("Key insight", "关键洞察")}</strong>
         {": "}
-        <span className="text-amber-900">{t(en, zh)}</span>
+        <span className="text-amber-900 dark:text-amber-200">{t(en, zh)}</span>
       </p>
     </div>
   );
@@ -79,7 +79,7 @@ function QuestionLabel({
 }) {
   return (
     <span className="flex items-start gap-2">
-      <span className="mt-0.5 flex-shrink-0 inline-flex items-center justify-center w-6 h-6 rounded-full bg-paper-900 text-white text-xs font-bold">
+      <span className="mt-0.5 flex-shrink-0 inline-flex items-center justify-center w-6 h-6 rounded-full bg-paper-900 dark:bg-slate-600 text-white text-xs font-bold">
         {n}
       </span>
       <span>{t(en, zh)}</span>
@@ -96,10 +96,10 @@ export default function InterviewPage() {
     <div className="max-w-3xl mx-auto px-6 py-12">
       {/* ── Header ── */}
       <header className="mb-10">
-        <h1 className="text-3xl font-bold tracking-tight mb-2">
+        <h1 className="text-3xl font-bold tracking-tight mb-2 dark:text-slate-100">
           {t("Classic ML Interview Questions", "经典大模型八股题")}
         </h1>
-        <p className="text-paper-800/50">
+        <p className="text-paper-800/50 dark:text-slate-400">
           {t(
             "Core concepts with rigorous answers — for LLM researchers and practitioners",
             "核心概念与严谨解答 — 面向大模型研究者和从业者"
@@ -118,7 +118,7 @@ export default function InterviewPage() {
           <a
             key={href}
             href={href}
-            className="text-xs px-3 py-1.5 rounded-full border border-paper-200 bg-white hover:border-blue-300 hover:text-blue-600 transition-colors"
+            className="text-xs px-3 py-1.5 rounded-full border border-paper-200 bg-white hover:border-blue-300 hover:text-blue-600 transition-colors dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:border-blue-500 dark:hover:text-blue-400"
           >
             {t(en, zh)}
           </a>
@@ -201,7 +201,7 @@ export default function InterviewPage() {
           >
             <div className="space-y-4 text-sm">
               <div className="grid gap-3">
-                <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="p-3 bg-blue-50 rounded-lg border border-blue-200 dark:bg-blue-900/20 dark:border-blue-700/40">
                   <p className="font-semibold text-blue-800 mb-1">
                     {t("Encoder-only (BERT)", "编码器（BERT）")}
                   </p>
@@ -212,7 +212,7 @@ export default function InterviewPage() {
                     )}
                   </p>
                 </div>
-                <div className="p-3 bg-violet-50 rounded-lg border border-violet-200">
+                <div className="p-3 bg-violet-50 rounded-lg border border-violet-200 dark:bg-violet-900/20 dark:border-violet-700/40">
                   <p className="font-semibold text-violet-800 mb-1">
                     {t("Decoder-only (GPT series, LLaMA)", "解码器（GPT 系列、LLaMA）")}
                   </p>
@@ -223,7 +223,7 @@ export default function InterviewPage() {
                     )}
                   </p>
                 </div>
-                <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-700/40">
                   <p className="font-semibold text-emerald-800 mb-1">
                     {t("Encoder-decoder (T5, original Transformer)", "编码器-解码器（T5、原始 Transformer）")}
                   </p>
@@ -306,7 +306,7 @@ export default function InterviewPage() {
                 )}
               </p>
 
-              <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+              <div className="p-3 bg-blue-50 rounded-lg border border-blue-200 dark:bg-blue-900/20 dark:border-blue-700/40">
                 <p className="font-semibold text-blue-800 mb-2">
                   {t("Why multiple heads?", "为何多头？")}
                 </p>
@@ -356,7 +356,7 @@ export default function InterviewPage() {
                 )}
               </p>
 
-              <div className="p-3 bg-violet-50 rounded-lg border border-violet-200">
+              <div className="p-3 bg-violet-50 rounded-lg border border-violet-200 dark:bg-violet-900/20 dark:border-violet-700/40">
                 <p className="font-semibold text-violet-800 mb-1">
                   {t("Modern LLMs: RoPE", "现代 LLM：RoPE")}
                 </p>
@@ -482,7 +482,7 @@ export default function InterviewPage() {
                 tex="y_i^{\text{smooth}} = \begin{cases} 1 - \varepsilon & \text{if } i = \text{correct class} \\ \dfrac{\varepsilon}{K-1} & \text{otherwise} \end{cases}"
               />
 
-              <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+              <div className="p-3 bg-blue-50 rounded-lg border border-blue-200 dark:bg-blue-900/20 dark:border-blue-700/40">
                 <p className="font-semibold text-blue-800 mb-2">
                   {t("Benefits", "好处")}
                 </p>
@@ -869,7 +869,7 @@ export default function InterviewPage() {
                     )}
                   </p>
                 </div>
-                <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="p-3 bg-blue-50 rounded-lg border border-blue-200 dark:bg-blue-900/20 dark:border-blue-700/40">
                   <p className="font-semibold text-blue-800 mb-1">DPO</p>
                   <p className="mb-0 text-blue-900">
                     {t(
@@ -882,7 +882,7 @@ export default function InterviewPage() {
                     tex="\mathcal{L}_{\text{DPO}} = -\mathbb{E}\!\left[\log \sigma\!\left(\beta \log \frac{\pi_\theta(y_w|x)}{\pi_{\text{ref}}(y_w|x)} - \beta \log \frac{\pi_\theta(y_l|x)}{\pi_{\text{ref}}(y_l|x)}\right)\right]"
                   />
                 </div>
-                <div className="p-3 bg-violet-50 rounded-lg border border-violet-200">
+                <div className="p-3 bg-violet-50 rounded-lg border border-violet-200 dark:bg-violet-900/20 dark:border-violet-700/40">
                   <p className="font-semibold text-violet-800 mb-1">
                     {t("GRPO (DeepSeek-R1)", "GRPO（DeepSeek-R1）")}
                   </p>

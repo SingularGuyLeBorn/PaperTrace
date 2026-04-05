@@ -201,15 +201,6 @@ const entries: TimelineEntry[] = [
     links: { blog: "https://qwenlm.github.io/blog/qwen3/" },
     notable: true,
   },
-  {
-    date: "2025-04", name: "Claude Opus 4", org: "Anthropic", orgKey: "anthropic",
-    sections: ["llm", "agent"],
-    description: "Extended thinking, powers Claude Code — the model that wrote this page",
-    descriptionZh: "扩展思考模式，驱动 Claude Code — 编写本页面的模型",
-    links: { blog: "https://www.anthropic.com/claude" },
-    notable: true,
-  },
-
   // ─────────── 2026 ───────────
   {
     date: "2026-01", name: "DeepSeek-V3", org: "DeepSeek", orgKey: "deepseek",
@@ -220,19 +211,27 @@ const entries: TimelineEntry[] = [
     notable: true,
   },
   {
+    date: "2026-02", name: "Claude Opus 4.6", org: "Anthropic", orgKey: "anthropic",
+    sections: ["llm", "agent"],
+    description: "Extended thinking, improved agentic capabilities — powers Claude Code. Released Feb 5, 2026.",
+    descriptionZh: "扩展思考，增强智能体能力 — 驱动 Claude Code。2026年2月5日发布。",
+    links: { blog: "https://www.anthropic.com/news" },
+    notable: true,
+  },
+  {
+    date: "2026-02", name: "Claude Sonnet 4.6", org: "Anthropic", orgKey: "anthropic",
+    sections: ["llm"],
+    description: "Frontier performance across coding, agents, and professional work. Released Feb 17, 2026.",
+    descriptionZh: "在代码、智能体和专业工作中达到前沿性能。2026年2月17日发布。",
+    links: { blog: "https://www.anthropic.com/news" },
+    notable: true,
+  },
+  {
     date: "2026-02", name: "Gemini 2.0 Ultra", org: "Google", orgKey: "google",
     sections: ["llm", "vlm"],
     description: "Native multimodal reasoning + agentic tool use — Google's strongest model at launch",
     descriptionZh: "原生多模态推理 + 智能体工具调用 — 发布时谷歌最强模型",
     links: { blog: "https://deepmind.google/technologies/gemini/" },
-    notable: true,
-  },
-  {
-    date: "2026-03", name: "Claude Opus 4.6", org: "Anthropic", orgKey: "anthropic",
-    sections: ["llm", "agent"],
-    description: "Extended thinking, improved agentic capabilities — powers Claude Code currently",
-    descriptionZh: "扩展思考，增强智能体能力 — 目前驱动 Claude Code 的模型",
-    links: { blog: "https://www.anthropic.com/news" },
     notable: true,
   },
 
@@ -574,32 +573,32 @@ const entries: TimelineEntry[] = [
 ];
 
 const SECTION_META: Record<Section, { label: string; labelZh: string; color: string; bg: string }> = {
-  llm:   { label: "LLMs",   labelZh: "大语言模型", color: "text-blue-700",   bg: "bg-blue-50 border-blue-200" },
-  dllm:  { label: "DLLMs",  labelZh: "扩散语言模型", color: "text-purple-700", bg: "bg-purple-50 border-purple-200" },
-  vlm:   { label: "VLMs",   labelZh: "视觉语言模型", color: "text-teal-700",   bg: "bg-teal-50 border-teal-200" },
-  agent: { label: "Agents", labelZh: "AI 智能体",   color: "text-orange-700", bg: "bg-orange-50 border-orange-200" },
+  llm:   { label: "LLMs",   labelZh: "大语言模型",   color: "text-blue-700 dark:text-blue-300",   bg: "bg-blue-50 border-blue-200 dark:bg-blue-900/30 dark:border-blue-700/50" },
+  dllm:  { label: "DLLMs",  labelZh: "扩散语言模型", color: "text-purple-700 dark:text-purple-300", bg: "bg-purple-50 border-purple-200 dark:bg-purple-900/30 dark:border-purple-700/50" },
+  vlm:   { label: "VLMs",   labelZh: "视觉语言模型", color: "text-teal-700 dark:text-teal-300",   bg: "bg-teal-50 border-teal-200 dark:bg-teal-900/30 dark:border-teal-700/50" },
+  agent: { label: "Agents", labelZh: "AI 智能体",   color: "text-orange-700 dark:text-orange-300", bg: "bg-orange-50 border-orange-200 dark:bg-orange-900/30 dark:border-orange-700/50" },
 };
 
 const DLLM_TYPE_COLORS: Record<DLLMType, string> = {
-  Discrete:   "bg-teal-100 text-teal-800 border-teal-200",
-  Continuous: "bg-blue-100 text-blue-800 border-blue-200",
-  Multimodal: "bg-purple-100 text-purple-800 border-purple-200",
-  Hybrid:     "bg-amber-100 text-amber-800 border-amber-200",
+  Discrete:   "bg-teal-100 text-teal-800 border-teal-200 dark:bg-teal-900/40 dark:text-teal-300 dark:border-teal-700/50",
+  Continuous: "bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/40 dark:text-blue-300 dark:border-blue-700/50",
+  Multimodal: "bg-purple-100 text-purple-800 border-purple-200 dark:bg-purple-900/40 dark:text-purple-300 dark:border-purple-700/50",
+  Hybrid:     "bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-900/40 dark:text-amber-300 dark:border-amber-700/50",
 };
 
 const ORG_COLORS: Record<string, string> = {
-  google:     "bg-blue-100 text-blue-700",
-  openai:     "bg-green-100 text-green-700",
-  meta:       "bg-blue-100 text-blue-800",
-  anthropic:  "bg-purple-100 text-purple-700",
-  microsoft:  "bg-blue-100 text-blue-600",
-  deepseek:   "bg-rose-100 text-rose-700",
-  alibaba:    "bg-orange-100 text-orange-700",
-  mistral:    "bg-indigo-100 text-indigo-700",
-  moonshot:   "bg-teal-100 text-teal-700",
-  academia:   "bg-gray-100 text-gray-700",
-  salesforce: "bg-cyan-100 text-cyan-700",
-  community:  "bg-yellow-100 text-yellow-700",
+  google:     "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
+  openai:     "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",
+  meta:       "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300",
+  anthropic:  "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300",
+  microsoft:  "bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-300",
+  deepseek:   "bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300",
+  alibaba:    "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300",
+  mistral:    "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300",
+  moonshot:   "bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300",
+  academia:   "bg-gray-100 text-gray-700 dark:bg-slate-700 dark:text-slate-300",
+  salesforce: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300",
+  community:  "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300",
 };
 
 const ALL_ORGS: Record<string, string> = {
@@ -672,7 +671,7 @@ export function InteractiveTimeline() {
     if (entry.links.arxiv) {
       links.push(
         <a key="ax" href={entry.links.arxiv} target="_blank" rel="noopener noreferrer"
-          className="inline-flex items-center gap-0.5 text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors border border-gray-200">
+          className="inline-flex items-center gap-0.5 text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors border border-gray-200 dark:border-slate-600">
           arXiv ↗
         </a>
       );
@@ -680,7 +679,7 @@ export function InteractiveTimeline() {
     if (entry.links.blog) {
       links.push(
         <a key="bl" href={entry.links.blog} target="_blank" rel="noopener noreferrer"
-          className="inline-flex items-center gap-0.5 text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors border border-gray-200">
+          className="inline-flex items-center gap-0.5 text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors border border-gray-200 dark:border-slate-600">
           Blog ↗
         </a>
       );
@@ -688,7 +687,7 @@ export function InteractiveTimeline() {
     if (entry.links.github) {
       links.push(
         <a key="gh" href={entry.links.github} target="_blank" rel="noopener noreferrer"
-          className="inline-flex items-center gap-0.5 text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors border border-gray-200">
+          className="inline-flex items-center gap-0.5 text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors border border-gray-200 dark:border-slate-600">
           GitHub ↗
         </a>
       );
@@ -697,7 +696,7 @@ export function InteractiveTimeline() {
   };
 
   return (
-    <div className="bg-white border border-paper-200 rounded-xl p-6">
+    <div className="bg-white dark:bg-slate-800/60 border border-paper-200 dark:border-slate-700 rounded-xl p-6">
       {/* Section tabs */}
       <div className="flex flex-wrap gap-2 mb-5">
         {sections.map((s) => {
@@ -710,7 +709,7 @@ export function InteractiveTimeline() {
               className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all border ${
                 isActive
                   ? `${meta.bg} ${meta.color} border-current`
-                  : "bg-white border-paper-200 text-paper-800/60 hover:border-paper-300"
+                  : "bg-white dark:bg-slate-800 border-paper-200 dark:border-slate-600 text-paper-800/60 dark:text-slate-400 hover:border-paper-300 dark:hover:border-slate-500"
               }`}
             >
               {lang === "en" ? meta.label : meta.labelZh}
@@ -721,8 +720,8 @@ export function InteractiveTimeline() {
           onClick={() => setShowNotableOnly((v) => !v)}
           className={`ml-auto px-4 py-1.5 rounded-full text-sm font-medium transition-all border ${
             showNotableOnly
-              ? "bg-amber-50 border-amber-300 text-amber-800"
-              : "bg-white border-paper-200 text-paper-800/60 hover:border-paper-300"
+              ? "bg-amber-50 dark:bg-amber-900/30 border-amber-300 dark:border-amber-700/50 text-amber-800 dark:text-amber-300"
+              : "bg-white dark:bg-slate-800 border-paper-200 dark:border-slate-600 text-paper-800/60 dark:text-slate-400 hover:border-paper-300 dark:hover:border-slate-500"
           }`}
         >
           {showNotableOnly ? "★ " : ""}{t("Highlights", "重要节点")}
@@ -739,7 +738,7 @@ export function InteractiveTimeline() {
               className={`px-3 py-1 rounded-full text-xs font-medium transition-all border ${
                 activeDLLMType === type
                   ? DLLM_TYPE_COLORS[type]
-                  : "bg-white border-paper-200 text-paper-800/50 hover:border-paper-300"
+                  : "bg-white dark:bg-slate-800 border-paper-200 dark:border-slate-600 text-paper-800/50 dark:text-slate-400 hover:border-paper-300 dark:hover:border-slate-500"
               }`}
             >
               {type}
@@ -757,7 +756,7 @@ export function InteractiveTimeline() {
             className={`px-2.5 py-0.5 rounded-full text-xs font-medium transition-all border ${
               activeOrg === orgKey
                 ? ORG_COLORS[orgKey] + " border-current"
-                : "bg-white border-paper-200 text-paper-800/50 hover:border-paper-300"
+                : "bg-white dark:bg-slate-800 border-paper-200 dark:border-slate-600 text-paper-800/50 dark:text-slate-400 hover:border-paper-300 dark:hover:border-slate-500"
             }`}
           >
             {ALL_ORGS[orgKey] ?? orgKey}
@@ -771,8 +770,8 @@ export function InteractiveTimeline() {
           <div key={year} className="flex gap-4 mb-6">
             {/* Year label */}
             <div className="flex-none w-12 pt-1">
-              <span className="text-xs font-bold text-paper-800/40 uppercase">{year}</span>
-              <div className="mt-2 h-full border-l-2 border-paper-200 ml-5" />
+              <span className="text-xs font-bold text-paper-800/40 dark:text-slate-500 uppercase">{year}</span>
+              <div className="mt-2 h-full border-l-2 border-paper-200 dark:border-slate-700 ml-5" />
             </div>
 
             {/* Cards */}
@@ -782,12 +781,12 @@ export function InteractiveTimeline() {
                   key={`${entry.date}-${entry.name}`}
                   className={`relative flex gap-3 p-3 rounded-lg border transition-all hover:shadow-sm ${
                     entry.notable
-                      ? "border-paper-300 bg-paper-50"
-                      : "border-paper-100 bg-white"
+                      ? "border-paper-300 dark:border-slate-600 bg-paper-50 dark:bg-slate-800"
+                      : "border-paper-100 dark:border-slate-700/60 bg-white dark:bg-slate-800/40"
                   }`}
                 >
                   {/* Timeline dot */}
-                  <div className="absolute -left-[21px] top-4 w-3 h-3 rounded-full border-2 border-white shadow-sm"
+                  <div className="absolute -left-[21px] top-4 w-3 h-3 rounded-full border-2 border-white dark:border-slate-800 shadow-sm"
                     style={{
                       backgroundColor:
                         activeSection === "dllm" && entry.dlllmType
@@ -806,15 +805,15 @@ export function InteractiveTimeline() {
 
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap items-start gap-2 mb-1">
-                      <span className={`font-semibold text-sm ${entry.notable ? "text-paper-800" : "text-paper-700"}`}>
+                      <span className={`font-semibold text-sm ${entry.notable ? "text-paper-800 dark:text-slate-100" : "text-paper-700 dark:text-slate-200"}`}>
                         {entry.name}
                         {entry.notable && <span className="text-amber-500 ml-1">★</span>}
                       </span>
-                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${ORG_COLORS[entry.orgKey] ?? "bg-gray-100 text-gray-600"}`}>
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${ORG_COLORS[entry.orgKey] ?? "bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300"}`}>
                         {entry.org}
                       </span>
                       {entry.params && (
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-gray-50 text-gray-500 border border-gray-200">
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-gray-50 dark:bg-slate-700 text-gray-500 dark:text-slate-400 border border-gray-200 dark:border-slate-600">
                           {entry.params}
                         </span>
                       )}
@@ -824,7 +823,7 @@ export function InteractiveTimeline() {
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-paper-800/60 leading-relaxed mb-2">
+                    <p className="text-xs text-paper-800/60 dark:text-slate-400 leading-relaxed mb-2">
                       {lang === "en" ? entry.description : entry.descriptionZh}
                     </p>
                     <div className="flex flex-wrap gap-1.5">
@@ -834,7 +833,7 @@ export function InteractiveTimeline() {
 
                   {/* Date */}
                   <div className="flex-none text-right">
-                    <span className="text-xs text-paper-800/30">
+                    <span className="text-xs text-paper-800/30 dark:text-slate-600">
                       {entry.date.slice(5) === "01" ? "" : entry.date.slice(5) + "/"}
                       {entry.date.slice(0, 4)}
                     </span>

@@ -4,6 +4,7 @@
 
 @import "katex/dist/katex.min.css";
 
+/* ── Light mode tokens ─────────────────────────────────────────── */
 :root {
   --color-accent: #2563eb;
   --color-accent-light: #dbeafe;
@@ -11,77 +12,96 @@
 
 body {
   @apply bg-paper-50 text-paper-900 antialiased;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";  /* Inter's nicer numerals & punctuation */
 }
 
-/* Paper content styling */
-.paper-content h2 {
-  @apply text-2xl font-bold mt-12 mb-4 pb-2 border-b border-paper-200;
+/* Display font for headings sitewide */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-sora), var(--font-inter), ui-sans-serif, sans-serif;
+  letter-spacing: -0.02em;
 }
 
-.paper-content h3 {
-  @apply text-xl font-semibold mt-8 mb-3;
+/* ── Dark mode — slate-blue "night study" palette ──────────────── */
+/*
+  bg:          #0f172a  (slate-950-ish — very dark with blue undertone)
+  surface:     #1e293b  (slate-800)
+  surface-2:   #162032  (deeper card bg)
+  border:      #334155  (slate-700)
+  text-1:      #f1f5f9  (slate-100)
+  text-2:      #94a3b8  (slate-400)
+  text-3:      #64748b  (slate-500)
+  text-4:      #475569  (slate-600)
+  accent-blue: #60a5fa  (blue-400 — pops on dark)
+*/
+html.dark {
+  color-scheme: dark;
 }
 
-.paper-content p {
-  @apply text-base leading-7 mb-4;
+.dark body {
+  background-color: #0f172a;
+  color: #f1f5f9;
 }
 
-.paper-content ul {
-  @apply list-disc pl-6 mb-4 space-y-1;
+/* Paper content in dark mode */
+.dark .paper-content h2 {
+  border-color: #334155;
+  color: #f1f5f9;
+}
+.dark .paper-content h3 {
+  color: #e2e8f0;
+}
+.dark .paper-content p {
+  color: #cbd5e1;
 }
 
-.paper-content ol {
-  @apply list-decimal pl-6 mb-4 space-y-1;
-}
-
-/* Math block styling */
+/* Math blocks */
 .math-block {
   @apply bg-white border border-paper-200 rounded-lg p-6 my-6 overflow-x-auto;
+}
+.dark .math-block {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
 }
 
 .math-block .katex-display {
   @apply m-0;
 }
-
 .math-inline .katex {
   font-size: 1.05em;
 }
 
-/* Interactive widget */
+/* Widgets */
 .widget-container {
   @apply bg-white border border-paper-200 rounded-lg my-8 overflow-hidden;
+}
+.dark .widget-container {
+  background-color: #1e293b;
+  border-color: #334155;
 }
 
 .widget-header {
   @apply bg-paper-100 px-4 py-3 border-b border-paper-200 font-medium text-sm flex items-center gap-2;
+}
+.dark .widget-header {
+  background-color: #162032;
+  border-color: #334155;
+  color: #94a3b8;
 }
 
 .widget-body {
   @apply p-4;
 }
 
-/* Attention matrix cells */
-.attn-cell {
-  @apply transition-all duration-150 cursor-pointer border border-white/30;
-}
-
-.attn-cell:hover {
-  @apply ring-2 ring-blue-400 ring-offset-1;
-}
-
-/* Collapsible sections */
-.collapsible-trigger {
-  @apply flex items-center gap-2 cursor-pointer select-none hover:text-blue-600 transition-colors;
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Code blocks */
+/* Code */
 code {
   @apply bg-paper-100 px-1.5 py-0.5 rounded text-sm font-mono;
+}
+.dark code {
+  background-color: #1e293b;
+  color: #7dd3fc;
+  border: 1px solid #334155;
 }
 
 /* Tooltip */
@@ -89,8 +109,50 @@ code {
   @apply absolute z-50 bg-paper-900 text-white text-xs px-3 py-2 rounded-lg shadow-lg;
   max-width: 300px;
 }
+.dark .tooltip {
+  background-color: #e2e8f0;
+  color: #0f172a;
+}
 
-/* Fade-in animation for sections */
+/* Attention cells */
+.attn-cell {
+  @apply transition-all duration-150 cursor-pointer border border-white/30;
+}
+.attn-cell:hover {
+  @apply ring-2 ring-blue-400 ring-offset-1;
+}
+
+/* Collapsible */
+.collapsible-trigger {
+  @apply flex items-center gap-2 cursor-pointer select-none hover:text-blue-600 transition-colors;
+}
+.dark .collapsible-trigger:hover {
+  color: #60a5fa;
+}
+
+/* Paper content styling */
+.paper-content h2 {
+  @apply text-2xl font-bold mt-12 mb-4 pb-2 border-b border-paper-200;
+}
+.paper-content h3 {
+  @apply text-xl font-semibold mt-8 mb-3;
+}
+.paper-content p {
+  @apply text-base leading-7 mb-4;
+}
+.paper-content ul {
+  @apply list-disc pl-6 mb-4 space-y-1;
+}
+.paper-content ol {
+  @apply list-decimal pl-6 mb-4 space-y-1;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Animations */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
@@ -100,9 +162,115 @@ code {
   animation: fadeInUp 0.5s ease-out both;
 }
 
-/* Stagger delays for paper cards */
 .delay-1 { animation-delay: 0.05s; }
 .delay-2 { animation-delay: 0.10s; }
 .delay-3 { animation-delay: 0.15s; }
 .delay-4 { animation-delay: 0.20s; }
 .delay-5 { animation-delay: 0.25s; }
+
+/* Scrollbar hide utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Dark mode: targeted overrides for pages without dark: variants ─
+   Only neutral paper/gray surfaces — NOT colored elements.
+   FlowChart, InteractiveTimeline use Tailwind dark: directly.
+──────────────────────────────────────────────────────────────────── */
+
+/* Neutral surfaces (paper/white) */
+.dark .bg-white           { background-color: #1e293b; }
+.dark .bg-paper-50        { background-color: #162032; }
+.dark .bg-paper-100       { background-color: #1e293b; }
+.dark .bg-paper-200       { background-color: #334155; }
+
+/* Neutral borders */
+.dark .border-paper-200   { border-color: #334155; }
+.dark .border-paper-100   { border-color: #253347; }
+
+/* Input / textarea */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border-color: #475569;
+}
+.dark input::placeholder,
+.dark textarea::placeholder { color: #64748b; }
+
+/* Hover on neutral surfaces */
+.dark .hover\:bg-paper-50:hover  { background-color: #162032; }
+.dark .hover\:bg-paper-100:hover { background-color: #1e293b; }
+.dark .hover\:bg-paper-200:hover { background-color: #334155; }
+
+/* ── Interview/guide page: colored section banners ─────────────────
+   These elements are in interview/page.tsx and use Tailwind color classes.
+   We adapt them here rather than rewriting the file.
+──────────────────────────────────────────────────────────────────── */
+
+/* Section header backgrounds (colored banners) */
+.dark .bg-blue-50     { background-color: rgba(59, 130, 246, 0.12); }
+.dark .bg-violet-50   { background-color: rgba(139, 92, 246, 0.12); }
+.dark .bg-emerald-50  { background-color: rgba(16, 185, 129, 0.12); }
+.dark .bg-rose-50     { background-color: rgba(244, 63, 94, 0.12); }
+.dark .bg-amber-50    { background-color: rgba(245, 158, 11, 0.10); }
+.dark .bg-purple-50   { background-color: rgba(168, 85, 247, 0.12); }
+.dark .bg-indigo-50   { background-color: rgba(99, 102, 241, 0.12); }
+.dark .bg-teal-50     { background-color: rgba(20, 184, 166, 0.12); }
+.dark .bg-green-50    { background-color: rgba(34, 197, 94, 0.12); }
+
+/* Colored borders */
+.dark .border-blue-200    { border-color: rgba(59, 130, 246, 0.3); }
+.dark .border-violet-200  { border-color: rgba(139, 92, 246, 0.3); }
+.dark .border-emerald-200 { border-color: rgba(16, 185, 129, 0.3); }
+.dark .border-rose-200    { border-color: rgba(244, 63, 94, 0.3); }
+.dark .border-amber-200   { border-color: rgba(245, 158, 11, 0.3); }
+.dark .border-purple-200  { border-color: rgba(168, 85, 247, 0.3); }
+.dark .border-indigo-200  { border-color: rgba(99, 102, 241, 0.3); }
+.dark .border-teal-200    { border-color: rgba(20, 184, 166, 0.3); }
+
+/* Badge pill backgrounds (100-level) */
+.dark .bg-blue-100    { background-color: rgba(59, 130, 246, 0.2); }
+.dark .bg-violet-100  { background-color: rgba(139, 92, 246, 0.2); }
+.dark .bg-emerald-100 { background-color: rgba(16, 185, 129, 0.2); }
+.dark .bg-rose-100    { background-color: rgba(244, 63, 94, 0.2); }
+.dark .bg-amber-100   { background-color: rgba(245, 158, 11, 0.2); }
+.dark .bg-green-100   { background-color: rgba(34, 197, 94, 0.2); }
+.dark .bg-purple-100  { background-color: rgba(168, 85, 247, 0.2); }
+.dark .bg-indigo-100  { background-color: rgba(99, 102, 241, 0.2); }
+.dark .bg-teal-100    { background-color: rgba(20, 184, 166, 0.2); }
+
+/* ── Text color fixes: dark -800/-900 are invisible on dark bg ─── */
+.dark .text-blue-800, .dark .text-blue-900    { color: #bfdbfe; }
+.dark .text-violet-800, .dark .text-violet-900{ color: #ddd6fe; }
+.dark .text-emerald-800,.dark .text-emerald-900{ color: #a7f3d0; }
+.dark .text-rose-800, .dark .text-rose-900    { color: #fecdd3; }
+.dark .text-amber-800, .dark .text-amber-900  { color: #fde68a; }
+.dark .text-green-800, .dark .text-green-900  { color: #bbf7d0; }
+.dark .text-purple-800, .dark .text-purple-900{ color: #e9d5ff; }
+.dark .text-indigo-800, .dark .text-indigo-900{ color: #c7d2fe; }
+.dark .text-teal-800, .dark .text-teal-900    { color: #99f6e4; }
+.dark .text-blue-700    { color: #93c5fd; }
+.dark .text-violet-700  { color: #c4b5fd; }
+.dark .text-emerald-700 { color: #6ee7b7; }
+.dark .text-rose-700    { color: #fda4af; }
+.dark .text-amber-700   { color: #fcd34d; }
+.dark .text-green-700   { color: #86efac; }
+.dark .text-purple-700  { color: #d8b4fe; }
+.dark .text-indigo-700  { color: #a5b4fc; }
+.dark .text-teal-700    { color: #5eead4; }
+.dark .text-gray-700    { color: #94a3b8; }
+.dark .text-gray-600    { color: #64748b; }
+
+/* Headings in pages without explicit dark: */
+.dark h1:not([class*="text-"]),
+.dark h2:not([class*="text-"]),
+.dark h3:not([class*="text-"]) { color: #f1f5f9; }
+
+/* paper-800 text with opacity modifiers */
+.dark [class*="text-paper-800"] { color: #94a3b8; }

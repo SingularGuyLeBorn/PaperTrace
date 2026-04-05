@@ -29,21 +29,21 @@ const resources: Resource[] = [
   // Bilibili
   { name: "跟李沐学AI", href: "https://space.bilibili.com/1567748478", type: "bilibili",
     desc: "Best Chinese ML content. Paper reading sessions, course lectures, intuitive explanations.", descZh: "中文最好的 ML 内容。论文精读、课程讲座、直觉讲解。", recommended: true, tags: ["Chinese", "Paper Reading", "Course"] },
+  { name: "张小珺Jungle", href: "https://space.bilibili.com/1315101214", type: "bilibili",
+    desc: "In-depth interviews with AI startup founders and researchers — Kimi, DeepSeek, major tech AI leads. Also on Xiaoyuzhou podcast.", descZh: "深度访谈 AI 创业者和研究者 — Kimi、DeepSeek、各大厂 AI 负责人。同时在小宇宙播客发布。", recommended: true, tags: ["Chinese", "Interview", "Startup"] },
+  { name: "WhyNotTV (为什么不)", href: "https://space.bilibili.com/1778614", type: "bilibili",
+    desc: "Science and tech explanations with great visualizations. Covers AI concepts accessibly for a broad audience.", descZh: "科技知识可视化讲解，AI 内容通俗易懂，适合广泛受众。", tags: ["Chinese", "Science", "Visualization"] },
   { name: "3Blue1Brown 中文", href: "https://space.bilibili.com/88461692", type: "bilibili",
     desc: "Chinese re-upload of 3Blue1Brown's animation videos.", descZh: "3Blue1Brown 的中文搬运，动画视频。", tags: ["Chinese", "Math"] },
   { name: "深度之眼", href: "https://space.bilibili.com/375038855", type: "bilibili",
     desc: "Systematic ML course series, covers fundamentals to advanced topics.", descZh: "系统性 ML 课程系列，从基础到进阶。", tags: ["Chinese", "Course"] },
   // Xiaohongshu
-  { name: "搜索关键词: \"大模型\" \"LLM科研\" \"AI论文\" \"机器学习入门\"",
-    href: "https://www.xiaohongshu.com",
+  { name: "搜索关键词：大模型 / LLM科研 / AI论文 / 机器学习入门",
+    href: "https://www.xiaohongshu.com/search_result?keyword=%E5%A4%A7%E6%A8%A1%E5%9E%8B",
     type: "xiaohongshu",
-    desc: "Xiaohongshu has a large volume of AI/ML study notes, great for bite-sized learning. Search keywords like \"大模型\", \"AI科研\", \"论文精读\".",
-    descZh: "小红书上有大量 AI/ML 学习笔记，适合碎片化学习。搜索「大模型」「AI科研」「论文精读」等关键词。",
+    desc: "Xiaohongshu has a large volume of AI/ML study notes. Search: \"大模型\", \"AI科研\", \"论文精读\", \"机器学习入门\" to find creators.",
+    descZh: "小红书有大量 AI/ML 学习笔记。搜索「大模型」「AI科研」「论文精读」「机器学习入门」发现优质创作者。",
     tags: ["Chinese", "Notes", "Beginner-Friendly"] },
-  { name: "@AI_frontier", href: "https://www.xiaohongshu.com", type: "xiaohongshu",
-    desc: "Frontier paper overviews, accessible explanations.", descZh: "前沿论文速览，通俗易懂。", tags: ["Chinese", "Paper Reading"] },
-  { name: "@ML_notes", href: "https://www.xiaohongshu.com", type: "xiaohongshu",
-    desc: "Machine learning formula derivation notes.", descZh: "机器学习公式推导笔记。", tags: ["Chinese", "Math"] },
   // Newsletters
   { name: "The Batch (DeepLearning.AI)", href: "https://www.deeplearning.ai/the-batch/", type: "newsletter",
     desc: "Weekly AI newsletter by Andrew Ng. Balanced coverage of research + industry.", descZh: "吴恩达的每周 AI 简报。研究与工业界均衡报道。", recommended: true, tags: ["Weekly", "Broad Coverage"] },
@@ -83,9 +83,9 @@ const resources: Resource[] = [
     desc: "This Week in ML & AI — weekly research interviews covering the breadth of the field.", descZh: "This Week in ML & AI — 每周研究访谈，覆盖领域广泛。", tags: ["Weekly", "Research", "English"] },
   { name: "Machine Learning Street Talk", href: "https://www.youtube.com/@MachineLearningStreetTalk", type: "podcast",
     desc: "Technical ML podcast, researcher-first perspective. Challenging and rewarding.", descZh: "技术 ML 播客，研究者视角。有挑战性但很有价值。", tags: ["Technical", "Research"] },
-  { name: "张小珺Jungle (小宇宙 / Apple Podcasts)", href: "https://www.xiaoyuzhoufm.com", type: "podcast",
-    desc: "In-depth Chinese interviews with AI startup founders and researchers. Search '张小珺Jungle' on Xiaoyuzhou. Notable guests: Kimi founders, DeepSeek team, AI leads at major tech companies.",
-    descZh: "访谈 AI 行业创业者、研究者，中文深度对话。小宇宙搜索「张小珺Jungle」。代表访谈：Kimi创始人、DeepSeek团队、各大厂AI负责人。",
+  { name: "张小珺Jungle (小宇宙)", href: "https://www.xiaoyuzhoufm.com/podcast/5e8685e7418a84a04681ffb7", type: "podcast",
+    desc: "In-depth Chinese interviews with AI startup founders and researchers. Also on Bilibili. Notable: Kimi founders, DeepSeek team, AI leads at major tech companies.",
+    descZh: "访谈 AI 行业创业者、研究者，中文深度对话。同时在B站发布。代表访谈：Kimi创始人、DeepSeek团队、各大厂AI负责人。",
     recommended: true, tags: ["Chinese", "Interview", "Startup"] },
   { name: "AI浪潮 (小宇宙)", href: "https://www.xiaoyuzhoufm.com", type: "podcast",
     desc: "Chinese AI news and trends. Good for keeping up with the Chinese AI ecosystem.", descZh: "中文 AI 新闻和趋势。适合了解中国 AI 生态。", tags: ["Chinese", "News"] },
@@ -108,6 +108,10 @@ const resources: Resource[] = [
     desc: "Practical DL course with a top-down approach. Start coding immediately, understand theory later.", descZh: "自上而下的实用深度学习课程。立即开始编码，之后再理解理论。", tags: ["Course", "Practical"] },
   { name: "Weights & Biases Blog", href: "https://wandb.ai/fully-connected", type: "tool",
     desc: "ML practitioner blog with great tutorials on training, experiment tracking, and LLM fine-tuning.", descZh: "ML 实践者博客，有关于训练、实验跟踪和 LLM 微调的优质教程。", tags: ["Tutorial", "MLOps"] },
+  { name: "MiniMind", href: "https://www.minimind.wiki/", type: "tool",
+    desc: "Understand LLM training from scratch — no black boxes. Through controlled experiments, deeply understand every design choice in LLMs.",
+    descZh: "从零理解 LLM 训练，不再黑盒训练 — 通过对照实验彻底理解 LLM 的每个设计选择。",
+    recommended: true, tags: ["Chinese", "From Scratch", "LLM", "Hands-on"] },
 ];
 
 const typeConfig: Record<Resource["type"], { label: string; labelZh: string; icon: string; color: string }> = {
@@ -136,11 +140,11 @@ export default function ResourcesPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
-      <div className="mb-10">
-        <h1 className="text-3xl font-bold tracking-tight mb-2">
+      <div className="mb-12">
+        <h1 className="font-display text-4xl font-bold tracking-tight mb-3 dark:text-white">
           {t("Resources", "学习资源")}
         </h1>
-        <p className="text-paper-800/60 max-w-2xl leading-relaxed">
+        <p className="text-base text-paper-800/60 dark:text-slate-400 max-w-2xl leading-relaxed">
           {t(
             "Quality over quantity. These are the sources worth your time — curated for ML researchers and practitioners. ⭐ = particularly recommended.",
             "质量优于数量。这些是值得你花时间的资源 — 为 ML 研究者和实践者精心整理。⭐ = 特别推荐。"
@@ -148,16 +152,16 @@ export default function ResourcesPage() {
         </p>
       </div>
 
-      <div className="space-y-12">
+      <div className="space-y-14">
         {sections.map((section) => {
           const types = Array.isArray(section.type) ? section.type : [section.type];
           const items = resources.filter((r) => types.includes(r.type));
           return (
             <section key={section.title}>
-              <h2 className="text-lg font-bold mb-4 pb-2 border-b border-paper-200">
+              <h2 className="font-display text-2xl font-bold mb-5 pb-3 border-b border-paper-200 dark:border-slate-700 tracking-tight dark:text-slate-100">
                 {t(section.title, section.titleZh)}
               </h2>
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {items.map((r) => {
                   const tc = typeConfig[r.type];
                   return (
@@ -166,27 +170,27 @@ export default function ResourcesPage() {
                       href={r.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-start gap-4 p-4 bg-white border border-paper-200 rounded-lg hover:border-blue-300 hover:shadow-sm transition-all"
+                      className="flex items-start gap-4 p-4 bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-xl hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-sm transition-all group"
                     >
-                      <span className="text-xl mt-0.5">{tc.icon}</span>
+                      <span className="text-xl mt-0.5 flex-shrink-0">{tc.icon}</span>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-semibold text-sm">{r.name}</span>
+                        <div className="flex items-center gap-2 flex-wrap mb-1">
+                          <span className="font-semibold text-sm dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{r.name}</span>
                           {r.recommended && <span className="text-xs">⭐</span>}
-                          <span className={`text-xs px-2 py-0.5 rounded-full ${tc.color}`}>
+                          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${tc.color}`}>
                             {t(tc.label, tc.labelZh)}
                           </span>
                           {r.tags?.map((tag) => (
-                            <span key={tag} className="text-xs px-2 py-0.5 bg-paper-100 text-paper-800/50 rounded-full">
+                            <span key={tag} className="text-xs px-2 py-0.5 bg-paper-100 dark:bg-slate-700 text-paper-800/50 dark:text-slate-400 rounded-full">
                               {tag}
                             </span>
                           ))}
                         </div>
-                        <p className="text-sm text-paper-800/60 mt-1 leading-relaxed">
+                        <p className="text-sm text-paper-800/60 dark:text-slate-400 leading-relaxed">
                           {lang === "en" ? r.desc : r.descZh}
                         </p>
                       </div>
-                      <span className="text-paper-800/30 text-sm mt-1">↗</span>
+                      <span className="text-paper-800/30 dark:text-slate-600 group-hover:text-blue-500 text-sm mt-1 flex-shrink-0 transition-colors">↗</span>
                     </a>
                   );
                 })}

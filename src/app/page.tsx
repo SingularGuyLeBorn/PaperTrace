@@ -274,12 +274,12 @@ export default function Home() {
     <div className="max-w-4xl mx-auto px-6">
       {/* Hero */}
       <section className="py-16 md:py-24">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight mb-4 animate-fadeInUp">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight mb-4 animate-fadeInUp dark:text-slate-50">
           {t("Interactive deep-dives", "交互式精读")}
           <br />
           {t("into ML papers", "ML 论文")}
         </h1>
-        <p className="text-lg text-paper-800/60 max-w-2xl leading-relaxed animate-fadeInUp delay-1">
+        <p className="text-lg text-paper-800/60 dark:text-slate-400 max-w-2xl leading-relaxed animate-fadeInUp delay-1">
           {t(
             "Formulas broken down step by step. Walk-through examples with real numbers. Interactive visualizations you can poke at. No hand-waving.",
             "公式逐步拆解。用真实数字的 walk-through 例子。可交互的可视化。拒绝含糊其辞。"
@@ -295,12 +295,12 @@ export default function Home() {
           { href: `${basePath}/resources`, icon: "📚", label: t("Resources", "学习资源"), desc: t("YouTube, blogs, newsletters", "YouTube / B 站 / 公众号") },
         ].map((item) => (
           <a key={item.href} href={item.href}
-            className="flex items-center gap-3 px-4 py-3 bg-white border border-paper-200 rounded-lg hover:border-blue-300 hover:shadow-sm transition-all flex-1 min-w-[200px]"
+            className="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-sm dark:hover:shadow-blue-900/20 transition-all flex-1 min-w-[200px]"
           >
             <span className="text-xl">{item.icon}</span>
             <div>
-              <div className="font-semibold text-sm">{item.label}</div>
-              <div className="text-xs text-paper-800/50">{item.desc}</div>
+              <div className="font-semibold text-sm dark:text-slate-100">{item.label}</div>
+              <div className="text-xs text-paper-800/50 dark:text-slate-500">{item.desc}</div>
             </div>
           </a>
         ))}
@@ -309,12 +309,12 @@ export default function Home() {
       {/* AI Timeline link card */}
       <div className="mb-8">
         <a href={`${basePath}/timeline`}
-          className="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl hover:shadow-md hover:border-blue-300 transition-all group">
+          className="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200 dark:border-blue-800/40 rounded-xl hover:shadow-md hover:border-blue-300 dark:hover:border-blue-600/50 transition-all group">
           <div>
-            <p className="font-bold text-base group-hover:text-blue-700 transition-colors">
+            <p className="font-bold text-base group-hover:text-blue-700 dark:text-slate-100 dark:group-hover:text-blue-400 transition-colors">
               {t("AI Model Timeline →", "AI 大模型时间线 →")}
             </p>
-            <p className="text-xs text-paper-800/50 mt-0.5">
+            <p className="text-xs text-paper-800/50 dark:text-slate-500 mt-0.5">
               {t("LLMs · DLLMs · VLMs · Agents — filterable by org and type", "大语言模型 · 扩散模型 · 视觉语言模型 · 智能体 — 可按机构和类型筛选")}
             </p>
           </div>
@@ -326,10 +326,10 @@ export default function Home() {
       <section className="pb-10">
         <div className="flex items-center justify-between mb-3">
           <div>
-            <h2 className="text-xl font-bold tracking-tight">
+            <h2 className="text-xl font-bold tracking-tight dark:text-slate-100">
               {t("Diffusion LM Timeline", "扩散语言模型时间线")}
             </h2>
-            <p className="text-sm text-paper-800/50 mt-0.5">
+            <p className="text-sm text-paper-800/50 dark:text-slate-500 mt-0.5">
               {t("From D3PM (2021) to multimodal frontiers (2025). ★ = deep-dive on PaperTrace.", "从 D3PM (2021) 到多模态前沿 (2025)。★ = PaperTrace 有精读。")}
             </p>
           </div>
@@ -342,44 +342,44 @@ export default function Home() {
         {sections.map((section) => {
           const isOpen = expandedSections.has(section.id);
           return (
-          <section key={section.id} className="border border-paper-200 rounded-xl overflow-hidden">
+          <section key={section.id} className="border border-paper-200 dark:border-slate-700 rounded-xl overflow-hidden">
             <button
               onClick={() => toggleSection(section.id)}
-              className="w-full flex items-center justify-between px-6 py-4 bg-white hover:bg-paper-50 transition-colors text-left"
+              className="w-full flex items-center justify-between px-6 py-4 bg-white dark:bg-slate-800/60 hover:bg-paper-50 dark:hover:bg-slate-800 transition-colors text-left"
             >
               <div>
-                <h2 className="text-lg font-bold tracking-tight">
+                <h2 className="text-lg font-bold tracking-tight dark:text-slate-100">
                   {lang === "en" ? section.title : section.titleZh}
                 </h2>
-                <p className="text-sm text-paper-800/50 mt-0.5">
+                <p className="text-sm text-paper-800/50 dark:text-slate-400 mt-0.5">
                   {lang === "en" ? section.description : section.descriptionZh}
                 </p>
               </div>
               <div className="flex items-center gap-3 ml-4 flex-shrink-0">
-                <span className="text-xs text-paper-800/40 font-medium">
+                <span className="text-xs text-paper-800/40 dark:text-slate-500 font-medium">
                   {section.papers.length} {t("papers", "篇")}
                 </span>
-                <span className={`text-paper-800/40 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}>▼</span>
+                <span className={`text-paper-800/40 dark:text-slate-600 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}>▼</span>
               </div>
             </button>
             {isOpen && (
-            <div className="px-6 pb-6 pt-2 bg-paper-50/50 space-y-4">
+            <div className="px-6 pb-6 pt-2 bg-paper-50/50 dark:bg-slate-900/40 space-y-4">
               {section.papers.map((paper, idx) => (
                 <Link
                   key={paper.slug}
                   href={`${basePath}/papers/${paper.slug}`}
                   className="block group"
                 >
-                  <article className={`bg-white border border-paper-200 rounded-lg p-6 hover:border-blue-300 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 animate-fadeInUp ${(["delay-1","delay-2","delay-3","delay-4","delay-5"] as const)[Math.min(idx, 4)]}`}>
+                  <article className={`bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg p-6 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md dark:hover:shadow-blue-900/10 hover:-translate-y-0.5 transition-all duration-200 animate-fadeInUp ${(["delay-1","delay-2","delay-3","delay-4","delay-5"] as const)[Math.min(idx, 4)]}`}>
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-semibold group-hover:text-blue-600 transition-colors">
+                        <h3 className="text-lg font-semibold dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                           {lang === "en" ? paper.title : paper.titleZh}
                         </h3>
-                        <p className="text-sm text-paper-800/50 mt-1">
+                        <p className="text-sm text-paper-800/50 dark:text-slate-500 mt-1">
                           {paper.authors} &middot; {paper.venue} {paper.year}
                         </p>
-                        <p className="text-sm text-paper-800/70 mt-2 leading-relaxed">
+                        <p className="text-sm text-paper-800/70 dark:text-slate-300 mt-2 leading-relaxed">
                           {lang === "en"
                             ? paper.description
                             : paper.descriptionZh}
@@ -388,14 +388,14 @@ export default function Home() {
                           {paper.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="text-xs px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full"
+                              className="text-xs px-2 py-0.5 bg-blue-50 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 rounded-full"
                             >
                               {tag}
                             </span>
                           ))}
                         </div>
                       </div>
-                      <span className="text-paper-800/30 group-hover:text-blue-500 transition-colors text-xl mt-1">
+                      <span className="text-paper-800/30 dark:text-slate-600 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors text-xl mt-1">
                         &rarr;
                       </span>
                     </div>
