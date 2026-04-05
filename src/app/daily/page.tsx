@@ -35,7 +35,7 @@ const newsItems: NewsItem[] = [
     description: "Check Point Research identified three vulnerabilities (CVE-2025-59536, CVE-2026-21852) in Claude Code that allow attackers to run arbitrary code and steal API keys via malicious repositories.",
     descriptionZh: "Check Point Research 在 Claude Code 中发现三个漏洞（CVE-2025-59536、CVE-2026-21852），允许攻击者通过恶意仓库执行任意代码并窃取 API 密钥。",
     source: "Check Point Research",
-    sourceUrl: "https://research.checkpoint.com/",
+    sourceUrl: "https://research.checkpoint.com/2026/rce-and-api-token-exfiltration-through-claude-code-project-files-cve-2025-59536/",
     tag: "Industry",
   },
   {
@@ -194,8 +194,8 @@ export default function DailyPage() {
         </h1>
         <p className="text-paper-800/60 dark:text-slate-400 leading-relaxed max-w-2xl">
           {t(
-            "Curated ML papers with one-line takes on why they matter. Editor's picks are ⭐ papers worth your full attention.",
-            "精选 ML 论文，每篇附一句话点评。⭐ 是编辑精选，值得你花时间精读的论文。"
+            "Curated ML papers with one-line takes on why they matter.",
+            "精选 ML 论文，每篇附一句话点评。"
           )}
         </p>
       </div>

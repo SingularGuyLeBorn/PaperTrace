@@ -228,7 +228,7 @@ export function DLLMTimeline() {
                 {/* Row label */}
                 <div className={`flex items-center justify-center rounded-l-lg px-2 py-2 ${meta.bg}`}>
                   <span
-                    className="text-xs font-bold writing-mode-vertical rotate-180"
+                    className="text-xs font-bold"
                     style={{ writingMode: "vertical-rl" }}
                   >
                     {lang === "en" ? meta.label : meta.labelZh}

@@ -7,7 +7,7 @@ interface Resource {
   desc: string;
   descZh: string;
   href: string;
-  type: "youtube" | "bilibili" | "xiaohongshu" | "wechat" | "newsletter" | "podcast" | "blog" | "tool";
+  type: "youtube" | "bilibili" | "xiaohongshu" | "wechat" | "newsletter" | "podcast" | "blog" | "tool" | "bookmark";
   tags?: string[];
   recommended?: boolean;
   note?: string;
@@ -108,6 +108,12 @@ const resources: Resource[] = [
     desc: "Understand LLM training from scratch — no black boxes. Through controlled experiments, deeply understand every design choice in LLMs.",
     descZh: "从零理解 LLM 训练，不再黑盒训练 — 通过对照实验彻底理解 LLM 的每个设计选择。",
     recommended: true, tags: ["Chinese", "From Scratch", "LLM", "Hands-on"] },
+
+  // Bookmarks
+  { name: "人生不可 DP，但别永远贪心", href: "https://hawstein.com/2019/04/24/life-cannot-dp-but-dont-be-always-greedy/", type: "bookmark",
+    desc: "Uses DP and greedy algorithm metaphors to argue that always picking the locally optimal option traps you in a local optimum. Recommends introducing random perturbations to escape it.",
+    descZh: "用动态规划和贪心算法类比人生决策，指出贪心策略会陷入局部最优。建议主动引入随机扰动，偶尔放弃眼前最优，获得更广阔的可能性。",
+    recommended: true, tags: ["Essay", "Life", "CS Metaphor"] },
 ];
 
 const typeConfig: Record<Resource["type"], { label: string; labelZh: string; icon: string; color: string }> = {
@@ -119,6 +125,7 @@ const typeConfig: Record<Resource["type"], { label: string; labelZh: string; ico
   podcast: { label: "Podcast", labelZh: "播客", icon: "🎙", color: "bg-orange-100 text-orange-700" },
   blog: { label: "Blog", labelZh: "博客", icon: "✍️", color: "bg-teal-100 text-teal-700" },
   tool: { label: "Tool / Course", labelZh: "工具 / 课程", icon: "🔧", color: "bg-gray-100 text-gray-700" },
+  bookmark: { label: "Bookmarks", labelZh: "收藏", icon: "🔖", color: "bg-amber-100 text-amber-700" },
 };
 
 const sections: { type: Resource["type"] | Resource["type"][]; title: string; titleZh: string }[] = [
@@ -129,6 +136,7 @@ const sections: { type: Resource["type"] | Resource["type"][]; title: string; ti
   { type: ["wechat", "blog"], title: "Blogs & WeChat Accounts", titleZh: "博客 & 公众号" },
   { type: "podcast", title: "Podcasts", titleZh: "播客" },
   { type: "tool", title: "Tools for Learning & Visualization", titleZh: "学习工具 & 可视化" },
+  { type: "bookmark", title: "Bookmarks & Favorites", titleZh: "收藏" },
 ];
 
 export default function ResourcesPage() {
