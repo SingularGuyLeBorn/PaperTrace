@@ -423,8 +423,67 @@ export default function BlockDiffusionPage() {
           </div>
         </div>
 
-        {/* ============ Section 6: Results ============ */}
-        <h2>{t("6. Results: The Block Size Tradeoff", "6. 结果：块大小的权衡")}</h2>
+        {/* ============ Section 6: D2F ============ */}
+        <h2>{t("6. D2F: Discrete Diffusion Forcing", "6. D2F：离散扩散强制")}</h2>
+
+        <p>
+          {t(
+            "D2F is a training technique that converts a pre-trained bidirectional dLLM into a model supporting block-wise causal attention — enabling KV cache reuse and inter-block parallel decoding at inference time.",
+            "D2F 是一种训练技术，将预训练的双向 dLLM 转换为支持块级因果注意力的模型，从而在推理时实现 KV 缓存复用和块间并行解码。"
+          )}
+        </p>
+
+        <div className="grid grid-cols-2 gap-4 my-6">
+          <div className="border border-orange-200 rounded-lg p-4 bg-orange-50 dark:bg-orange-900/10 dark:border-orange-700/40">
+            <h4 className="font-semibold text-sm mb-2 text-orange-900 dark:text-orange-200">
+              🔥 {t("D2F dLLM (student)", "D2F dLLM（学生模型）")}
+            </h4>
+            <ul className="text-sm space-y-1 text-orange-800/80 dark:text-orange-200/70">
+              <li>{t("Block-wise causal attention mask", "块级因果注意力掩码")}</li>
+              <li>{t("Sees past blocks, current block tokens left-to-right", "可见历史块，当前块内从左到右")}</li>
+              <li>{t("Compatible with KV cache across denoising steps", "去噪步骤间兼容 KV 缓存")}</li>
+            </ul>
+          </div>
+          <div className="border border-blue-200 rounded-lg p-4 bg-blue-50 dark:bg-blue-900/10 dark:border-blue-700/40">
+            <h4 className="font-semibold text-sm mb-2 text-blue-900 dark:text-blue-200">
+              ❄️ {t("Pre-trained dLLM (teacher)", "预训练 dLLM（教师模型）")}
+            </h4>
+            <ul className="text-sm space-y-1 text-blue-800/80 dark:text-blue-200/70">
+              <li>{t("Bidirectional full attention", "双向全注意力")}</li>
+              <li>{t("Sees all tokens simultaneously", "同时看到所有 token")}</li>
+              <li>{t("Strong quality, but no KV cache reuse", "质量高，但无法 KV 缓存复用")}</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>{t("Training with Monotonically Increasing Masks", "使用单调递增掩码训练")}</h3>
+        <p>
+          {t(
+            "The answer sequence is divided into blocks with progressively increasing masking ratios. The D2F student model is trained to mimic the teacher's predictions on partially denoised preceding tokens — via a KL divergence loss between the two models' output distributions.",
+            "答案序列被分成遮蔽比例单调递增的块。D2F 学生模型被训练以模仿教师模型对部分去噪前序 token 的预测 — 通过两模型输出分布之间的 KL 散度损失实现。"
+          )}
+        </p>
+
+        <Math
+          display
+          label={t("D2F distillation objective", "D2F 蒸馏目标")}
+          tex="\mathcal{L}_{\text{D2F}} = \mathbb{E}\bigl[\text{KL}\bigl(p_{\text{teacher}}(\cdot \mid x_t) \;\|\; p_{\text{student}}(\cdot \mid x_t^{\text{causal}})\bigr)\bigr]"
+        />
+
+        <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg my-4 dark:bg-amber-900/15 dark:border-amber-700/40">
+          <p className="text-sm font-semibold text-amber-800 dark:text-amber-300 mb-1">
+            {t("Why this matters", "为何重要")}
+          </p>
+          <p className="text-sm text-amber-900/80 dark:text-amber-200/80 mb-0">
+            {t(
+              "Standard dLLMs use bidirectional attention — each denoising step must recompute all token representations from scratch. D2F's causal attention structure means the KV activations from step t can be partially reused in step t+1, breaking the O(N²) per-step compute barrier.",
+              "标准 dLLM 使用双向注意力 — 每次去噪步骤必须从头重新计算所有 token 表示。D2F 的因果注意力结构意味着第 t 步的 KV 激活可以在第 t+1 步中部分复用，打破了每步 O(N²) 的计算瓶颈。"
+            )}
+          </p>
+        </div>
+
+        {/* ============ Section 7: Results ============ */}
+        <h2>{t("7. Results: The Block Size Tradeoff", "7. 结果：块大小权衡")}</h2>
 
         <div className="overflow-x-auto my-6">
           <table className="w-full text-sm border-collapse">
@@ -465,8 +524,8 @@ export default function BlockDiffusionPage() {
           </table>
         </div>
 
-        {/* ============ Section 7: Connections ============ */}
-        <h2>{t("7. Connections to Other Work", "7. 与其他工作的联系")}</h2>
+        {/* ============ Section 8: Connections ============ */}
+        <h2>{t("8. Connections to Other Work", "8. 与其他工作的联系")}</h2>
 
         <div className="space-y-3 my-4">
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
@@ -498,8 +557,8 @@ export default function BlockDiffusionPage() {
           </div>
         </div>
 
-        {/* ============ Section 8: Resources ============ */}
-        <h2>{t("8. Additional Resources", "8. 补充资源")}</h2>
+        {/* ============ Section 9: Resources ============ */}
+        <h2>{t("9. Additional Resources", "9. 补充资源")}</h2>
 
         <div className="space-y-2 my-4">
           <a href="https://arxiv.org/abs/2503.09573" target="_blank" rel="noopener noreferrer" className="block p-3 bg-white border border-paper-200 rounded-lg hover:border-blue-300 transition-colors">

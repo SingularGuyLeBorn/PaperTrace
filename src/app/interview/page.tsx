@@ -92,20 +92,270 @@ function QuestionLabel({
 export default function InterviewPage() {
   const { t } = useLang();
 
+  const leetcodeResources = [
+    {
+      name: "NeetCode",
+      href: "https://neetcode.io",
+      icon: "🧩",
+      desc: "Curated 150-problem roadmap with video solutions. The best structured path for algo interview prep.",
+      descZh: "精选 150 题路线图配视频讲解。算法面试备考最佳结构化路径。",
+      tag: "English",
+      tagColor: "bg-blue-100 text-blue-700",
+      recommended: true,
+    },
+    {
+      name: "灵茶山艾府",
+      href: "https://space.bilibili.com/206214",
+      icon: "🍵",
+      desc: "Top Chinese LeetCode explainer on Bilibili. Deep dives into patterns: sliding window, monotonic stack, trees, DP, and more.",
+      descZh: "B 站顶级力扣讲解区 UP 主。深入讲解滑动窗口、单调栈、树、DP 等题型模板。",
+      tag: "B站",
+      tagColor: "bg-sky-100 text-sky-700",
+      recommended: true,
+    },
+    {
+      name: "LeetCode",
+      href: "https://leetcode.cn",
+      icon: "💻",
+      desc: "The primary platform. Use LeetCode CN (leetcode.cn) for Chinese UI and local contest.",
+      descZh: "主平台。国内用力扣（leetcode.cn），有中文界面和国内周赛。",
+      tag: "Platform",
+      tagColor: "bg-orange-100 text-orange-700",
+    },
+  ];
+
+  // ── Community posts (add new entries here) ──────────────────────────────
+  // Fields: company, role (EN), roleZh (ZH), type, location, region?,
+  //         urgent?, desc?, descZh?, href?, date?
+  // ── Community posts ──────────────────────────────────────────────────────
+  // Add new entries here when someone submits. Fields:
+  //   company, role (EN), roleZh (ZH), type, location, region?,
+  //   urgent?, desc?, descZh?, contact?, href?, date?
+  // ── Community posts ──────────────────────────────────────────────────────
+  // Add new entries when someone submits via DM/WeChat. Fields:
+  //   company, role (EN), roleZh (ZH), type, location, region?,
+  //   urgent?, desc?, descZh?, contact?, href?, date?
+  const urgentPosts: {
+    company: string; role: string; roleZh: string;
+    type: "internship" | "fulltime"; location: string; region?: string;
+    urgent?: boolean; desc?: string; descZh?: string;
+    contact?: string; href?: string; date?: string;
+  }[] = [
+    {
+      company: "DeepSeek",
+      role: "Research Intern — Reasoning & RL",
+      roleZh: "科研实习 — 推理 & 强化学习",
+      type: "internship", location: "Hangzhou", region: "🇨🇳", urgent: true,
+      desc: "Working on LLM reasoning, post-training, and RL-based alignment. Background in math/CS preferred. 3–6 months, potential for return offer.",
+      descZh: "方向：大模型推理、后训练及强化学习对齐。数学/CS 背景优先，3–6 个月，表现优秀可转正。",
+      contact: "微信投递，联系公众号后台",
+      date: "2025-04",
+    },
+    {
+      company: "字节跳动 · Seed",
+      role: "LLM Pre-training Intern",
+      roleZh: "大模型预训练实习",
+      type: "internship", location: "Beijing", region: "🇨🇳",
+      desc: "Joining the Seed foundation model team. Focus on data pipeline, training efficiency, and scaling experiments. Strong Python + distributed training background needed.",
+      descZh: "加入 Seed 基础模型团队，方向：数据流水线、训练效率与 scaling 实验。需要扎实 Python 功底及分布式训练经验。",
+      contact: "邮件简历至 seed-intern@bytedance.com",
+      href: "https://jobs.bytedance.com",
+      date: "2025-04",
+    },
+    {
+      company: "Anthropic",
+      role: "Research Engineer Intern",
+      roleZh: "Research Engineer 实习",
+      type: "internship", location: "San Francisco, CA", region: "🇺🇸",
+      desc: "Summer internship on the interpretability or alignment team. Strong ML fundamentals required. US work authorization needed.",
+      descZh: "暑期实习，方向：可解释性或对齐团队。需要扎实 ML 基础及美国工作资质。",
+      href: "https://www.anthropic.com/careers",
+      date: "2025-04",
+    },
+  ];
+
+  const basePath = process.env.NODE_ENV === "production" ? "/PaperTrace" : "";
+
   return (
     <div className="max-w-3xl mx-auto px-6 py-12">
       {/* ── Header ── */}
       <header className="mb-10">
         <h1 className="text-3xl font-bold tracking-tight mb-2 dark:text-slate-100">
-          {t("Classic ML Interview Questions", "经典大模型八股题")}
+          {t("Job Hunt", "找工")}
         </h1>
         <p className="text-paper-800/50 dark:text-slate-400">
           {t(
-            "Core concepts with rigorous answers — for LLM researchers and practitioners",
-            "核心概念与严谨解答 — 面向大模型研究者和从业者"
+            "LeetCode resources and ML interview prep — for SWE and research roles.",
+            "力扣刷题资源 + 大模型八股题 — 适用于工程师和研究岗位求职。"
           )}
         </p>
       </header>
+
+      {/* ════════════════════════════════════════════
+          SECTION 0 — MOTIVATION LINK
+      ════════════════════════════════════════════ */}
+      <a
+        href={`${basePath}/interview/notes`}
+        className="flex items-center gap-4 mb-10 p-5 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/10 dark:to-orange-900/10 border border-amber-200 dark:border-amber-700/40 rounded-2xl hover:border-amber-400 dark:hover:border-amber-500 hover:shadow-sm transition-all group"
+      >
+        <span className="text-3xl flex-shrink-0">✍️</span>
+        <div className="flex-1">
+          <p className="font-semibold text-paper-900 dark:text-slate-100 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors mb-0.5">
+            {t("Notes on the Job Hunt", "写在找工路上")}
+          </p>
+          <p className="text-sm text-paper-800/60 dark:text-slate-400 mb-0">
+            {t("Timing, information, connection & mindset", "时机、信息差、人脉与心态")}
+          </p>
+        </div>
+        <span className="text-amber-400 dark:text-amber-500 group-hover:translate-x-1 transition-transform text-lg flex-shrink-0">→</span>
+      </a>
+
+      {/* ════════════════════════════════════════════
+          SECTION A — LEETCODE
+      ════════════════════════════════════════════ */}
+      <section className="mb-14">
+        <h2 className="font-display text-2xl font-bold mb-5 pb-3 border-b border-paper-200 dark:border-slate-700 tracking-tight dark:text-slate-100">
+          {t("LeetCode / 力扣", "力扣 / LeetCode")}
+        </h2>
+        <div className="space-y-2.5">
+          {leetcodeResources.map((r) => (
+            <a
+              key={r.name}
+              href={r.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-start gap-4 p-4 bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-xl hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-sm transition-all group"
+            >
+              <span className="text-xl mt-0.5 flex-shrink-0">{r.icon}</span>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <span className="font-semibold text-sm dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{r.name}</span>
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${r.tagColor}`}>{r.tag}</span>
+                </div>
+                <p className="text-sm text-paper-800/60 dark:text-slate-400 leading-relaxed mb-0">
+                  {t(r.desc, r.descZh)}
+                </p>
+              </div>
+              <span className="text-paper-800/30 dark:text-slate-600 group-hover:text-blue-500 text-sm mt-1 flex-shrink-0 transition-colors">↗</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════
+          SECTION B — JOB OPENINGS
+      ════════════════════════════════════════════ */}
+      <section className="mb-14">
+        <h2 className="font-display text-2xl font-bold mb-2 pb-3 border-b border-paper-200 dark:border-slate-700 tracking-tight dark:text-slate-100">
+          {t("Job Openings / 岗位", "岗位")}
+        </h2>
+        <p className="text-sm text-paper-800/50 dark:text-slate-400 mb-5">
+          {t("Career pages for major AI labs — US and China.", "中美主流 AI 公司招聘页面。")}
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+          {[
+            { name: "Anthropic", href: "https://www.anthropic.com/careers", region: "🇺🇸", color: "bg-orange-50 border-orange-200 hover:border-orange-400 dark:bg-orange-900/10 dark:border-orange-700/40" },
+            { name: "OpenAI", href: "https://openai.com/careers", region: "🇺🇸", color: "bg-emerald-50 border-emerald-200 hover:border-emerald-400 dark:bg-emerald-900/10 dark:border-emerald-700/40" },
+            { name: "Google DeepMind", href: "https://deepmind.google/about/join-us/", region: "🇺🇸", color: "bg-blue-50 border-blue-200 hover:border-blue-400 dark:bg-blue-900/10 dark:border-blue-700/40" },
+            { name: "Meta AI (FAIR)", href: "https://www.metacareers.com/teams/ai-research", region: "🇺🇸", color: "bg-blue-50 border-blue-200 hover:border-blue-400 dark:bg-blue-900/10 dark:border-blue-700/40" },
+            { name: "DeepSeek", href: "https://www.deepseek.com/careers", region: "🇨🇳", color: "bg-sky-50 border-sky-200 hover:border-sky-400 dark:bg-sky-900/10 dark:border-sky-700/40" },
+            { name: "字节跳动", href: "https://jobs.bytedance.com/experienced/position?keywords=&category=6704215862393TB&location=CT_156&project=&type=3&job_hot_flag=&current=1&limit=10&functionCategory=", region: "🇨🇳", color: "bg-red-50 border-red-200 hover:border-red-400 dark:bg-red-900/10 dark:border-red-700/40" },
+            { name: "阿里通义 / Qwen", href: "https://talent.alibaba.com", region: "🇨🇳", color: "bg-orange-50 border-orange-200 hover:border-orange-400 dark:bg-orange-900/10 dark:border-orange-700/40" },
+            { name: "Moonshot AI (Kimi)", href: "https://www.moonshot.cn/careers", region: "🇨🇳", color: "bg-violet-50 border-violet-200 hover:border-violet-400 dark:bg-violet-900/10 dark:border-violet-700/40" },
+          ].map((c) => (
+            <a
+              key={c.name}
+              href={c.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all group ${c.color}`}
+            >
+              <span className="text-lg">{c.region}</span>
+              <span className="font-medium text-sm dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 flex-1 transition-colors">{c.name}</span>
+              <span className="text-paper-800/30 dark:text-slate-600 group-hover:text-blue-500 text-sm transition-colors">↗</span>
+            </a>
+          ))}
+        </div>
+
+        {/* ── Community Posts ── */}
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <p className="font-semibold text-sm dark:text-slate-100">{t("Community Posts", "急招帖子")}</p>
+              <p className="text-xs text-paper-800/50 dark:text-slate-500 mt-0.5">
+                {t("Submitted by the community. Want to post? Reach out.", "社区投稿。想发帖？联系我们。")}
+              </p>
+            </div>
+            <span className="text-xs px-3 py-1.5 rounded-full border border-paper-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-paper-800/40 dark:text-slate-600 font-medium flex-shrink-0 cursor-default select-none">
+              + {t("Submit a post", "投稿")}
+            </span>
+          </div>
+
+          {urgentPosts.length === 0 ? (
+            <div className="text-center py-10 border border-dashed border-paper-200 dark:border-slate-700 rounded-xl">
+              <p className="text-sm text-paper-800/40 dark:text-slate-600">
+                {t("No posts yet. Be the first to submit.", "暂无投稿。成为第一个发帖的人。")}
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-2.5">
+              {urgentPosts.map((post, i) => (
+                <div key={i} className="p-4 bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-xl">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap mb-1">
+                        {post.urgent && (
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 font-medium">
+                            {t("Urgent", "急招")}
+                          </span>
+                        )}
+                        <span className="font-semibold text-sm dark:text-slate-100">{post.company}</span>
+                        <span className="text-xs text-paper-800/50 dark:text-slate-500">·</span>
+                        <span className="text-sm text-paper-800/70 dark:text-slate-300">{t(post.role, post.roleZh)}</span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5 mb-2">
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-paper-100 dark:bg-slate-700 text-paper-800/60 dark:text-slate-400">{post.type === "internship" ? t("Internship", "实习") : t("Full-time", "校招")}</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-paper-100 dark:bg-slate-700 text-paper-800/60 dark:text-slate-400">{post.location}</span>
+                        {post.region && <span className="text-xs px-2 py-0.5 rounded-full bg-paper-100 dark:bg-slate-700 text-paper-800/60 dark:text-slate-400">{post.region}</span>}
+                      </div>
+                      {post.desc && <p className="text-xs text-paper-800/60 dark:text-slate-400 leading-relaxed mb-1">{t(post.desc, post.descZh ?? post.desc)}</p>}
+                      {post.contact && (
+                        <p className="text-xs text-paper-800/50 dark:text-slate-500">
+                          📩 {post.contact}
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex flex-col items-end gap-2 flex-shrink-0">
+                      {post.href && (
+                        <a href={post.href} target="_blank" rel="noopener noreferrer"
+                          className="text-xs px-3 py-1.5 rounded-lg bg-paper-900 dark:bg-slate-200 text-white dark:text-slate-900 hover:bg-paper-700 dark:hover:bg-white transition-colors font-medium">
+                          {t("Apply", "投递")} ↗
+                        </a>
+                      )}
+                      {post.date && <span className="text-xs text-paper-800/35 dark:text-slate-600">{post.date}</span>}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════
+          SECTION C — 面经 / 八股
+      ════════════════════════════════════════════ */}
+      <section>
+        <h2 className="font-display text-2xl font-bold mb-5 pb-3 border-b border-paper-200 dark:border-slate-700 tracking-tight dark:text-slate-100">
+          {t("ML Interview / 面经·八股", "面经 · 八股")}
+        </h2>
+        <p className="text-sm text-paper-800/50 dark:text-slate-400 mb-8">
+          {t(
+            "Core concepts with rigorous answers — for LLM researchers and practitioners.",
+            "核心概念与严谨解答 — 面向大模型研究者和从业者。"
+          )}
+        </p>
 
       {/* ── TOC pill strip ── */}
       <div className="flex flex-wrap gap-2 mb-10">
@@ -114,6 +364,7 @@ export default function InterviewPage() {
           { href: "#training", en: "Training & Optimization", zh: "训练与优化" },
           { href: "#architecture", en: "Architecture", zh: "架构设计" },
           { href: "#alignment", en: "Training & Alignment", zh: "训练与对齐" },
+          { href: "#inference", en: "Inference & Deployment", zh: "推理与部署" },
         ].map(({ href, en, zh }) => (
           <a
             key={href}
@@ -547,6 +798,76 @@ export default function InterviewPage() {
               </div>
             </div>
           </Collapsible>
+
+          {/* Q15 */}
+          <Collapsible
+            title={t(
+              "Q15: Why does Transformer use LayerNorm instead of BatchNorm?",
+              "问15：Transformer 为何用 LayerNorm 而不是 BatchNorm？"
+            )}
+          >
+            <div className="space-y-4 text-sm">
+              <div className="grid gap-3">
+                <div className="p-3 bg-red-50 rounded-lg border border-red-200 dark:bg-red-900/20 dark:border-red-700/40">
+                  <p className="font-semibold text-red-800 mb-1">{t("BatchNorm — normalizes across batch dimension", "BatchNorm — 跨 batch 维度归一化")}</p>
+                  <p className="mb-0 text-red-900 dark:text-red-200">
+                    {t(
+                      "For each feature dimension, normalize across the batch. Requires a large batch to estimate stable statistics. Fails for variable-length sequences — padding tokens corrupt batch statistics.",
+                      "对每个特征维度，跨 batch 归一化。需要较大 batch 估计稳定统计量。变长序列下 padding token 会污染 batch 统计量，效果差。"
+                    )}
+                  </p>
+                </div>
+                <div className="p-3 bg-green-50 rounded-lg border border-green-200 dark:bg-green-900/20 dark:border-green-700/40">
+                  <p className="font-semibold text-green-800 mb-1">{t("LayerNorm — normalizes across feature dimension", "LayerNorm — 跨特征维度归一化")}</p>
+                  <p className="mb-0 text-green-900 dark:text-green-200">
+                    {t(
+                      "For each token, normalize across its feature vector. Independent of batch size and sequence length. Works identically during training and inference — no need to track running statistics.",
+                      "对每个 token，跨其特征向量归一化。与 batch 大小和序列长度无关。训练和推理行为完全一致，无需维护滑动统计量。"
+                    )}
+                  </p>
+                </div>
+              </div>
+              <KeyInsight
+                en="LayerNorm normalizes each token independently — it doesn't care about batch size or sequence length, making it the natural choice for autoregressive and variable-length sequence models."
+                zh="LayerNorm 对每个 token 独立归一化，与 batch 大小和序列长度无关，天然适合自回归和变长序列模型。"
+                t={t}
+              />
+            </div>
+          </Collapsible>
+
+          {/* Q16 */}
+          <Collapsible
+            title={t(
+              "Q16: How does Adam work? What does AdamW fix?",
+              "问16：Adam 的原理？AdamW 修复了什么问题？"
+            )}
+          >
+            <div className="space-y-4 text-sm">
+              <p>
+                {t(
+                  "Adam maintains two moving averages per parameter: first moment m (mean of gradients, like momentum) and second moment v (mean of squared gradients, like RMSProp). These are used to compute an adaptive per-parameter learning rate.",
+                  "Adam 为每个参数维护两个移动平均值：一阶矩 m（梯度均值，类似动量）和二阶矩 v（梯度平方均值，类似 RMSProp）。用于计算自适应的逐参数学习率。"
+                )}
+              </p>
+              <Math
+                display
+                label={t("Adam update rule", "Adam 更新规则")}
+                tex="m_t = \beta_1 m_{t-1} + (1-\beta_1)g_t \quad v_t = \beta_2 v_{t-1} + (1-\beta_2)g_t^2 \quad \theta_t = \theta_{t-1} - \frac{\eta}{\sqrt{\hat{v}_t}+\epsilon}\hat{m}_t"
+              />
+              <p className="text-paper-800/70 dark:text-slate-400 text-xs">
+                {t("Typical defaults: β₁=0.9, β₂=0.999, ε=1e-8. Bias correction: m̂ = m/(1−β₁ᵗ), v̂ = v/(1−β₂ᵗ).", "典型默认值：β₁=0.9，β₂=0.999，ε=1e-8。偏差修正：m̂ = m/(1−β₁ᵗ)，v̂ = v/(1−β₂ᵗ)。")}
+              </p>
+              <div className="p-3 bg-violet-50 rounded-lg border border-violet-200 dark:bg-violet-900/20 dark:border-violet-700/40">
+                <p className="font-semibold text-violet-800 mb-1">{t("AdamW: decoupled weight decay", "AdamW：解耦权重衰减")}</p>
+                <p className="mb-0 text-violet-900 dark:text-violet-200">
+                  {t(
+                    "Standard Adam applies L2 regularization by adding λθ to the gradient before the update. This interacts with the adaptive scaling, making regularization weaker for parameters with large gradients. AdamW decouples weight decay — applies it directly to weights after the gradient step: θ ← θ − η(Adam step) − ηλθ. This is the standard for LLM training.",
+                    "标准 Adam 将 L2 正则通过在梯度中加入 λθ 实现，与自适应缩放耦合，导致大梯度参数的正则效果减弱。AdamW 解耦权重衰减 — 在梯度更新后直接对权重施加：θ ← θ − η(Adam步骤) − ηλθ。这是 LLM 训练的标准选择。"
+                  )}
+                </p>
+              </div>
+            </div>
+          </Collapsible>
         </div>
 
         {/* ════════════════════════════════════════════
@@ -627,6 +948,73 @@ export default function InterviewPage() {
               <KeyInsight
                 en="Why does it work? Fine-tuning tasks have low intrinsic dimensionality — the meaningful weight changes live in a low-rank subspace of the full parameter space."
                 zh="为何有效？微调任务的内在维度低 — 有意义的权重变化位于全参数空间的低秩子空间中。"
+                t={t}
+              />
+
+              <Collapsible title={t("Deep dive: r, α, and initialization", "深入：r、α 与初始化")} defaultOpen={false}>
+                <div className="space-y-4 text-sm">
+                  <div className="grid gap-3">
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200 dark:bg-blue-900/20 dark:border-blue-700/40">
+                      <p className="font-semibold text-blue-800 mb-1">{t("r — Rank", "r — 秩")}</p>
+                      <p className="mb-0 text-blue-900 dark:text-blue-200">
+                        {t("Controls expressiveness. Typical values: 4, 8, 16. Surprisingly low ranks (r=4) match full fine-tuning quality on many tasks. Larger r helps complex, high-diversity tasks. Increasing r increases parameters linearly: 2 × d × r per matrix.", "控制表达能力。典型值：4、8、16。极低的秩（r=4）在很多任务上能匹配全量微调效果。复杂多样性任务需要更大的 r。参数量随 r 线性增加：每个矩阵 2 × d × r。")}
+                      </p>
+                    </div>
+                    <div className="p-3 bg-violet-50 rounded-lg border border-violet-200 dark:bg-violet-900/20 dark:border-violet-700/40">
+                      <p className="font-semibold text-violet-800 mb-1">{t("α — Scaling factor", "α — 缩放因子")}</p>
+                      <p className="mb-0 text-violet-900 dark:text-violet-200">
+                        {t("Scales the LoRA output by α/r before adding to the base weight. Increasing r (with fixed α) shrinks the effective learning rate automatically, preventing instability. Common convention: set α = r for the first run. Tuning α is equivalent to tuning learning rate for LoRA modules.", "以 α/r 缩放 LoRA 输出再叠加到基础权重。增大 r（固定 α）时，有效学习率自动减小，防止训练不稳定。惯例：第一次实验设 α = r。调整 α 等价于为 LoRA 模块调整学习率。")}
+                      </p>
+                    </div>
+                    <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-700/40">
+                      <p className="font-semibold text-emerald-800 mb-2">{t("Initialization: why B=0, A∼Gaussian?", "初始化：为何 B=0，A∼高斯？")}</p>
+                      <p className="mb-2 text-emerald-900 dark:text-emerald-200">
+                        {t("Goal: ΔW = BA = 0 at the start of training, so the model begins from the pre-trained checkpoint with no disturbance. But both matrices must have non-zero gradients.", "目标：训练开始时 ΔW = BA = 0，使模型从预训练检查点无扰动启动。但两个矩阵都需要有非零梯度。")}
+                      </p>
+                      <div className="text-xs text-emerald-800/80 dark:text-emerald-200/80 space-y-1">
+                        <p>
+                          {t("• B=0, A~Gaussian: BA=0 ✓, gradient w.r.t B = (Ax)ᵀ ≠ 0 ✓ — B can learn immediately.", "• B=0，A∼高斯：BA=0 ✓，B 的梯度 = (Ax)ᵀ ≠ 0 ✓ — B 能立即学习。")}
+                        </p>
+                        <p>
+                          {t("• A=0, B~Gaussian: BA=0 ✓ but gradient w.r.t B = (Ax)ᵀ = 0 — B gets no useful gradient. Training stalls.", "• A=0，B∼高斯：BA=0 ✓，但 B 的梯度 = (Ax)ᵀ = 0 — B 无法获得有效梯度，训练卡死。")}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Collapsible>
+            </div>
+          </Collapsible>
+
+          {/* Q10b: PEFT methods */}
+          <Collapsible
+            title={t(
+              "Q10b: What other PEFT methods exist besides LoRA?",
+              "问10b：除 LoRA 外还有哪些 PEFT 方法？"
+            )}
+          >
+            <div className="space-y-3 text-sm">
+              <div className="grid gap-3">
+                <div className="p-3 bg-paper-50 rounded-lg border border-paper-200 dark:bg-slate-800 dark:border-slate-700">
+                  <p className="font-semibold mb-1">LoRA / QLoRA</p>
+                  <p className="mb-0 text-paper-800/70 dark:text-slate-400">{t("Low-rank weight update. No inference latency (merge at deploy time). QLoRA adds 4-bit base model quantization for consumer GPU fine-tuning.", "低秩权重更新。无推理延迟（部署时合并）。QLoRA 加入 4-bit 量化使消费级显卡可微调。")}</p>
+                </div>
+                <div className="p-3 bg-paper-50 rounded-lg border border-paper-200 dark:bg-slate-800 dark:border-slate-700">
+                  <p className="font-semibold mb-1">{t("Adapter", "Adapter 层")}</p>
+                  <p className="mb-0 text-paper-800/70 dark:text-slate-400">{t("Small bottleneck MLP inserted between Transformer sublayers. Simple, but adds serial computation → inference latency. Cannot be merged away.", "在 Transformer 子层间插入小型瓶颈 MLP。简单，但引入串行计算 → 推理延迟，无法消除。")}</p>
+                </div>
+                <div className="p-3 bg-paper-50 rounded-lg border border-paper-200 dark:bg-slate-800 dark:border-slate-700">
+                  <p className="font-semibold mb-1">Prefix Tuning / Prompt Tuning</p>
+                  <p className="mb-0 text-paper-800/70 dark:text-slate-400">{t("Prepend learnable soft tokens to the input or to every layer's KV. No weight changes. But reduces effective context length and underperforms LoRA on most tasks.", "在输入或每层 KV 前追加可学习软 token。不修改权重，但会占用有效上下文长度，多数任务不如 LoRA。")}</p>
+                </div>
+                <div className="p-3 bg-paper-50 rounded-lg border border-paper-200 dark:bg-slate-800 dark:border-slate-700">
+                  <p className="font-semibold mb-1">(IA)³</p>
+                  <p className="mb-0 text-paper-800/70 dark:text-slate-400">{t("Infused Adapter by Inhibiting and Amplifying Inner Activations. Learns element-wise rescaling vectors for K, V, FFN. Even fewer parameters than LoRA, but less expressive.", "通过抑制和放大内部激活注入适配器。对 K、V、FFN 学习逐元素缩放向量。参数比 LoRA 更少，但表达能力较弱。")}</p>
+                </div>
+              </div>
+              <KeyInsight
+                en="LoRA dominates in practice because: (1) no inference overhead, (2) good quality, (3) easy to implement. QLoRA made it accessible on a single consumer GPU."
+                zh="LoRA 在实践中占主导：①无推理开销，②效果好，③易实现。QLoRA 让单张消费级显卡也能微调大模型。"
                 t={t}
               />
             </div>
@@ -739,6 +1127,86 @@ export default function InterviewPage() {
                   </p>
                 </div>
               </Collapsible>
+            </div>
+          </Collapsible>
+
+          {/* Q17 */}
+          <Collapsible
+            title={t(
+              "Q17: What is SwiGLU and why do modern LLMs use it over ReLU/GELU?",
+              "问17：什么是 SwiGLU，为何现代 LLM 用它替代 ReLU/GELU？"
+            )}
+          >
+            <div className="space-y-4 text-sm">
+              <p>
+                {t(
+                  "The standard Transformer FFN applies two linear layers with a single activation: FFN(x) = max(0, xW₁+b₁)W₂+b₂. SwiGLU replaces this with a gated architecture using three weight matrices.",
+                  "标准 Transformer FFN 在两个线性层间使用单一激活：FFN(x) = max(0, xW₁+b₁)W₂+b₂。SwiGLU 用三个权重矩阵替换为门控架构。"
+                )}
+              </p>
+              <Math
+                display
+                label={t("SwiGLU FFN", "SwiGLU FFN")}
+                tex="\text{FFN}_{\text{SwiGLU}}(x) = \bigl(\text{Swish}(xW) \odot xV\bigr) W_2 \quad \text{where Swish}(x) = x \cdot \sigma(x)"
+              />
+              <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-700/40">
+                <p className="font-semibold text-emerald-800 mb-2">{t("Why better?", "为何更优？")}</p>
+                <ul className="list-disc pl-5 space-y-1 mb-0 text-emerald-900 dark:text-emerald-200">
+                  <li>{t("Gate mechanism: the V branch controls information flow — learns to select which activations are relevant.", "门控机制：V 分支控制信息流，学习筛选相关激活。")}</li>
+                  <li>{t("Swish is smooth and non-monotonic, unlike ReLU's hard zero gate. Empirically outperforms ReLU and GELU on language modeling.", "Swish 平滑且非单调，不像 ReLU 的硬零门。在语言建模上经验表现优于 ReLU 和 GELU。")}</li>
+                  <li>{t("Used by: LLaMA, PaLM, Gemma, Mistral, Qwen. Standard for modern open-weights LLMs.", "使用模型：LLaMA、PaLM、Gemma、Mistral、Qwen。现代开源 LLM 的标准选择。")}</li>
+                </ul>
+              </div>
+              <p className="text-paper-800/60 dark:text-slate-400 text-xs">
+                {t("Note: SwiGLU uses 3 matrices vs 2, so the intermediate dim is typically reduced to 2/3 × 4d to keep FLOPs equal.", "注意：SwiGLU 使用 3 个矩阵而非 2 个，因此中间维度通常缩减为 2/3 × 4d 以保持 FLOPs 不变。")}
+              </p>
+            </div>
+          </Collapsible>
+
+          {/* Q18 */}
+          <Collapsible
+            title={t(
+              "Q18: How does Mixture of Experts (MoE) work?",
+              "问18：混合专家（MoE）的工作原理？"
+            )}
+          >
+            <div className="space-y-4 text-sm">
+              <p>
+                {t(
+                  "MoE replaces each dense FFN layer with N expert FFNs and a router. For each token, the router selects the top-k experts (typically k=1 or k=2) and routes the token only to those experts. The output is the weighted sum of selected expert outputs.",
+                  "MoE 将每个密集 FFN 层替换为 N 个专家 FFN 和一个路由器。对每个 token，路由器选择 top-k 个专家（通常 k=1 或 k=2），只将 token 路由到这些专家。输出是所选专家输出的加权和。"
+                )}
+              </p>
+              <Math
+                display
+                label={t("MoE output", "MoE 输出")}
+                tex="\text{MoE}(x) = \sum_{i \in \text{top-k}} G_i(x) \cdot E_i(x) \quad G(x) = \text{Softmax}(\text{TopK}(xW_g))"
+              />
+              <div className="grid gap-3">
+                <div className="p-3 bg-blue-50 rounded-lg border border-blue-200 dark:bg-blue-900/20 dark:border-blue-700/40">
+                  <p className="font-semibold text-blue-800 mb-1">{t("Key advantage", "核心优势")}</p>
+                  <p className="mb-0 text-blue-900 dark:text-blue-200">
+                    {t(
+                      "More parameters, same compute. Mixtral 8x7B has 46.7B total parameters but only activates ~13B per token — inference cost of a 13B dense model with quality closer to a 47B model.",
+                      "更多参数，相同计算量。Mixtral 8x7B 共 46.7B 参数，每个 token 只激活约 13B — 推理成本等同 13B 密集模型，质量接近 47B 模型。"
+                    )}
+                  </p>
+                </div>
+                <div className="p-3 bg-amber-50 rounded-lg border border-amber-200 dark:bg-amber-900/20 dark:border-amber-700/40">
+                  <p className="font-semibold text-amber-800 mb-1">{t("Load balancing problem", "负载均衡问题")}</p>
+                  <p className="mb-0 text-amber-900 dark:text-amber-200">
+                    {t(
+                      "Without regularization, the router collapses — a few experts receive all tokens ('rich get richer'). The auxiliary load balancing loss penalizes uneven expert utilization: L_balance = α · N · Σᵢ fᵢ·Pᵢ, where fᵢ is the fraction of tokens routed to expert i.",
+                      "没有正则化，路由器会坍塌 — 少数专家收到全部 token（马太效应）。辅助负载均衡损失惩罚不均匀的专家使用率：L_balance = α · N · Σᵢ fᵢ·Pᵢ，其中 fᵢ 是路由到专家 i 的 token 比例。"
+                    )}
+                  </p>
+                </div>
+              </div>
+              <KeyInsight
+                en="Models: Mixtral 8x7B (top-2 routing), DeepSeek-MoE (fine-grained, 64 experts), Switch Transformer (top-1). MoE is why DeepSeek-V3 (671B total, 37B active) is competitive with dense frontier models."
+                zh="代表模型：Mixtral 8x7B（top-2 路由）、DeepSeek-MoE（细粒度，64 专家）、Switch Transformer（top-1）。MoE 是 DeepSeek-V3（共 671B，激活 37B）能与密集前沿模型竞争的原因。"
+                t={t}
+              />
             </div>
           </Collapsible>
         </div>
@@ -908,14 +1376,105 @@ export default function InterviewPage() {
           </Collapsible>
         </div>
 
+        {/* ════════════════════════════════════════════
+            SECTION 5 — INFERENCE & DEPLOYMENT
+        ════════════════════════════════════════════ */}
+        <div id="inference">
+          <SectionHeader
+            number="05"
+            en="Inference & Deployment"
+            zh="推理与部署"
+            color="blue"
+            t={t}
+          />
+
+          {/* Q19 */}
+          <Collapsible
+            title={t(
+              "Q19: What is LLM quantization? Compare INT8 and INT4.",
+              "问19：什么是 LLM 量化？比较 INT8 与 INT4。"
+            )}
+          >
+            <div className="space-y-4 text-sm">
+              <p>
+                {t(
+                  "Quantization reduces model precision from FP16/BF16 to lower-bit integer formats to save memory and accelerate inference. The two main approaches are Post-Training Quantization (PTQ) — quantize after training, no gradient needed — and Quantization-Aware Training (QAT) — simulate quantization during training.",
+                  "量化将模型精度从 FP16/BF16 降低到低位整数格式，以节省内存并加速推理。主要分两类：训练后量化（PTQ）— 训练后量化，无需梯度；量化感知训练（QAT）— 训练中模拟量化。"
+                )}
+              </p>
+              <div className="grid gap-3">
+                <div className="p-3 bg-blue-50 rounded-lg border border-blue-200 dark:bg-blue-900/20 dark:border-blue-700/40">
+                  <p className="font-semibold text-blue-800 mb-1">{t("W8A8 (INT8 weights + activations)", "W8A8（INT8 权重 + 激活）")}</p>
+                  <p className="mb-0 text-blue-900 dark:text-blue-200">
+                    {t(
+                      "2× memory reduction vs FP16. Near-lossless quality for most tasks. Used by: LLM.int8() (bitsandbytes), SmoothQuant. Supported natively on modern NVIDIA GPUs (tensor cores).",
+                      "相比 FP16 内存减半。大多数任务质量几乎无损。代表方案：LLM.int8()（bitsandbytes）、SmoothQuant。现代 NVIDIA GPU 原生支持（Tensor Core）。"
+                    )}
+                  </p>
+                </div>
+                <div className="p-3 bg-violet-50 rounded-lg border border-violet-200 dark:bg-violet-900/20 dark:border-violet-700/40">
+                  <p className="font-semibold text-violet-800 mb-1">{t("W4A16 (INT4 weights, FP16 activations)", "W4A16（INT4 权重，FP16 激活）")}</p>
+                  <p className="mb-0 text-violet-900 dark:text-violet-200">
+                    {t(
+                      "4× memory reduction vs FP16 for weights. Small quality degradation if done carefully. Representative methods: GPTQ (layer-by-layer Hessian-guided quantization), AWQ (activations-aware weight quantization — scales weights by activation magnitude). GGUF format used by llama.cpp.",
+                      "权重相比 FP16 内存减少 4 倍。谨慎操作下质量损失较小。代表方案：GPTQ（逐层 Hessian 引导量化）、AWQ（激活感知权重量化 — 按激活幅度缩放权重）。llama.cpp 使用 GGUF 格式。"
+                    )}
+                  </p>
+                </div>
+              </div>
+              <KeyInsight
+                en="Rule of thumb: a 7B FP16 model needs ~14 GB VRAM. INT8 → ~7 GB. INT4 → ~4 GB. This determines which consumer GPU can run it."
+                zh="经验法则：7B FP16 模型约需 14 GB 显存。INT8 → 约 7 GB。INT4 → 约 4 GB。这决定了哪款消费级显卡能跑起来。"
+                t={t}
+              />
+            </div>
+          </Collapsible>
+
+          {/* Q20 */}
+          <Collapsible
+            title={t(
+              "Q20: How does speculative decoding work?",
+              "问20：投机采样（Speculative Decoding）的工作原理？"
+            )}
+          >
+            <div className="space-y-4 text-sm">
+              <p>
+                {t(
+                  "Autoregressive generation is memory-bandwidth-bound: the large model runs one forward pass per token, but GPUs are underutilized because the batch size is 1. Speculative decoding uses a small, fast draft model to propose multiple tokens at once, then verifies them in a single parallel pass of the large model.",
+                  "自回归生成受内存带宽瓶颈限制：大模型每 token 进行一次前向传播，但 batch size 为 1 导致 GPU 利用率低。投机采样使用一个小型快速草稿模型一次提出多个 token，然后用大模型一次并行验证。"
+                )}
+              </p>
+              <div className="space-y-2">
+                {[
+                  { step: "1", en: "Draft model generates k tokens autoregressively (fast, cheap).", zh: "草稿模型自回归生成 k 个 token（快速、低成本）。" },
+                  { step: "2", en: "Target (large) model scores all k+1 positions in one forward pass — same cost as generating 1 token.", zh: "目标（大）模型一次前向传播对全部 k+1 个位置打分 — 代价等同生成 1 个 token。" },
+                  { step: "3", en: "Accept/reject each draft token via a sampling criterion that preserves the target distribution exactly.", zh: "通过采样准则对每个草稿 token 接受/拒绝，精确保持目标分布不变。" },
+                  { step: "4", en: "If all k accepted: k+1 tokens generated at the cost of ~1 large model pass.", zh: "若全部 k 个被接受：以约 1 次大模型前向传播的代价生成 k+1 个 token。" },
+                ].map(({ step, en, zh }) => (
+                  <div key={step} className="flex gap-3 p-3 bg-paper-50 rounded-lg border border-paper-200 dark:bg-slate-800/50 dark:border-slate-700">
+                    <span className="flex-shrink-0 inline-flex items-center justify-center w-6 h-6 rounded-full bg-paper-900 dark:bg-slate-600 text-white text-xs font-bold">{step}</span>
+                    <p className="mb-0 text-paper-800/80 dark:text-slate-300">{t(en, zh)}</p>
+                  </div>
+                ))}
+              </div>
+              <KeyInsight
+                en="Speedup factor ≈ expected acceptance length. Works best when draft and target agree often (same family, e.g., LLaMA-68M drafting for LLaMA-70B). Used in production by Google, Meta, and others. Self-speculative decoding uses early exit layers of the same model as the draft."
+                zh="加速倍数 ≈ 预期接受长度。草稿与目标分布越接近效果越好（如同系列模型：LLaMA-68M 为 LLaMA-70B 起草）。已被 Google、Meta 等用于生产环境。自投机解码用同模型早退出层作为草稿。"
+                t={t}
+              />
+            </div>
+          </Collapsible>
+        </div>
+
         {/* ── Footer note ── */}
         <div className="mt-16 pt-6 border-t border-paper-200 text-xs text-paper-800/40">
           {t(
-            "14 questions across 4 categories. More questions coming soon.",
-            "4 个类别共 14 题。更多题目即将添加。"
+            "20 questions across 5 categories. More coming soon.",
+            "5 个类别共 20 题。持续更新中。"
           )}
         </div>
       </article>
+      </section>
     </div>
   );
 }

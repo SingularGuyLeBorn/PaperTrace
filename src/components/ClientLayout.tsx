@@ -66,7 +66,7 @@ function Header() {
             {t("Resources", "资源")}
           </a>
           <a href={`${basePath}/interview`} className="text-paper-800/60 dark:text-slate-400 hover:text-paper-800 dark:hover:text-slate-100 transition-colors hidden sm:block">
-            {t("Interview", "八股题")}
+            {t("Job Hunt", "找工")}
           </a>
           <div className="w-px h-4 bg-paper-200 dark:bg-slate-700 hidden sm:block" />
           <button

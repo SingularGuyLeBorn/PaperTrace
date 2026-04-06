@@ -263,6 +263,7 @@ export default function Home() {
   const { t, lang } = useLang();
   const basePath = process.env.NODE_ENV === "production" ? "/PaperTrace" : "";
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(["dllm"]));
+  const [timelineOpen, setTimelineOpen] = useState(false);
   const toggleSection = (id: string) =>
     setExpandedSections((prev) => {
       const next = new Set(prev);
@@ -306,37 +307,6 @@ export default function Home() {
         ))}
       </div>
 
-      {/* AI Timeline link card */}
-      <div className="mb-8">
-        <a href={`${basePath}/timeline`}
-          className="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200 dark:border-blue-800/40 rounded-xl hover:shadow-md hover:border-blue-300 dark:hover:border-blue-600/50 transition-all group">
-          <div>
-            <p className="font-bold text-base group-hover:text-blue-700 dark:text-slate-100 dark:group-hover:text-blue-400 transition-colors">
-              {t("AI Model Timeline →", "AI 大模型时间线 →")}
-            </p>
-            <p className="text-xs text-paper-800/50 dark:text-slate-500 mt-0.5">
-              {t("LLMs · DLLMs · VLMs · Agents — filterable by org and type", "大语言模型 · 扩散模型 · 视觉语言模型 · 智能体 — 可按机构和类型筛选")}
-            </p>
-          </div>
-          <span className="text-2xl">📅</span>
-        </a>
-      </div>
-
-      {/* DLLM Timeline swimlane */}
-      <section className="pb-10">
-        <div className="flex items-center justify-between mb-3">
-          <div>
-            <h2 className="text-xl font-bold tracking-tight dark:text-slate-100">
-              {t("Diffusion LM Timeline", "扩散语言模型时间线")}
-            </h2>
-            <p className="text-sm text-paper-800/50 dark:text-slate-500 mt-0.5">
-              {t("From D3PM (2021) to multimodal frontiers (2025). ★ = deep-dive on PaperTrace.", "从 D3PM (2021) 到多模态前沿 (2025)。★ = PaperTrace 有精读。")}
-            </p>
-          </div>
-        </div>
-        <DLLMTimeline />
-      </section>
-
       {/* Sections — collapsible */}
       <div className="pb-10 space-y-4">
         {sections.map((section) => {
@@ -364,6 +334,30 @@ export default function Home() {
             </button>
             {isOpen && (
             <div className="px-6 pb-6 pt-2 bg-paper-50/50 dark:bg-slate-900/40 space-y-4">
+              {/* DLLM Timeline — collapsible, only shown in the dllm section */}
+              {section.id === "dllm" && (
+                <div className="border border-paper-200 dark:border-slate-700 rounded-lg overflow-hidden mb-2">
+                  <button
+                    onClick={() => setTimelineOpen((v) => !v)}
+                    className="w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-slate-800 hover:bg-paper-50 dark:hover:bg-slate-700 transition-colors text-left"
+                  >
+                    <div>
+                      <span className="text-sm font-semibold dark:text-slate-100">
+                        {t("Diffusion LM Timeline", "扩散语言模型时间线")}
+                      </span>
+                      <span className="text-xs text-paper-800/40 dark:text-slate-500 ml-2">
+                        {t("D3PM (2021) → present", "D3PM (2021) → 至今")}
+                      </span>
+                    </div>
+                    <span className={`text-paper-800/40 dark:text-slate-600 transition-transform duration-200 text-xs ${timelineOpen ? "rotate-180" : ""}`}>▼</span>
+                  </button>
+                  {timelineOpen && (
+                    <div className="border-t border-paper-200 dark:border-slate-700 bg-white dark:bg-slate-800/60">
+                      <DLLMTimeline />
+                    </div>
+                  )}
+                </div>
+              )}
               {section.papers.map((paper, idx) => (
                 <Link
                   key={paper.slug}

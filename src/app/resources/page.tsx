@@ -7,7 +7,7 @@ interface Resource {
   desc: string;
   descZh: string;
   href: string;
-  type: "youtube" | "bilibili" | "xiaohongshu" | "wechat" | "newsletter" | "podcast" | "blog" | "tool" | "bookmark";
+  type: "youtube" | "bilibili" | "xiaohongshu" | "wechat" | "newsletter" | "podcast" | "blog" | "tool" | "bookmark" | "twitter";
   tags?: string[];
   recommended?: boolean;
   note?: string;
@@ -29,7 +29,7 @@ const resources: Resource[] = [
   // Bilibili
   { name: "跟李沐学AI", href: "https://space.bilibili.com/1567748478", type: "bilibili",
     desc: "Best Chinese ML content. Paper reading sessions, course lectures, intuitive explanations.", descZh: "中文最好的 ML 内容。论文精读、课程讲座、直觉讲解。", recommended: true, tags: ["Chinese", "Paper Reading", "Course"] },
-  { name: "张小珺Jungle", href: "https://space.bilibili.com/280780745", type: "bilibili",
+  { name: "张小珺商业访谈录", href: "https://space.bilibili.com/280780745", type: "bilibili",
     desc: "In-depth interviews with AI startup founders and researchers — Kimi, DeepSeek, major tech AI leads. Also on Xiaoyuzhou podcast.", descZh: "深度访谈 AI 创业者和研究者 — Kimi、DeepSeek、各大厂 AI 负责人。同时在小宇宙播客发布。", recommended: true, tags: ["Chinese", "Interview", "Startup"] },
   { name: "WhyNotTV (为什么不)", href: "https://space.bilibili.com/14145636", type: "bilibili",
     desc: "Science and tech explanations with great visualizations. Covers AI concepts accessibly for a broad audience.", descZh: "科技知识可视化讲解，AI 内容通俗易懂，适合广泛受众。", tags: ["Chinese", "Science", "Visualization"] },
@@ -60,6 +60,9 @@ const resources: Resource[] = [
     desc: "Chinese AI news + analysis. Covers both research papers and product launches.", descZh: "中文 AI 新闻 + 分析。同时报道研究论文和产品发布。", tags: ["News", "Chinese"] },
   { name: "PaperWeekly", href: "https://www.paperweekly.site", type: "wechat",
     desc: "Chinese ML paper summaries and reading groups. Community-driven.", descZh: "中文 ML 论文摘要和读书会。社区驱动。", tags: ["Paper Reading", "Chinese"], recommended: true },
+  // X / Twitter
+  { name: "罗浮力 (@_LuoFuli)", href: "https://x.com/_LuoFuli", type: "twitter",
+    desc: "Sharp takes on AI industry trends, startup moves, and product launches from a Chinese tech insider perspective.", descZh: "从中文科技圈视角对 AI 行业动态、创业动向和产品发布的精准点评。", tags: ["Chinese", "Industry", "X"] },
   // Blogs — International
   { name: "Lil'Log (Lilian Weng, OpenAI)", href: "https://lilianweng.github.io", type: "blog",
     desc: "Deep technical posts on RL, diffusion, and attention. The best technical summaries of entire subfields.", descZh: "关于 RL、扩散模型和注意力机制的深度技术文章。整个子领域最好的技术摘要。", recommended: true, tags: ["Survey", "LLM", "RL"] },
@@ -126,6 +129,7 @@ const typeConfig: Record<Resource["type"], { label: string; labelZh: string; ico
   blog: { label: "Blog", labelZh: "博客", icon: "✍️", color: "bg-teal-100 text-teal-700" },
   tool: { label: "Tool / Course", labelZh: "工具 / 课程", icon: "🔧", color: "bg-gray-100 text-gray-700" },
   bookmark: { label: "Bookmarks", labelZh: "收藏", icon: "🔖", color: "bg-amber-100 text-amber-700" },
+  twitter: { label: "X / Twitter", labelZh: "X / Twitter", icon: "𝕏", color: "bg-slate-100 text-slate-700" },
 };
 
 const sections: { type: Resource["type"] | Resource["type"][]; title: string; titleZh: string }[] = [
@@ -133,7 +137,7 @@ const sections: { type: Resource["type"] | Resource["type"][]; title: string; ti
   { type: "bilibili", title: "Bilibili (中文)", titleZh: "B 站 (中文)" },
   { type: "xiaohongshu", title: "小红书 (Xiaohongshu)", titleZh: "小红书 (Xiaohongshu)" },
   { type: "newsletter", title: "Newsletters", titleZh: "Newsletter" },
-  { type: ["wechat", "blog"], title: "Blogs & WeChat Accounts", titleZh: "博客 & 公众号" },
+  { type: ["wechat", "blog", "twitter"], title: "Blogs, WeChat & X", titleZh: "博客 & 公众号 & X" },
   { type: "podcast", title: "Podcasts", titleZh: "播客" },
   { type: "tool", title: "Tools for Learning & Visualization", titleZh: "学习工具 & 可视化" },
   { type: "bookmark", title: "Bookmarks & Favorites", titleZh: "收藏" },
@@ -150,8 +154,8 @@ export default function ResourcesPage() {
         </h1>
         <p className="text-base text-paper-800/60 dark:text-slate-400 max-w-2xl leading-relaxed">
           {t(
-            "Quality over quantity. These are the sources worth your time — curated for ML researchers and practitioners. ⭐ = particularly recommended.",
-            "质量优于数量。这些是值得你花时间的资源 — 为 ML 研究者和实践者精心整理。⭐ = 特别推荐。"
+            "Quality over quantity. These are the sources worth your time — curated for ML researchers and practitioners.",
+            "质量优于数量。这些是值得你花时间的资源 — 为 ML 研究者和实践者精心整理。"
           )}
         </p>
       </div>
@@ -180,7 +184,6 @@ export default function ResourcesPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap mb-1">
                           <span className="font-semibold text-sm dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{r.name}</span>
-                          {r.recommended && <span className="text-xs">⭐</span>}
                           <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${tc.color}`}>
                             {t(tc.label, tc.labelZh)}
                           </span>

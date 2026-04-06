@@ -195,7 +195,7 @@ export default function DailyPage() {
         <p className="text-paper-800/60 dark:text-slate-400 leading-relaxed max-w-2xl">
           {t(
             "Curated ML papers with one-line takes on why they matter.",
-            "精选 ML 论文，每篇附一句话点评。"
+            "精选 ML 论文"
           )}
         </p>
       </div>
