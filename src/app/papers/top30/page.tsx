@@ -348,14 +348,12 @@ const papers: Paper[] = [
 
 export default function Top30Page() {
   const { t, lang } = useLang();
-  const basePath = process.env.NODE_ENV === "production" ? "/PaperTrace" : "";
-
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
       {/* Header */}
       <header className="mb-10">
         <div className="flex items-center gap-2 mb-3">
-          <Link href={`${basePath}/`} className="text-sm text-paper-800/50 dark:text-slate-500 hover:text-blue-600 transition-colors">
+          <Link href="/" className="text-sm text-paper-800/50 dark:text-slate-500 hover:text-blue-600 transition-colors">
             ← {t("Home", "主页")}
           </Link>
         </div>
@@ -382,7 +380,7 @@ export default function Top30Page() {
       <div className="space-y-3">
         {papers.map((paper) => {
           const href = paper.slug
-            ? `${basePath}/papers/${paper.slug}`
+            ? `/papers/${paper.slug}`
             : paper.arXiv;
           const isInternal = !!paper.slug;
 
