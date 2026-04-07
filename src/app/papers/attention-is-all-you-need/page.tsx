@@ -675,7 +675,7 @@ export default function AttentionPage() {
           </div>
 
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/llada`} className="font-semibold text-blue-600 hover:underline">
+            <Link href={`/papers/llada`} className="font-semibold text-blue-600 hover:underline">
               LLaDA
             </Link>
             <p className="text-sm text-paper-800/70 mt-1">

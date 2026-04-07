@@ -138,13 +138,13 @@ export default function GRPOPage() {
         <h2>{t("4. Connections", "4. 与其他工作的联系")}</h2>
         <div className="space-y-3 my-4">
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/ppo`} className="font-semibold text-blue-600 hover:underline">PPO</Link>
+            <Link href={`/papers/ppo`} className="font-semibold text-blue-600 hover:underline">PPO</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t("GRPO's parent — same clipping mechanism but GRPO replaces the critic with group statistics.", "GRPO 的前身 — 相同的裁剪机制但 GRPO 用组统计量替代了 critic。")}
             </p>
           </div>
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/dpo`} className="font-semibold text-blue-600 hover:underline">DPO</Link>
+            <Link href={`/papers/dpo`} className="font-semibold text-blue-600 hover:underline">DPO</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t("Different approach: DPO removes RL entirely. GRPO keeps RL (online sampling) but simplifies it. GRPO is better for math/code; DPO is easier for general alignment.", "不同方法：DPO 完全移除 RL。GRPO 保留 RL (在线采样) 但简化了它。GRPO 对数学/代码更好；DPO 对通用对齐更容易。")}
             </p>

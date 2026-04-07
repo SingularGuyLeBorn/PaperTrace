@@ -113,13 +113,13 @@ export default function PPOPage() {
         <h2>{t("3. Connections", "3. 与其他工作的联系")}</h2>
         <div className="space-y-3 my-4">
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/dpo`} className="font-semibold text-blue-600 hover:underline">DPO</Link>
+            <Link href={`/papers/dpo`} className="font-semibold text-blue-600 hover:underline">DPO</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t("Eliminates PPO entirely by reparameterizing the reward — simpler but less flexible.", "通过重参数化奖励完全消除 PPO — 更简单但灵活性更低。")}
             </p>
           </div>
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/grpo`} className="font-semibold text-blue-600 hover:underline">GRPO</Link>
+            <Link href={`/papers/grpo`} className="font-semibold text-blue-600 hover:underline">GRPO</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t("Simplifies PPO by removing the critic/value network and using group-relative baselines.", "通过移除 critic/价值网络并使用组相对基线来简化 PPO。")}
             </p>

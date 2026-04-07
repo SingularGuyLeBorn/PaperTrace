@@ -362,7 +362,7 @@ export default function Home() {
               {section.papers.map((paper, idx) => (
                 <Link
                   key={paper.slug}
-                  href={`${basePath}/papers/${paper.slug}`}
+                  href={`/papers/${paper.slug}`}
                   className="block group"
                 >
                   <article className={`bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg p-6 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md dark:hover:shadow-blue-900/10 hover:-translate-y-0.5 transition-all duration-200 animate-fadeInUp ${(["delay-1","delay-2","delay-3","delay-4","delay-5"] as const)[Math.min(idx, 4)]}`}>

@@ -538,7 +538,7 @@ export default function ZephyrPage() {
 
         <div className="space-y-2 my-4">
           <div className="p-4 bg-white dark:bg-paper-900 border border-paper-200 dark:border-paper-700 rounded-lg">
-            <Link href={`${basePath}/papers/dpo`} className="font-semibold text-blue-600 hover:underline">
+            <Link href={`/papers/dpo`} className="font-semibold text-blue-600 hover:underline">
               {t("DPO Deep Dive", "DPO 深度解析")}
             </Link>
             <p className="text-sm text-paper-800/70 dark:text-paper-200/70 mt-1">
@@ -549,7 +549,7 @@ export default function ZephyrPage() {
             </p>
           </div>
           <div className="p-4 bg-white dark:bg-paper-900 border border-paper-200 dark:border-paper-700 rounded-lg">
-            <Link href={`${basePath}/papers/ppo`} className="font-semibold text-blue-600 hover:underline">
+            <Link href={`/papers/ppo`} className="font-semibold text-blue-600 hover:underline">
               {t("PPO Deep Dive", "PPO 深度解析")}
             </Link>
             <p className="text-sm text-paper-800/70 dark:text-paper-200/70 mt-1">

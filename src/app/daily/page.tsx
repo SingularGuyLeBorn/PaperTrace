@@ -445,7 +445,7 @@ export default function DailyPage() {
                                   <a href={`https://arxiv.org/abs/${paper.arxivId}`} target="_blank" rel="noopener noreferrer"
                                     className="text-xs text-paper-800/40 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">arXiv ↗</a>
                                   {paper.slug && (
-                                    <Link href={`${basePath}/papers/${paper.slug}`}
+                                    <Link href={`/papers/${paper.slug}`}
                                       className="text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium">
                                       {t("Deep-dive →", "精读 →")}
                                     </Link>

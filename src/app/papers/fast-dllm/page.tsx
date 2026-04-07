@@ -368,9 +368,9 @@ export default function FastDLLMPage() {
 
         <div className="space-y-3 my-4">
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/llada`} className="font-semibold text-blue-600 hover:underline">LLaDA</Link>
+            <Link href={`/papers/llada`} className="font-semibold text-blue-600 hover:underline">LLaDA</Link>
             <span className="text-xs text-paper-800/40 ml-2">/ </span>
-            <Link href={`${basePath}/papers/mdlm`} className="font-semibold text-blue-600 hover:underline">MDLM</Link>
+            <Link href={`/papers/mdlm`} className="font-semibold text-blue-600 hover:underline">MDLM</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t(
                 "Fast DLLM is compatible with any masked diffusion LM — it's a sampling strategy, not a new model. Drop it into LLaDA or MDLM for instant speedup.",
@@ -379,7 +379,7 @@ export default function FastDLLMPage() {
             </p>
           </div>
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/block-diffusion`} className="font-semibold text-blue-600 hover:underline">Block Diffusion</Link>
+            <Link href={`/papers/block-diffusion`} className="font-semibold text-blue-600 hover:underline">Block Diffusion</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t(
                 "Addresses speed from a different angle (block-level AR). Both can be combined: block diffusion with Fast DLLM's adaptive schedule within each block.",

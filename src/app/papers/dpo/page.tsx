@@ -261,13 +261,13 @@ export default function DPOPage() {
 
         <div className="space-y-3 my-4">
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/ppo`} className="font-semibold text-blue-600 hover:underline">PPO</Link>
+            <Link href={`/papers/ppo`} className="font-semibold text-blue-600 hover:underline">PPO</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t("The RL algorithm DPO replaces. PPO is more flexible but harder to tune.", "DPO 替代的 RL 算法。PPO 更灵活但更难调优。")}
             </p>
           </div>
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/grpo`} className="font-semibold text-blue-600 hover:underline">GRPO</Link>
+            <Link href={`/papers/grpo`} className="font-semibold text-blue-600 hover:underline">GRPO</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t("DeepSeek's PPO variant that uses group-relative advantages instead of a value network — a middle ground between PPO's flexibility and DPO's simplicity.", "DeepSeek 的 PPO 变体，使用组相对优势代替价值网络 — 介于 PPO 的灵活性和 DPO 的简单性之间。")}
             </p>

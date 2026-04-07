@@ -569,7 +569,7 @@ export default function LLaDAPage() {
 
         <div className="space-y-3 my-4">
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/mdlm`} className="font-semibold text-blue-600 hover:underline">MDLM</Link>
+            <Link href={`/papers/mdlm`} className="font-semibold text-blue-600 hover:underline">MDLM</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t(
                 "Provides the rigorous continuous-time ELBO theory that underpins LLaDA's training objective. MDLM's loss is essentially the same as LLaDA's, derived from first principles.",
@@ -578,7 +578,7 @@ export default function LLaDAPage() {
             </p>
           </div>
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/fast-dllm`} className="font-semibold text-blue-600 hover:underline">Fast DLLM</Link>
+            <Link href={`/papers/fast-dllm`} className="font-semibold text-blue-600 hover:underline">Fast DLLM</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t(
                 "Addresses LLaDA's main weakness — slow multi-step generation — with adaptive denoising schedules and importance sampling. Reduces steps by 3-10x.",
@@ -587,7 +587,7 @@ export default function LLaDAPage() {
             </p>
           </div>
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/block-diffusion`} className="font-semibold text-blue-600 hover:underline">Block Diffusion</Link>
+            <Link href={`/papers/block-diffusion`} className="font-semibold text-blue-600 hover:underline">Block Diffusion</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t(
                 "Combines AR and diffusion at the block level. Can be seen as a generalization of LLaDA where B=L is one extreme (full diffusion = LLaDA) and B=1 is the other (pure AR).",

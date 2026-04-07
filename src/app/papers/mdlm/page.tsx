@@ -327,7 +327,7 @@ export default function MDLMPage() {
 
         <div className="space-y-3 my-4">
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/llada`} className="font-semibold text-blue-600 hover:underline">LLaDA</Link>
+            <Link href={`/papers/llada`} className="font-semibold text-blue-600 hover:underline">LLaDA</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t(
                 "Scales up MDLM's framework to 8B parameters. Uses MDLM's training objective (with linear schedule). Proves that masked diffusion works at LLM scale.",
@@ -336,7 +336,7 @@ export default function MDLMPage() {
             </p>
           </div>
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/fast-dllm`} className="font-semibold text-blue-600 hover:underline">Fast DLLM</Link>
+            <Link href={`/papers/fast-dllm`} className="font-semibold text-blue-600 hover:underline">Fast DLLM</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t(
                 "Optimizes MDLM's inference speed using the ELBO decomposition that MDLM derives. The per-step L_t values come directly from MDLM's theory.",
@@ -345,7 +345,7 @@ export default function MDLMPage() {
             </p>
           </div>
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/block-diffusion`} className="font-semibold text-blue-600 hover:underline">Block Diffusion</Link>
+            <Link href={`/papers/block-diffusion`} className="font-semibold text-blue-600 hover:underline">Block Diffusion</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t(
                 "Uses MDLM's within-block diffusion framework combined with AR between blocks.",

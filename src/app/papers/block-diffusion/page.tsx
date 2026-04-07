@@ -529,7 +529,7 @@ export default function BlockDiffusionPage() {
 
         <div className="space-y-3 my-4">
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/llada`} className="font-semibold text-blue-600 hover:underline">LLaDA</Link>
+            <Link href={`/papers/llada`} className="font-semibold text-blue-600 hover:underline">LLaDA</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t(
                 "Can be seen as Block Diffusion with B = L (one giant block). LLaDA's training objective is a special case of the block diffusion loss.",
@@ -538,7 +538,7 @@ export default function BlockDiffusionPage() {
             </p>
           </div>
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/fast-dllm`} className="font-semibold text-blue-600 hover:underline">Fast DLLM</Link>
+            <Link href={`/papers/fast-dllm`} className="font-semibold text-blue-600 hover:underline">Fast DLLM</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t(
                 "Provides the adaptive denoising schedule and DualCache that Block Diffusion uses within each block. The two papers are complementary — Fast DLLM reduces T, Block Diffusion reduces the number of blocks.",
@@ -547,7 +547,7 @@ export default function BlockDiffusionPage() {
             </p>
           </div>
           <div className="p-4 bg-white border border-paper-200 rounded-lg">
-            <Link href={`${basePath}/papers/mdlm`} className="font-semibold text-blue-600 hover:underline">MDLM</Link>
+            <Link href={`/papers/mdlm`} className="font-semibold text-blue-600 hover:underline">MDLM</Link>
             <p className="text-sm text-paper-800/70 mt-1">
               {t(
                 "The continuous-time ELBO theory that underpins the within-block diffusion process. Block Diffusion uses MDLM's training framework.",

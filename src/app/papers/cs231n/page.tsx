@@ -773,7 +773,7 @@ export default function CS231nPage() {
             "ResNet (He et al., 2015) solved the degradation problem: deeper plain networks were harder to train, not better. Residual (skip) connections let the network learn F(x) = H(x) − x instead of H(x) directly, making the identity function easy to approximate and allowing gradients to flow directly to early layers. See the",
             "ResNet（He 等，2015）解决了退化问题：更深的普通网络更难训练，而不是更好。残差（跳跃）连接让网络学习 F(x) = H(x) − x 而不是直接学习 H(x)，使恒等函数易于近似，并允许梯度直接流向早期层。详见"
           )}{" "}
-          <Link href={`${basePath}/papers/resnet`} className="text-blue-600 hover:underline">
+          <Link href={`/papers/resnet`} className="text-blue-600 hover:underline">
             {t("dedicated ResNet page", "ResNet 专页")}
           </Link>{" "}
           {t("for a full derivation.", "以获取完整推导。")}
