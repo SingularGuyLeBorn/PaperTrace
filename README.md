@@ -2,7 +2,7 @@
 
 **Bilingual (EN/ZH) ML learning resource** — paper deep-dives, job hunt tools, curated resources, and an AI timeline.
 
-Live site: [papertrace on GitHub Pages](https://jinya-jiang.github.io/PaperTrace)
+Live site: [PaperTrace on GitHub Pages](https://yayajjiang.github.io/PaperTrace)
 
 ---
 
@@ -54,7 +54,7 @@ Each paper gets a full breakdown with formula walkthroughs, interactive widgets,
 ## Local Development
 
 ```bash
-git clone https://github.com/jinya-jiang/PaperTrace.git
+git clone https://github.com/yayajjiang/PaperTrace.git
 cd PaperTrace
 npm install
 npm run dev
