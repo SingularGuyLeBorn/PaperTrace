@@ -105,6 +105,8 @@ const resources: Resource[] = [
     desc: "Free NLP/diffusion courses with code. Practical and up-to-date with current ecosystem.", descZh: "免费的 NLP/扩散模型课程，含代码。实用且与当前生态同步。", recommended: true, tags: ["NLP", "Course", "Free"] },
   { name: "Fast.ai", href: "https://www.fast.ai", type: "tool",
     desc: "Practical DL course with a top-down approach. Start coding immediately, understand theory later.", descZh: "自上而下的实用深度学习课程。立即开始编码，之后再理解理论。", tags: ["Course", "Practical"] },
+  { name: "The Missing Semester of Your CS Education (MIT)", href: "https://missing.csail.mit.edu/", type: "tool",
+    desc: "MIT course covering the tools CS programs never teach: shell, scripting, Git, Vim, tmux, debugging, profiling, and more. Essential for anyone who spends time at a terminal.", descZh: "MIT 课程，覆盖 CS 专业从不教的工具：shell、脚本、Git、Vim、tmux、调试、性能分析等。任何要在终端工作的人必看。", recommended: true, tags: ["Course", "Tools", "Free", "MIT"] },
   { name: "Weights & Biases Blog", href: "https://wandb.ai/fully-connected", type: "tool",
     desc: "ML practitioner blog with great tutorials on training, experiment tracking, and LLM fine-tuning.", descZh: "ML 实践者博客，有关于训练、实验跟踪和 LLM 微调的优质教程。", tags: ["Tutorial", "MLOps"] },
   { name: "MiniMind", href: "https://www.minimind.wiki/", type: "tool",
@@ -119,6 +121,8 @@ const resources: Resource[] = [
     recommended: true, tags: ["Transformer", "Visualization", "Interactive"] },
 
   // Bookmarks
+  { name: "How To Ask Questions The Smart Way", href: "http://www.catb.org/~esr/faqs/smart-questions.html", type: "bookmark",
+    desc: "Eric Raymond's classic guide on how to ask technical questions effectively in open source communities. Required reading before posting on Stack Overflow or any mailing list.", descZh: "Eric Raymond 的经典指南：如何在开源社区高效提问。在 Stack Overflow 或任何邮件列表发帖前的必读文章。", tags: ["Classic", "Community", "Communication"] },
   { name: "人生不可 DP，但别永远贪心", href: "https://hawstein.com/2019/04/24/life-cannot-dp-but-dont-be-always-greedy/", type: "bookmark",
     desc: "Uses DP and greedy algorithm metaphors to argue that always picking the locally optimal option traps you in a local optimum. Recommends introducing random perturbations to escape it.",
     descZh: "用动态规划和贪心算法类比人生决策，指出贪心策略会陷入局部最优。建议主动引入随机扰动，偶尔放弃眼前最优，获得更广阔的可能性。",
