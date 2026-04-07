@@ -292,6 +292,7 @@ export default function Home() {
       <div className="flex flex-wrap gap-3 pb-10 -mt-4">
         {[
           { href: `${basePath}/daily`, icon: "📰", label: t("Paper Feed", "论文推荐"), desc: t("Daily picks", "每日精选") },
+          { href: `${basePath}/papers/top30`, icon: "📋", label: t("Ilya's Top 30", "Ilya 必读 30 篇"), desc: t("Sutskever's reading list", "Sutskever 私人书单") },
           { href: `${basePath}/guide`, icon: "🗺️", label: t("Research Guide", "科研指南"), desc: t("How to read papers", "如何读论文") },
           { href: `${basePath}/resources`, icon: "📚", label: t("Resources", "学习资源"), desc: t("YouTube, blogs, newsletters", "YouTube / B 站 / 公众号") },
         ].map((item) => (

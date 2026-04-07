@@ -294,7 +294,7 @@ export default function ClipPage() {
           <li>
             {t(
               "For each class label c, construct a prompt: \"a photo of a {c}\" and encode it with the text encoder to get T_c.",
-              "对于每个类标签 c，构造一个提示：\"a photo of a {c}\"，并用文本编码器对其进行编码得到 T_c。"
+              "对于每个类标签 c，构造一个提示：\"a photo of a {c}\」，并用文本编码器对其进行编码得到 T_c。"
             )}
           </li>
           <li>

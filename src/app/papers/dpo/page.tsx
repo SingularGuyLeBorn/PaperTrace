@@ -216,15 +216,15 @@ export default function DPOPage() {
 
         <Collapsible title={t("Concrete example: Computing DPO loss", "具体例子：计算 DPO 损失")} defaultOpen>
           <div className="text-sm space-y-3">
-            <p>{t("Prompt: \"Explain gravity.\"", "提示: \"解释引力。\"")}</p>
+            <p>{t("Prompt: \"Explain gravity.\"", "提示：\"解释引力。\"")}</p>
             <div className="space-y-2 font-mono text-xs">
               <div className="p-2 bg-green-50 rounded border border-green-200">
-                <div className="font-sans text-xs text-green-800 mb-1"><strong>{t("Preferred (y_w)", "偏好 (y_w)")}</strong>: {t("\"Gravity is the force that attracts objects with mass toward each other...\"", "\"引力是使有质量的物体相互吸引的力...\"")}</div>
+                <div className="font-sans text-xs text-green-800 mb-1"><strong>{t("Preferred (y_w)", "偏好 (y_w)")}</strong>: {t("\"Gravity is the force that attracts objects with mass toward each other...\"", "\」引力是使有质量的物体相互吸引的力...\"")}</div>
                 <div><Math tex="\log \pi_\theta(y_w|x) = -12.3" />, <Math tex="\log \pi_{\text{ref}}(y_w|x) = -14.1" /></div>
                 <div>{t("Log-ratio", "对数比")} = -12.3 - (-14.1) = <strong>+1.8</strong> ({t("policy likes it MORE than ref", "策略比参考更喜欢它")})</div>
               </div>
               <div className="p-2 bg-red-50 rounded border border-red-200">
-                <div className="font-sans text-xs text-red-800 mb-1"><strong>{t("Rejected (y_l)", "拒绝 (y_l)")}</strong>: {t("\"Gravity is when things fall down.\"", "\"引力就是东西往下掉。\"")}</div>
+                <div className="font-sans text-xs text-red-800 mb-1"><strong>{t("Rejected (y_l)", "拒绝 (y_l)")}</strong>: {t("\"Gravity is when things fall down.\"", "\」引力就是东西往下掉。\"")}</div>
                 <div><Math tex="\log \pi_\theta(y_l|x) = -8.5" />, <Math tex="\log \pi_{\text{ref}}(y_l|x) = -7.2" /></div>
                 <div>{t("Log-ratio", "对数比")} = -8.5 - (-7.2) = <strong>-1.3</strong> ({t("policy likes it LESS than ref", "策略比参考更不喜欢它")})</div>
               </div>

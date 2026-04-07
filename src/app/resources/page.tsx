@@ -7,7 +7,7 @@ interface Resource {
   desc: string;
   descZh: string;
   href: string;
-  type: "youtube" | "bilibili" | "xiaohongshu" | "wechat" | "newsletter" | "podcast" | "blog" | "tool" | "bookmark" | "twitter";
+  type: "youtube" | "bilibili" | "xiaohongshu" | "wechat" | "newsletter" | "podcast" | "blog" | "tool" | "bookmark" | "twitter" | "github";
   tags?: string[];
   recommended?: boolean;
   note?: string;
@@ -112,6 +112,12 @@ const resources: Resource[] = [
     descZh: "从零理解 LLM 训练，不再黑盒训练 — 通过对照实验彻底理解 LLM 的每个设计选择。",
     recommended: true, tags: ["Chinese", "From Scratch", "LLM", "Hands-on"] },
 
+  // GitHub
+  { name: "TransformerVisualizer", href: "https://github.com/SingularGuyLeBorn/TransformerVisualizer", type: "github",
+    desc: "Interactive visual walkthrough of the Transformer architecture — attention heads, positional encoding, encoder-decoder flow, built from scratch.",
+    descZh: "Transformer 架构的交互式可视化 — 注意力头、位置编码、编解码器流程，从零构建。",
+    recommended: true, tags: ["Transformer", "Visualization", "Interactive"] },
+
   // Bookmarks
   { name: "人生不可 DP，但别永远贪心", href: "https://hawstein.com/2019/04/24/life-cannot-dp-but-dont-be-always-greedy/", type: "bookmark",
     desc: "Uses DP and greedy algorithm metaphors to argue that always picking the locally optimal option traps you in a local optimum. Recommends introducing random perturbations to escape it.",
@@ -130,6 +136,7 @@ const typeConfig: Record<Resource["type"], { label: string; labelZh: string; ico
   tool: { label: "Tool / Course", labelZh: "工具 / 课程", icon: "🔧", color: "bg-gray-100 text-gray-700" },
   bookmark: { label: "Bookmarks", labelZh: "收藏", icon: "🔖", color: "bg-amber-100 text-amber-700" },
   twitter: { label: "X / Twitter", labelZh: "X / Twitter", icon: "𝕏", color: "bg-slate-100 text-slate-700" },
+  github: { label: "GitHub", labelZh: "GitHub", icon: "⌥", color: "bg-zinc-100 text-zinc-700" },
 };
 
 const sections: { type: Resource["type"] | Resource["type"][]; title: string; titleZh: string }[] = [
@@ -140,6 +147,7 @@ const sections: { type: Resource["type"] | Resource["type"][]; title: string; ti
   { type: ["wechat", "blog", "twitter"], title: "Blogs, WeChat & X", titleZh: "博客 & 公众号 & X" },
   { type: "podcast", title: "Podcasts", titleZh: "播客" },
   { type: "tool", title: "Tools for Learning & Visualization", titleZh: "学习工具 & 可视化" },
+  { type: "github", title: "GitHub & Open Source", titleZh: "GitHub & 开源项目" },
   { type: "bookmark", title: "Bookmarks & Favorites", titleZh: "收藏" },
 ];
 

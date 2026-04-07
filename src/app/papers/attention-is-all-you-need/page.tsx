@@ -244,7 +244,7 @@ export default function AttentionPage() {
           </div>
         </Collapsible>
 
-        <Collapsible title={t("Concrete example: \"The cat sat on\" (d_k = 4)", "具体例子：「The cat sat on」(d_k = 4)")} defaultOpen>
+        <Collapsible title={t("Concrete example: \"The cat sat on\" (d_k = 4)", "具体例子：\"The cat sat on\"(d_k = 4)")} defaultOpen>
           <div className="text-sm space-y-3">
             <p>
               {t(

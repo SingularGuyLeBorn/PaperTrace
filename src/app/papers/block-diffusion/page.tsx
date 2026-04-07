@@ -127,7 +127,7 @@ export default function BlockDiffusionPage() {
               <Math tex="\mathbf{x}^{(b)}" />
               <span>{t("The b-th block of B tokens", "第 b 个块，包含 B 个 token")}</span>
               <Math tex="\mathbf{x}^{(<b)}" />
-              <span>{t("All blocks before block b (the \"prefix\")", "块 b 之前的所有块 (\"前缀\")")}</span>
+              <span>{t("All blocks before block b (the \"prefix\")", "块 b 之前的所有块（\"前缀\"）")}</span>
               <Math tex="p_\theta" />
               <span>{t("The neural network (Transformer) parameterized by θ", "由 θ 参数化的神经网络 (Transformer)")}</span>
             </div>
@@ -173,7 +173,7 @@ export default function BlockDiffusionPage() {
             <p>
               {t(
                 "Generate \"The cat sat on the mat\" with B=2 (3 blocks), T=2 denoising steps per block:",
-                "用 B=2 (3 个块)，每块 T=2 步去噪来生成 \"The cat sat on the mat\"："
+                "用 B=2 (3 个块)，每块 T=2 步去噪来生成 \"The cat sat on the mat\」："
               )}
             </p>
             <div className="space-y-2 font-mono text-xs">

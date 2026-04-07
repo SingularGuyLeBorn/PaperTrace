@@ -1,52 +1,60 @@
 # PaperTrace
 
-**Interactive deep-dives into ML papers** — formulas + visualizations + walk-through examples.
+**Bilingual (EN/ZH) ML learning resource** — paper deep-dives, job hunt tools, curated resources, and an AI timeline.
 
-No hand-waving. Every formula is broken down step by step with real numbers, and every key mechanism has an interactive widget you can poke at.
+Live site: [papertrace on GitHub Pages](https://jinya-jiang.github.io/PaperTrace)
 
-## Live Site
+---
 
-👉 **[papertrace](https://yourusername.github.io/PaperTrace)**
+## Pages
 
-## What This Is
+### Paper Deep-Dives (`/papers/*`)
 
-Each paper gets a full deep-dive page with:
+Each paper gets a full breakdown with formula walkthroughs, interactive widgets, and connections to related work.
 
-- **Formula breakdowns** — every equation explained term by term, rendered with KaTeX
-- **Walk-through examples** — concrete examples with real numbers, not abstract descriptions
-- **Interactive widgets** — visualizations you can step through, hover over, and interact with
-- **Connections** — how each paper relates to others in its area
+| Paper | Key Idea |
+|-------|----------|
+| Attention Is All You Need | The Transformer architecture |
+| BERT | Masked LM + bidirectional pretraining |
+| CLIP | Contrastive vision-language pretraining |
+| LoRA | Low-rank adapter fine-tuning |
+| FlashAttention | IO-aware exact attention |
+| LLaVA | Visual instruction tuning |
+| GPT-2 | Autoregressive language modeling at scale |
+| PPO | Proximal policy optimization for RLHF |
+| DPO | Direct preference optimization (no RL) |
+| GRPO | Group relative policy optimization (DeepSeek-R1) |
+| MDLM | Masked diffusion language models |
+| LLaDA | Masked diffusion for LLMs |
+| Block Diffusion | AR between blocks + diffusion within blocks |
+| Fast DLLM | Adaptive denoising — 3-10x fewer steps |
 
-## Papers
+### Other Pages
 
-### Diffusion Language Models (DLLM)
+- `/` — Landing page with paper grid, category filter
+- `/daily` — Paper feed + News & Events (行业动态)
+- `/resources` — Curated learning resources: YouTube, Bilibili, newsletters, blogs, X/Twitter, tools
+- `/interview` — Job hunt hub: LeetCode resources, company job openings, ML interview Q&A (20 questions, 5 sections)
+  - `/interview/notes` — "Notes on the Job Hunt / 写在找工路上"
+- `/guide` — Study guide
+- `/timeline` — AI/ML timeline
 
-| Paper | Authors | Key Idea |
-|-------|---------|----------|
-| [LLaDA](papers/llada) | Nie et al. 2025 | Masked diffusion for LLMs — variable masking rate + bidirectional attention |
-| [MDLM](papers/mdlm) | Sahoo et al. 2024 | Principled continuous-time ELBO for masked diffusion |
-| [Fast DLLM](papers/fast-dllm) | Shi et al. 2025 | Adaptive denoising schedules — 3-10x fewer steps |
-| [Block Diffusion](papers/block-diffusion) | Arriola et al. 2025 | AR between blocks + diffusion within blocks |
-
-### Transformer Foundations
-
-| Paper | Authors | Key Idea |
-|-------|---------|----------|
-| [Attention Is All You Need](papers/attention-is-all-you-need) | Vaswani et al. 2017 | The Transformer architecture |
-
-*More sections coming: Efficient Inference, RLHF & Alignment, Vision-Language Models, ...*
+---
 
 ## Tech Stack
 
-- **Next.js 14** with static export for GitHub Pages
-- **React** interactive widgets (no heavy chart libraries — just clean custom components)
-- **KaTeX** for fast, beautiful math rendering
-- **Tailwind CSS** for styling
+- **Next.js 14** — App Router, static export for GitHub Pages
+- **React** — Interactive widgets (custom, no heavy chart libs)
+- **KaTeX** — Math rendering
+- **Tailwind CSS** — Styling with dark mode
+- **Custom i18n** — `t(en, zh)` hook, no external library
+
+---
 
 ## Local Development
 
 ```bash
-git clone https://github.com/yourusername/PaperTrace.git
+git clone https://github.com/jinya-jiang/PaperTrace.git
 cd PaperTrace
 npm install
 npm run dev
@@ -54,30 +62,24 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Adding a New Paper
-
-1. Add paper metadata to `src/lib/papers.ts`
-2. Create a new directory under `src/app/papers/<slug>/`
-3. Write `page.tsx` using the existing components:
-   - `<Math tex="..." />` for inline math, `<Math display tex="..." />` for display math
-   - `<Widget title="...">` to wrap interactive visualizations
-   - `<Collapsible title="...">` for expandable walk-throughs
-4. Build custom widgets in `src/components/widgets/` as needed
-
 ## Deployment
 
 Pushes to `main` automatically deploy to GitHub Pages via GitHub Actions.
 
-To enable: go to your repo **Settings → Pages → Source → GitHub Actions**.
+Settings → Pages → Source → GitHub Actions.
 
-## Contributing
+---
 
-PRs welcome! Especially:
+## Adding a New Paper
 
-- New paper deep-dives
-- Interactive widgets for existing papers
-- Corrections to formula explanations
-- Translations
+1. Add metadata to `src/lib/papers.ts`
+2. Create `src/app/papers/<slug>/page.tsx`
+3. Key components:
+   - `<Math tex="..." />` / `<Math display tex="..." />` — KaTeX math
+   - `<Widget title="...">` — interactive visualizations
+   - `<Collapsible title="...">` — expandable sections
+   - `<KeyInsight>` — highlighted callout boxes
+   - `<SectionHeader>` — colored section headers (used in interview page)
 
 ## License
 
