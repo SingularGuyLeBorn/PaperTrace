@@ -455,7 +455,7 @@ export default function ScalingLawsPage() {
                     {t("Parameters", "参数量")}
                   </td>
                   <td className="border border-gray-300 dark:border-gray-600 px-4 py-2 font-mono text-gray-700 dark:text-gray-300">
-                    L(N) ∝ N^{-α_N}
+                    {"L(N) ∝ N^{-α_N}"}
                   </td>
                   <td className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-gray-700 dark:text-gray-300">
                     α_N ≈ 0.076
@@ -466,7 +466,7 @@ export default function ScalingLawsPage() {
                     {t("Dataset size", "数据集大小")}
                   </td>
                   <td className="border border-gray-300 dark:border-gray-600 px-4 py-2 font-mono text-gray-700 dark:text-gray-300">
-                    L(D) ∝ D^{-α_D}
+                    {"L(D) ∝ D^{-α_D}"}
                   </td>
                   <td className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-gray-700 dark:text-gray-300">
                     α_D ≈ 0.095
@@ -477,7 +477,7 @@ export default function ScalingLawsPage() {
                     {t("Compute", "计算量")}
                   </td>
                   <td className="border border-gray-300 dark:border-gray-600 px-4 py-2 font-mono text-gray-700 dark:text-gray-300">
-                    L(C) ∝ C^{-α_C}
+                    {"L(C) ∝ C^{-α_C}"}
                   </td>
                   <td className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-gray-700 dark:text-gray-300">
                     α_C ≈ 0.050
@@ -488,7 +488,7 @@ export default function ScalingLawsPage() {
                     {t("Optimal N", "最优参数量")}
                   </td>
                   <td className="border border-gray-300 dark:border-gray-600 px-4 py-2 font-mono text-gray-700 dark:text-gray-300">
-                    N_opt ∝ C^{0.73}
+                    {"N_opt ∝ C^{0.73}"}
                   </td>
                   <td className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-gray-700 dark:text-gray-300">
                     {t("(Kaplan)", "（Kaplan）")}
@@ -499,7 +499,7 @@ export default function ScalingLawsPage() {
                     {t("Optimal D", "最优数据量")}
                   </td>
                   <td className="border border-gray-300 dark:border-gray-600 px-4 py-2 font-mono text-gray-700 dark:text-gray-300">
-                    D_opt ∝ C^{0.27}
+                    {"D_opt ∝ C^{0.27}"}
                   </td>
                   <td className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-gray-700 dark:text-gray-300">
                     {t("(Kaplan)", "（Kaplan）")}

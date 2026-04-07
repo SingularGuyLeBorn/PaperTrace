@@ -412,7 +412,7 @@ static int num_math(void) {
           <div className="text-sm space-y-4">
             <div className="p-3 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg">
               <p className="font-semibold text-blue-800 dark:text-blue-300 mb-1">
-                <Math inline tex="T \to 0" /> — {t("Most likely character always picked (greedy)", "总是选择最可能的字符（贪心）")}
+                <Math tex="T \to 0" /> — {t("Most likely character always picked (greedy)", "总是选择最可能的字符（贪心）")}
               </p>
               <p className="text-blue-700 dark:text-blue-200">
                 {t(
@@ -423,7 +423,7 @@ static int num_math(void) {
             </div>
             <div className="p-3 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-lg">
               <p className="font-semibold text-green-800 dark:text-green-300 mb-1">
-                <Math inline tex="T = 1" /> — {t("Sample from the raw model distribution", "从原始模型分布中采样")}
+                <Math tex="T = 1" /> — {t("Sample from the raw model distribution", "从原始模型分布中采样")}
               </p>
               <p className="text-green-700 dark:text-green-200">
                 {t(
@@ -434,7 +434,7 @@ static int num_math(void) {
             </div>
             <div className="p-3 bg-rose-50 dark:bg-rose-950 border border-rose-200 dark:border-rose-800 rounded-lg">
               <p className="font-semibold text-rose-800 dark:text-rose-300 mb-1">
-                <Math inline tex="T \to \infty" /> — {t("Uniform random sampling over vocabulary", "在词汇表上均匀随机采样")}
+                <Math tex="T \to \infty" /> — {t("Uniform random sampling over vocabulary", "在词汇表上均匀随机采样")}
               </p>
               <p className="text-rose-700 dark:text-rose-200">
                 {t(

@@ -290,12 +290,12 @@ export default function RNNRegularizationPage() {
             "The key notation is the tilde: ",
             "关键符号是波浪线："
           )}
-          <Math inline tex="\tilde{h}_t^{l-1} = \text{dropout}(h_t^{l-1})" />
+          <Math tex="\tilde{h}_t^{l-1} = \text{dropout}(h_t^{l-1})" />
           {t(
             " — the dropped-out version of the layer below's output. All four gate computations receive this dropped version as vertical input. By contrast, the recurrent term ",
             "——来自下方层输出的 dropout 版本。所有四个门的计算都接收这个经过 dropout 处理的垂直输入。相比之下，循环项 "
           )}
-          <Math inline tex="h_{t-1}^l" />
+          <Math tex="h_{t-1}^l" />
           {t(
             " carries no mask — it is always used intact.",
             " 不带掩码——始终完整使用。"
