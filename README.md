@@ -81,6 +81,16 @@ Settings → Pages → Source → GitHub Actions.
    - `<KeyInsight>` — highlighted callout boxes
    - `<SectionHeader>` — colored section headers (used in interview page)
 
+## Join the Community / 加入微信群
+
+Scan the QR code to join our WeChat community for ML learners and job seekers.
+
+扫码加入微信交流群，一起学习 ML、交流找工经验。
+
+<img src="./src/images/wechat_group.pic.jpg" alt="WeChat Group QR Code" width="200" />
+
+---
+
 ## License
 
 MIT
