@@ -17,6 +17,7 @@ export interface DailyPaper {
 
 export const dailyPapers: DailyPaper[] = [
   {
+    date: "2026-04-13",
     date: "2026-04-12",
     title: "SUPERNOVA: Eliciting General Reasoning in LLMs with Reinforcement Learning on Natural Instructions",
     titleZh: "SUPERNOVA：基于自然指令强化学习提升LLM通用推理能力",
@@ -40,6 +41,29 @@ export const dailyPapers: DailyPaper[] = [
     authors: "Weian Mao et al.",
     arxivId: "2604.04921",
     tags: ["Efficient Inference", "Reasoning"],
+    why: "Trigonometric KV compression matches full-attention accuracy at 2.5x throughput or 10.7x memory reduction — practical long-reasoning speedup from MIT/NVIDIA.",
+    whyZh: "三角函数KV压缩在保持全注意力精度的同时实现2.5倍吞吐或10.7倍内存压缩，大幅提升长推理效率。",
+    pick: true,
+  },
+  {
+    date: "2026-04-13",
+    title: "DFlash: Block Diffusion for Flash Speculative Decoding",
+    titleZh: "DFlash：用于闪速投机解码的块扩散模型",
+    authors: "Jian Chen et al.",
+    arxivId: "2602.06036",
+    tags: ["Diffusion LM", "Efficient Inference"],
+    why: "Block diffusion as speculative draft model achieves 6x LLM inference speedup — bridges diffusion language models and fast autoregressive deployment.",
+    whyZh: "以块扩散模型为投机解码草稿器实现6倍推理加速，将扩散LM与高速自回归部署相连接。",
+  },
+  {
+    date: "2026-04-13",
+    title: "Fast-dVLM: Efficient Block-Diffusion VLM via Direct Conversion from Autoregressive VLM",
+    titleZh: "Fast-dVLM：从自回归VLM直接转换的高效块扩散视觉语言模型",
+    authors: "Chengyue Wu et al.",
+    arxivId: "2604.06832",
+    tags: ["Diffusion LM", "Multimodal"],
+    why: "Direct AR-to-diffusion VLM conversion with KV-cache-compatible parallel decoding — matches AR quality across 11 multimodal benchmarks at lower inference cost.",
+    whyZh: "直接将自回归VLM转换为块扩散模型，支持KV缓存并行解码，在11项多模态基准上匹配AR质量。",
     why: "Trigonometric KV compression exploits Q/K vector concentration — 2.5x throughput or 10.7x KV memory reduction on long reasoning.",
     whyZh: "三角级数KV压缩利用Q/K向量集中性，长推理吞吐提升2.5倍或内存减少10.7倍。",
   },
