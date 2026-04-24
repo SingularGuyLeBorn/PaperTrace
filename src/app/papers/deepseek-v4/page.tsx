@@ -407,12 +407,12 @@ export default function DeepSeekV4Page() {
           )}
         </p>
         <div className="overflow-x-auto my-4">
-          <table className="w-full text-sm border-collapse">
+          <table className="w-full text-xs border-collapse">
             <thead>
-              <tr className="bg-paper-100 dark:bg-slate-700">
-                <th className="text-left p-2.5 rounded-tl-lg dark:text-slate-200">{t("Spec (official HF pages)", "规格（官方 HF 页面）")}</th>
-                <th className="text-center p-2.5 text-blue-700 dark:text-blue-400">V4-Pro</th>
-                <th className="text-center p-2.5 text-teal-700 dark:text-teal-400 rounded-tr-lg">V4-Flash</th>
+              <tr className="bg-paper-100 dark:bg-slate-700 text-left">
+                <th className="p-2.5 dark:text-slate-200">{t("Spec", "规格")}</th>
+                <th className="p-2.5 text-center text-blue-700 dark:text-blue-400">V4-Pro</th>
+                <th className="p-2.5 text-center text-teal-700 dark:text-teal-400">V4-Flash</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-paper-100 dark:divide-slate-700">
@@ -422,11 +422,19 @@ export default function DeepSeekV4Page() {
                 [t("Context length", "上下文长度"), "1M", "1M"],
                 [t("Precision", "精度"), "FP4 + FP8", "FP4 + FP8"],
                 [t("License", "协议"), "MIT", "MIT"],
+                ["LiveCodeBench Max (Pass@1)", "93.5", "91.6"],
+                ["Codeforces Max (Rating)", "3206", "3052"],
+                ["SWE Verified Max (Resolved)", "80.6%", "79.0%"],
+                ["SWE Verified Non-Think", "73.6%", "73.7%"],
+                ["MMLU-Pro Max (EM)", "87.5", "86.2"],
+                ["GPQA Diamond Max (Pass@1)", "90.1", "88.1"],
+                ["HLE Max (Pass@1)", "37.7", "34.8"],
+                ["MRCR 1M Max (MMR)", "83.5", "78.7"],
               ].map(([spec, pro, flash]) => (
                 <tr key={String(spec)} className="hover:bg-paper-50 dark:hover:bg-slate-800/50">
-                  <td className="p-2.5 text-paper-800/70 dark:text-slate-400">{spec}</td>
-                  <td className="p-2.5 text-center font-mono font-medium dark:text-slate-200">{pro}</td>
-                  <td className="p-2.5 text-center font-mono font-medium dark:text-slate-200">{flash}</td>
+                  <td className="p-2 text-paper-800/70 dark:text-slate-400">{spec}</td>
+                  <td className="p-2 text-center font-mono font-medium dark:text-slate-200">{pro}</td>
+                  <td className="p-2 text-center font-mono text-paper-800/70 dark:text-slate-400">{flash}</td>
                 </tr>
               ))}
             </tbody>
@@ -434,8 +442,8 @@ export default function DeepSeekV4Page() {
         </div>
         <p className="text-xs text-paper-800/40 dark:text-slate-500">
           {t(
-            "Source: official README at huggingface.co/deepseek-ai/DeepSeek-V4-Pro. Training hardware is not stated in the paper or README.",
-            "来源：官方 README（huggingface.co/deepseek-ai/DeepSeek-V4-Pro）。论文和 README 均未说明训练硬件。"
+            "Source: official HuggingFace READMEs for DeepSeek-V4-Pro and DeepSeek-V4-Flash. Training hardware is not stated in either README or the paper.",
+            "来源：DeepSeek-V4-Pro 和 DeepSeek-V4-Flash 官方 HuggingFace README。论文和 README 均未说明训练硬件。"
           )}
         </p>
 
