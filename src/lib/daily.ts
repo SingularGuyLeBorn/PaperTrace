@@ -4,6 +4,7 @@ export interface DailyPaper {
   titleZh?: string;
   authors: string;
   arxivId: string;
+  paperUrl?: string; // for non-arXiv papers (e.g. HuggingFace technical reports)
   tags: string[];
   /** One-line why it matters — English */
   why: string;
@@ -16,6 +17,19 @@ export interface DailyPaper {
 }
 
 export const dailyPapers: DailyPaper[] = [
+  {
+    date: "2026-04-23",
+    title: "DeepSeek-V4 Technical Report",
+    titleZh: "DeepSeek-V4 技术报告",
+    authors: "DeepSeek AI",
+    arxivId: "",
+    paperUrl: "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf",
+    tags: ["MoE", "Pre-training", "Code"],
+    why: "1.6T MoE (49B active) with 1M-token Engram memory — claims ~81% SWE-bench Verified, a major leap from V3.",
+    whyZh: "1.6T MoE（49B 激活），Engram 百万 token 记忆 — 宣称 SWE-bench Verified ~81%，远超 V3。",
+    pick: true,
+    slug: "deepseek-v4",
+  },
   {
     date: "2026-04-16",
     title: "Introspective Diffusion Language Models",
@@ -36,15 +50,6 @@ export const dailyPapers: DailyPaper[] = [
     tags: ["Diffusion LM", "Efficient Inference"],
     why: "DDTree builds a best-first draft tree from block diffusion per-position distributions — SOTA speculative decoding verified in one target model forward pass.",
     whyZh: "DDTree从块扩散逐位置分布构建最优优先草稿树，单次目标模型前向传播完成验证，达到推测解码SOTA。",
-    date: "2026-04-15",
-    title: "Introspective Diffusion Language Models",
-    titleZh: "内省扩散语言模型",
-    authors: "Yifan Yu et al.",
-    arxivId: "2604.11035",
-    tags: ["Diffusion LM", "Reasoning", "Efficient Inference"],
-    why: "Introspective strided decoding fixes diffusion LM's consistency gap — I-DLM-8B beats LLaDA-2.1-mini (16B) at 2.9–4.1x higher throughput.",
-    whyZh: "内省跨步解码修复扩散LM一致性缺陷，I-DLM-8B以2.9-4.1倍吞吐超越更大规模LLaDA。",
-    pick: true,
   },
   {
     date: "2026-04-15",
@@ -96,6 +101,8 @@ export const dailyPapers: DailyPaper[] = [
     tags: ["Diffusion LM", "Efficient Inference"],
     why: "Block diffusion drafter achieves 6x lossless speedup over base LLM — 2.5x faster than EAGLE-3 with no quality loss.",
     whyZh: "用块扩散模型作为推测解码草稿器，实现6倍无损加速，比EAGLE-3快2.5倍。",
+  },
+  {
     date: "2026-04-12",
     title: "SUPERNOVA: Eliciting General Reasoning in LLMs with Reinforcement Learning on Natural Instructions",
     titleZh: "SUPERNOVA：利用自然指令强化学习激发LLM通用推理能力",

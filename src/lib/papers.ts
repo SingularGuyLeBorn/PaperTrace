@@ -18,6 +18,25 @@ export interface Section {
 
 export const sections: Section[] = [
   {
+    id: "frontier-llms",
+    title: "Frontier LLMs",
+    description:
+      "Technical reports and architecture breakdowns of state-of-the-art large language models — covering MoE scaling, efficient attention, and modern training recipes.",
+    papers: [
+      {
+        slug: "deepseek-v4",
+        title: "DeepSeek-V4 Technical Report",
+        authors: "DeepSeek AI",
+        year: 2026,
+        venue: "Technical Report",
+        tags: ["MoE", "Efficient Attention", "Long Context", "Code"],
+        description:
+          "DeepSeek-V4-Pro: 1.6T-parameter MoE model (49B active) with three key innovations — Compressed Sparse Attention (10% KV cache vs V3), Engram conditional memory (97% NiAH at 1M tokens), and manifold-constrained hyper-connections for stable trillion-scale training. Reaches ~81% SWE-bench Verified on Huawei Ascend chips.",
+        arxiv: "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf",
+      },
+    ],
+  },
+  {
     id: "dllm",
     title: "Diffusion Language Models",
     description:

@@ -453,6 +453,16 @@ const paperNodes: KGNode[] = [
     category: "diffusion",
     color: categoryColors.diffusion,
   },
+  {
+    id: "paper-deepseek-v4",
+    type: "paper",
+    label: "DeepSeek-V4",
+    labelZh: "DeepSeek-V4 技术报告",
+    slug: "deepseek-v4",
+    year: 2026,
+    category: "efficiency",
+    color: categoryColors.efficiency,
+  },
 ];
 
 // ── All nodes ────────────────────────────────────────────────────────────────
@@ -578,6 +588,7 @@ export const kgEdges: KGEdge[] = [
   { source: "paper-block-diffusion", target: "lab-cornell", type: "wrote" },
   { source: "paper-rag", target: "lab-meta-ai", type: "wrote" },
   { source: "paper-fast-dllm", target: "lab-stanford", type: "affiliated" },
+  { source: "paper-deepseek-v4", target: "lab-deepseek", type: "wrote" },
 
   // Key author → paper (wrote)
   {
@@ -627,6 +638,21 @@ export const kgEdges: KGEdge[] = [
   {
     source: "paper-grpo",
     target: "paper-ppo",
+    type: "related",
+  },
+  {
+    source: "paper-deepseek-v4",
+    target: "paper-attention-is-all-you-need",
+    type: "related",
+  },
+  {
+    source: "paper-deepseek-v4",
+    target: "paper-flashattention",
+    type: "related",
+  },
+  {
+    source: "paper-deepseek-v4",
+    target: "paper-grpo",
     type: "related",
   },
   {
