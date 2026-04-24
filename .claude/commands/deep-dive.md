@@ -11,93 +11,151 @@ Convert an academic paper into a full PaperTrace interactive deep-dive page.
 `$ARGUMENTS` can be:
 - An arXiv URL (e.g. `https://arxiv.org/abs/2106.09685`)
 - An arXiv ID (e.g. `2106.09685`)
+- A HuggingFace model page URL (e.g. `https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro`)
 - A slug of an existing paper to rebuild (e.g. `lora`)
+
+---
+
+## ⛔ RULE #1 — NO HALLUCINATION (Read before anything else)
+
+**Every single claim in the page must come from one of these verified sources:**
+
+| Priority | Source | How to get it |
+|---|---|---|
+| 1 | Paper PDF | Download via HuggingFace resolve URL or arXiv |
+| 2 | Official HuggingFace README | `https://huggingface.co/<org>/<model>/blob/main/README.md` |
+| 3 | arXiv HTML full text | `https://arxiv.org/html/<id>` |
+| 4 | Companion paper (cited in the paper itself) | Must have real arXiv link |
+
+**NEVER use third-party blog posts, news articles, or web search results** to fill in:
+- Parameter counts, model size, active parameters
+- Training token counts or hardware
+- Benchmark numbers
+- Algorithm steps or equations
+- Any architectural detail
+
+**If the paper is inaccessible:** write an explicit disclaimer in the page. Do NOT fill plausible-sounding numbers from memory.
+
+**After writing the page:** `grep` the whole file for any third-party-sourced claims that may have crept in (especially in TL;DR and Why It Matters sections — these are written quickly and are highest-risk for hallucination).
 
 ---
 
 ## Steps
 
-### 1. Gather paper info
+### 1. Gather Sources
 
-If $ARGUMENTS is a URL or arXiv ID:
-- Fetch the abstract page (`https://arxiv.org/abs/<id>`) to get title, authors, year, venue
-- Fetch the HTML version (`https://arxiv.org/html/<id>`) to read the full paper content
-- If HTML is unavailable, fetch the PDF metadata page
+For any paper, fetch ALL of these before writing a single word:
+
+```bash
+# For arXiv papers:
+# 1. Abstract page
+https://arxiv.org/abs/<id>
+
+# 2. Full HTML (best for equations and text)
+https://arxiv.org/html/<id>
+
+# 3. For HuggingFace model releases, fetch the README
+https://huggingface.co/<org>/<model>/blob/main/README.md
+
+# 4. Check assets directory for official figures
+https://huggingface.co/<org>/<model>/tree/main/assets
+```
+
+Only proceed to writing after you have read the actual paper content. If HTML is unavailable and PDF can't be parsed, state this in a disclaimer box in the UI.
 
 Ask the user for:
 - **Slug**: short, URL-safe kebab-case (e.g. `attention-is-all-you-need`, `lora`, `flashattention`)
-- **Section**: which section in `src/lib/papers.ts` to add this paper to (show existing sections)
+- **Section**: which section in `src/lib/papers.ts` to add this paper to
 
-### 2. Deep-read the paper
+---
 
-Extract the following from the paper content:
+### 2. Deep-Read the Paper
+
+Extract from the **actual paper text** (not summaries):
 
 **Overview**
-- Core problem being solved (1-2 sentences)
+- Core problem being solved (1-2 sentences, from abstract/intro)
 - Main insight / key idea (1 sentence)
-- Main result / contribution (1-2 sentences)
+- Main result / contribution with exact numbers
 
-**Method**
-- All key equations (LaTeX) with variable definitions
-- Step-by-step algorithm or forward-pass logic
-- Any notable initialization choices or design decisions
+**Method — equations**
+- Copy each key equation verbatim from the source, noting the equation number and section
+- Define every variable from the paper's own notation
+- If an equation is not in the paper but derived for explanation, label it "(schematic)"
 
-**Experiments / Results**
-- Key benchmark results (numbers, comparisons)
-- Ablations that validate the core design choices
-- Compute/efficiency numbers if relevant
+**Algorithms**
+- Copy algorithm pseudocode verbatim (steps, variable names, comments)
+- These are high-value content for animations
+
+**Results**
+- Use the exact numbers from the paper's tables — never round or paraphrase numbers
+- Note which table/figure each number comes from
 
 **Figures**
-- Identify 1–3 figures from the paper that best illustrate the method (architecture diagram, training curve, main results table)
-- Note the figure number/caption for use in step 4
+- Note which figures are most important (architecture diagram, main results chart)
+- Check the assets directory and arXiv HTML for embeddable URLs
 
-**Connections**
-- What prior work it builds on
-- What later work it enables (think about papers already in `src/lib/papers.ts`)
+---
 
-### 3. ⚠️ Anti-Hallucination Rule (REQUIRED — READ FIRST)
+### 3. Formula Verifier (Required for every equation)
 
-**Every claim in the page MUST come from one of these sources, in this priority order:**
-1. The actual paper text/PDF (fetched and read)
-2. The official model page (HuggingFace README, paper abstract page)
-3. A cited arXiv companion paper
+Before adding any `<Math display>` block:
+1. Find the equation in the fetched paper HTML/PDF
+2. Copy the LaTeX verbatim — do NOT reconstruct from description
+3. In the `label` prop, include the equation/section reference: `"Eq. (3), §3.2 — GRPO advantage"`
+4. If the exact equation is not in the source, label it: `"(schematic — not verbatim from paper)"`
 
-**NEVER use third-party blog posts, news articles, or speculation as a source for:**
-- Model parameter counts / architecture specs
-- Benchmark numbers
-- Training hardware or data size
-- Algorithm details or equations
-- Any technical claim that could be wrong
+**Common failure mode from this project:** the mHC formula was written from memory as a Frobenius-norm constraint, but the actual paper (arXiv 2512.24880) uses a Birkhoff polytope (doubly stochastic matrix) constraint enforced by Sinkhorn-Knopp. Always fetch and read.
 
-**If you cannot read the paper:** state this explicitly in the page with a disclaimer box. Do not fill in plausible-sounding numbers from memory or web search.
+---
 
-**For papers with HuggingFace releases:** always fetch the README at `https://huggingface.co/<org>/<model>/blob/main/README.md` — it usually contains the official benchmark tables verbatim from the paper.
+### 4. Figure Embedding (Required — prioritise official figures)
 
-**For any claim sourced from outside the paper itself:** add a visible `{t("Source: ...", "来源：...")}` note in the UI.
+For each key figure, check sources in this order:
 
-### 4. ⚠️ Formula & Figure Verifier (REQUIRED)
+1. **HuggingFace `assets/` directory** — `https://huggingface.co/<org>/<model>/tree/main/assets`
+   - Embed as: `https://huggingface.co/<org>/<model>/resolve/main/assets/<filename>`
+2. **arXiv HTML** — `https://arxiv.org/html/<id>`, look for `<img>` tags
+   - Embed directly with the arXiv URL
+3. **arXiv figure pattern** — try `https://arxiv.org/html/<id>/x1.png`, `x2.png`, etc.
 
-**Before writing any equation in the page, verify it against the source.**
+**If no official URL is found:** use `FlowChart` component or prose. Never embed a broken `<img>`.
 
-For each equation you plan to include:
-1. Locate the exact equation in the fetched paper HTML/PDF
-2. Copy the LaTeX verbatim — do NOT reconstruct from memory or description
-3. If you cannot locate the exact equation in the source, mark it explicitly as `{/* SCHEMATIC — verify against paper */}` in a comment and add a visible disclaimer in the UI
-4. Record the paper section/equation number next to each `<Math>` label
+Always add a caption:
+```tsx
+<img src="..." alt="Figure N: ..." className="w-full rounded-lg my-4 border border-paper-200 dark:border-slate-700" />
+<p className="text-xs text-paper-800/50 dark:text-slate-500 text-center -mt-2 mb-6">
+  {t("Figure N from [paper] — ...", "来自 [论文] 的图 N — ...")}
+</p>
+```
 
-For figures:
-1. **Priority 1 — HuggingFace assets**: If the paper has a HuggingFace model page, check `https://huggingface.co/<org>/<model>/tree/main/assets` for official figure files (e.g. `performance.png`, `architecture.png`). Embed using: `https://huggingface.co/<org>/<model>/resolve/main/assets/<filename>`
-2. **Priority 2 — arXiv HTML**: Check if `https://arxiv.org/html/<id>` contains `<img>` tags with figure URLs. Embed directly if available.
-3. **Priority 3 — arXiv abs page**: Sometimes the abstract page links to figures or the paper's figures are at `https://arxiv.org/html/<id>/x1.png`, `x2.png`, etc.
-4. If no figure URL is available from official sources, do NOT embed a broken `<img>` — use `FlowChart` or prose instead.
-5. Always include the figure caption as a `<p className="text-xs text-paper-800/50 dark:text-slate-500 text-center -mt-2 mb-6">` below the image.
-6. **Key figures to always include**: the main results/benchmark chart and the architecture diagram (if available). These are the most valuable visual content for readers.
+**Always include:** the main benchmark/results figure (e.g. `dsv4_performance.png`) and the architecture diagram.
 
-**Rule: any formula not found verbatim in the source MUST be labelled "(schematic)" in the `label` prop.**
+---
 
-### 4. Add metadata to `src/lib/papers.ts`
+### 5. Interactive Widgets (Required)
 
-Add a `PaperMeta` entry to the correct section:
+Every paper page MUST have at least one interactive widget. Create a new `.tsx` file in `src/components/widgets/` for anything that benefits from animation:
+
+| Paper content | Widget type |
+|---|---|
+| Algorithm pseudocode | Step-through visualizer (like `MuonOptimizerViz`) |
+| Routing / selection mechanism | Click-to-route animation (like `MoERoutingViz`) |
+| Before/after comparison (e.g. KV cache) | Slider with bar chart (like `KVCacheViz`) |
+| Training process | Step-through with concrete numbers |
+| Attention pattern | Grid heatmap with token selection |
+| Diffusion / masking | Token reveal/mask animation (like `MaskDiffusionViz`) |
+
+Widget rules:
+- `"use client"` + `useState` — always interactive, never static
+- Bilingual via `useLang()` + `t(en, zh)` on every string
+- Include a ▶ Animate / Step Through button
+- Highlight the key innovation in amber
+
+---
+
+### 6. Add metadata to `src/lib/papers.ts`
+
 ```ts
 {
   slug: "<slug>",
@@ -106,14 +164,14 @@ Add a `PaperMeta` entry to the correct section:
   year: <year>,
   venue: "<ICML 2024 / arXiv / NeurIPS 2023 / ...>",
   tags: ["<tag1>", "<tag2>", "<tag3>"],   // 2–4 tags
-  description: "<2–3 sentence bilingual-ready description>",
-  arxiv: "https://arxiv.org/abs/<id>",
+  description: "<2–3 sentence description>",
+  arxiv: "https://arxiv.org/abs/<id>",  // or HuggingFace URL if no arXiv
 }
 ```
 
-### 5. Create `src/app/papers/<slug>/page.tsx`
+---
 
-Use this exact template structure:
+### 7. Create `src/app/papers/<slug>/page.tsx`
 
 ```tsx
 "use client";
@@ -121,6 +179,7 @@ Use this exact template structure:
 import { Math } from "@/components/Math";
 import { Collapsible } from "@/components/Collapsible";
 import { FlowChart } from "@/components/FlowChart";
+import { <WidgetName> } from "@/components/widgets/<WidgetName>";
 import { useLang } from "@/lib/i18n";
 import Link from "next/link";
 
@@ -133,9 +192,9 @@ export default function <PascalCaseSlug>Page() {
         <h1 className="text-3xl font-bold tracking-tight mb-2">
           {t("<English title>", "<中文标题>")}
         </h1>
-        <p className="text-paper-800/50">
+        <p className="text-paper-800/50 dark:text-slate-400">
           <Authors> &middot; <Venue Year> &middot;{" "}
-          <a href="<arxiv url>" target="_blank" rel="noopener noreferrer"
+          <a href="<url>" target="_blank" rel="noopener noreferrer"
              className="text-blue-600 hover:underline">
             arXiv <id>
           </a>
@@ -144,81 +203,47 @@ export default function <PascalCaseSlug>Page() {
 
       <article className="paper-content">
 
-        {/* ============ TL;DR ============ */}
-        <section className="bg-blue-50 border border-blue-200 rounded-lg p-5 mb-10">
-          <h3 className="text-sm font-semibold text-blue-800 mb-2">TL;DR</h3>
-          <p className="text-sm text-blue-900 leading-relaxed mb-0">
-            {t("<2-4 sentence English summary>", "<2-4句中文摘要>")}
+        {/* TL;DR — only verified facts from paper */}
+        <section className="bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 rounded-lg p-5 mb-10">
+          <h3 className="text-sm font-semibold text-blue-800 dark:text-blue-300 mb-2">TL;DR</h3>
+          <p className="text-sm text-blue-900 dark:text-blue-200 leading-relaxed mb-0">
+            {t("<verified 2-4 sentence summary>", "<2-4句经过核实的摘要>")}
           </p>
         </section>
 
-        {/* ============ FlowChart overview ============ */}
-        <FlowChart
-          title={t("<Method> Overview", "<方法>总览")}
-          steps={[/* 5-8 steps capturing the method pipeline */]}
-          arrows={[/* transition labels between steps */]}
-          highlights={[/* 2-3 key takeaways */]}
-        />
-
-        {/* ============ Key Figure (from paper) ============ */}
-        {/* Embed the most important architecture/method figure if available from arXiv HTML */}
-        {/*
-        <img
-          src="https://arxiv.org/html/<id>/x1.png"
-          alt="Figure 1: <caption from paper>"
-          className="w-full rounded-lg my-6 border border-paper-200 dark:border-slate-700"
-        />
-        <p className="text-xs text-paper-800/50 dark:text-slate-500 text-center -mt-4 mb-6">
-          {t("Figure 1: <English caption>", "图1：<中文说明>")}
+        {/* Official figure — check HuggingFace assets or arXiv HTML first */}
+        <img src="<official-url>" alt="Figure N: ..." className="w-full rounded-lg my-4 border border-paper-200 dark:border-slate-700" />
+        <p className="text-xs text-paper-800/50 dark:text-slate-500 text-center -mt-2 mb-6">
+          {t("Figure N — ...", "图 N — ...")}
         </p>
-        */}
 
-        {/* ============ 1. Background ============ */}
-        <h2>{t("1. Background: <subtitle>", "1. 背景：<副标题>")}</h2>
-        <p>{t("...", "...")}</p>
+        {/* FlowChart: evolution / pipeline overview */}
+        <FlowChart title={...} steps={[...]} arrows={[...]} highlights={[...]} />
 
-        {/* ============ 2. Core Method ============ */}
-        <h2>{t("2. Core Method: <subtitle>", "2. 核心方法：<副标题>")}</h2>
-        <p>{t("...", "...")}</p>
-        {/* label MUST include equation number from paper, e.g. "Eq. (3) — GRPO advantage" */}
-        <Math display label={t("Eq. (N) — <description>", "公式 (N) — <描述>")} tex="..." />
+        {/* 1. Background */}
+        <h2>{t("1. Background", "1. 背景")}</h2>
 
-        {/* Variable breakdown collapsible */}
-        <Collapsible title={t("Variable-by-variable breakdown", "逐变量拆解")} defaultOpen>
-          <div className="text-sm space-y-2">
-            <div className="grid grid-cols-[140px_1fr] gap-y-3 gap-x-2">
-              {/* <Math tex="var" /> <span>{t("definition en", "定义中文")}</span> pairs */}
-            </div>
-          </div>
-        </Collapsible>
+        {/* 2. Core Method — equations from paper, verbatim */}
+        <h2>{t("2. Core Method", "2. 核心方法")}</h2>
+        {/* label MUST include equation number: "Eq. (3), §3.2" */}
+        <Math display label={t("Eq. (N) — ...", "公式 (N) — ...")} tex="..." />
 
-        {/* Key insight callout box */}
-        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 my-6">
-          <p className="text-sm mb-0">
-            <strong>{t("Why <design choice>?", "为什么<设计选择>？")}</strong>{" "}
-            {t("...", "...")}
-          </p>
-        </div>
+        {/* Interactive widget */}
+        <WidgetName />
 
-        {/* ============ 3. Concrete Example ============ */}
-        <h2>{t("3. Concrete Example: <subtitle>", "3. 具体示例：<副标题>")}</h2>
-        {/* Use real numbers from the paper. Green/red/blue boxes for comparison. */}
+        {/* 3–N. Sections per major contribution */}
 
-        {/* ============ 4. Key Results ============ */}
-        <h2>{t("4. Key Results", "4. 关键实验结果")}</h2>
+        {/* Results — use exact numbers from paper tables */}
+        <h2>{t("N. Key Results", "N. 关键结果")}</h2>
 
-        {/* ============ 5. Why It Matters ============ */}
-        <h2>{t("5. Why It Matters", "5. 为什么重要")}</h2>
+        {/* Why It Matters — interpretive, but claims still verified */}
+        <h2>{t("N+1. Why It Matters", "N+1. 为什么重要")}</h2>
 
-        {/* ============ 6. Related Papers ============ */}
-        <h2>{t("6. Related Papers", "6. 相关论文")}</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 my-4">
-          {/* Link to papers that exist in src/lib/papers.ts */}
-        </div>
+        {/* Related Papers */}
+        <h2>{t("N+2. Related Papers", "N+2. 相关论文")}</h2>
 
-        {/* ============ 7. Additional Resources ============ */}
-        <h2>{t("7. Additional Resources", "7. 补充资源")}</h2>
-        {/* arXiv link + 1-2 key follow-up papers */}
+        {/* Resources */}
+        <h2>{t("N+3. Additional Resources", "N+3. 补充资源")}</h2>
 
       </article>
     </div>
@@ -226,35 +251,41 @@ export default function <PascalCaseSlug>Page() {
 }
 ```
 
-### 6. Add to knowledge graph in `src/lib/graph-data.ts`
+---
+
+### 8. Add to knowledge graph in `src/lib/graph-data.ts`
 
 - Add a paper node (type `"paper"`)
 - Connect to existing lab/org nodes
-- Add edges to prerequisite and follow-up papers if the nodes exist
-
-### 7. Verify
-
-```bash
-npm run build
-```
-
-Fix any TypeScript errors before finishing.
+- Add edges to prerequisite and follow-up papers
 
 ---
 
-## Content quality rules
+### 9. Verify
 
-- **Every English string must have a Chinese translation** via `t(en, zh)` — no bare strings
-- **Math**: use `<Math tex="..." />` inline, `<Math display tex="..." />` for block equations; never use the `inline` prop
-- **Inline math in prose**: NEVER write `h_l` or `x_{t}` as plain text inside `<p>` tags — always wrap with `<Math tex="h_l" />` inline
-- **Links**: use `<Link href="/papers/<slug>">` (no `${basePath}` — Next.js adds it automatically)
-- **No fabricated citations** — every referenced paper must have a real arXiv/venue link
-- **No fabricated equations** — copy LaTeX verbatim from source; label with equation number; mark schematic formulas visibly
-- **No fabricated figures** — only embed `<img>` if you found the URL in the arXiv HTML source; otherwise use FlowChart
-- **Concrete numbers**: use actual results from the paper, not vague descriptions
-- **Collapsibles**: use `defaultOpen` for the first breakdown, closed for supplementary material
-- **Callout boxes**: amber for "why" explanations, blue for info, green for results, red for problem statements
-- **TL;DR**: 2-4 sentences — precise and technical, not marketing speak
-- **FlowChart steps**: 5-8 items capturing the logical pipeline of the method; each `color` should progress rose→amber→blue→teal→green→purple
-- **Section count**: aim for 7-10 numbered sections; match the depth of existing long pages like `lora`, `flashattention`, `attention-is-all-you-need`
-- **Equation labels**: always include the equation number from the paper (e.g. `"Eq. (3) from §3.2"`) so readers can cross-reference
+```bash
+npm run build
+# Then grep for any remaining third-party claims:
+grep -n "华为\|Huawei\|据报\|reportedly\|~[0-9]" src/app/papers/<slug>/page.tsx
+```
+
+Fix any TypeScript errors. Fix any flagged claims with verified data or remove them.
+
+---
+
+## Content Rules (Quick Reference)
+
+| Rule | Detail |
+|---|---|
+| **Bilingual** | Every string uses `t(en, zh)` — no bare strings anywhere |
+| **Math blocks** | `<Math display tex="..." />` — include equation number in label |
+| **Inline math** | `<Math tex="h_l" />` — NEVER write `h_l` as plain text in `<p>` |
+| **Equations** | Verbatim from source; schematic equations labelled explicitly |
+| **Figures** | From HuggingFace assets or arXiv HTML only; FlowChart as fallback |
+| **Numbers** | Exact values from paper tables (e.g. `80.6%` not `~81%`) |
+| **Hardware/infra** | Only state if explicitly in paper — never infer or guess |
+| **Widget** | At least 1 interactive widget per page |
+| **TL;DR** | 2-4 sentences, technical precision, all claims verified |
+| **Section depth** | 7-10 sections; aim for depth of `lora`, `flashattention` |
+| **Source notes** | Add `Source: ...` UI notes for any claim from outside the paper |
+| **After writing** | Grep entire file for hallucination markers before committing |
