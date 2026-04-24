@@ -119,6 +119,10 @@ const resources: Resource[] = [
     desc: "Interactive visual walkthrough of the Transformer architecture — attention heads, positional encoding, encoder-decoder flow, built from scratch.",
     descZh: "Transformer 架构的交互式可视化 — 注意力头、位置编码、编解码器流程，从零构建。",
     recommended: true, tags: ["Transformer", "Visualization", "Interactive"] },
+  { name: "ResearchPaper-Analyzer", href: "https://github.com/aba122/ResearchPaper-Analyzer", type: "github",
+    desc: "AI-powered research paper analyzer — automatically extracts key insights, summarizes contributions, and surfaces connections across papers.",
+    descZh: "AI 驱动的论文分析工具 — 自动提取关键洞察、总结贡献，并发现论文间的关联。",
+    tags: ["Paper Analysis", "AI Tool", "Research"] },
 
   // Bookmarks
   { name: "How To Ask Questions The Smart Way", href: "http://www.catb.org/~esr/faqs/smart-questions.html", type: "bookmark",

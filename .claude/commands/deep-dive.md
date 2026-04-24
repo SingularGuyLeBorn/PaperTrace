@@ -86,10 +86,12 @@ For each equation you plan to include:
 4. Record the paper section/equation number next to each `<Math>` label
 
 For figures:
-1. Check if the arXiv HTML version (`https://arxiv.org/html/<id>`) contains `<img>` tags with figure URLs
-2. If yes, embed directly: `<img src="https://arxiv.org/html/<id>/..." alt="Figure N: caption" className="w-full rounded-lg my-4 border border-paper-200 dark:border-slate-700" />`
-3. If the HTML figure URL is not available, note it with a comment but do NOT invent/fabricate a diagram — use `FlowChart` or prose instead
-4. Always include the figure caption as a `<p className="text-xs text-paper-800/50 text-center -mt-2 mb-4">` below the image
+1. **Priority 1 — HuggingFace assets**: If the paper has a HuggingFace model page, check `https://huggingface.co/<org>/<model>/tree/main/assets` for official figure files (e.g. `performance.png`, `architecture.png`). Embed using: `https://huggingface.co/<org>/<model>/resolve/main/assets/<filename>`
+2. **Priority 2 — arXiv HTML**: Check if `https://arxiv.org/html/<id>` contains `<img>` tags with figure URLs. Embed directly if available.
+3. **Priority 3 — arXiv abs page**: Sometimes the abstract page links to figures or the paper's figures are at `https://arxiv.org/html/<id>/x1.png`, `x2.png`, etc.
+4. If no figure URL is available from official sources, do NOT embed a broken `<img>` — use `FlowChart` or prose instead.
+5. Always include the figure caption as a `<p className="text-xs text-paper-800/50 dark:text-slate-500 text-center -mt-2 mb-6">` below the image.
+6. **Key figures to always include**: the main results/benchmark chart and the architecture diagram (if available). These are the most valuable visual content for readers.
 
 **Rule: any formula not found verbatim in the source MUST be labelled "(schematic)" in the `label` prop.**
 

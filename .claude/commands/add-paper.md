@@ -54,3 +54,13 @@ Resources (arXiv link, etc.)
 - [ ] No `${basePath}` in `<Link>` hrefs — Next.js adds it automatically
 - [ ] Chinese translation for every English string
 - [ ] Build passes with `npm run build`
+
+## Next step: generate the 精读 page
+
+After adding metadata and registering the slug, run:
+
+```
+/deep-dive <slug-or-arxiv-url>
+```
+
+This generates the full interactive deep-dive page at `src/app/papers/<slug>/page.tsx`.

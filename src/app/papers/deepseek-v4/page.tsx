@@ -38,8 +38,8 @@ export default function DeepSeekV4Page() {
           <h3 className="text-sm font-semibold text-blue-800 dark:text-blue-300 mb-2">TL;DR</h3>
           <p className="text-sm text-blue-900 dark:text-blue-200 leading-relaxed mb-0">
             {t(
-              "DeepSeek-V4-Pro is a 1.6T-parameter MoE model (49B active) built on four architectural innovations: (1) CSA/HCA compressed attention cutting KV cache to 10% of V3; (2) DSA sparse attention halving long-context GPU cost; (3) Engram conditional memory reaching 97% NiAH at 1M tokens; and (4) mHC Birkhoff-constrained residual connections enabling stable trillion-scale training. Trained on 33T tokens entirely on Huawei Ascend chips, it reaches ~81% SWE-bench Verified and 93.5 on LiveCodeBench.",
-              "DeepSeek-V4-Pro 是 1.6T 参数 MoE 模型（49B 激活），基于四项架构创新：(1) CSA/HCA 压缩注意力将 KV 缓存降至 V3 的 10%；(2) DSA 稀疏注意力将长上下文 GPU 开销减半；(3) Engram 条件记忆在百万 token 下达 97% NiAH；(4) mHC Birkhoff 约束残差连接使万亿规模训练稳定。在华为昇腾芯片上训练 33T token，SWE-bench Verified ~81%，LiveCodeBench 93.5。"
+              "DeepSeek-V4-Pro is a 1.6T-parameter MoE model (49B active) pre-trained on 32T+ tokens. Key innovations: (1) CSA/HCA compressed attention — only 10% KV cache and 27% inference FLOPs vs DeepSeek-V3.2 at 1M context; (2) mHC Birkhoff-constrained residual connections for stable trillion-scale training; (3) the Muon optimizer replacing Adam for consistent gradient spectral norm. Achieves 80.6% SWE Verified, 93.5 LiveCodeBench, 3206 Codeforces Rating (Think Max mode).",
+              "DeepSeek-V4-Pro 是 1.6T 参数 MoE 模型（49B 激活），在 32T+ token 上预训练。核心创新：(1) CSA/HCA 压缩注意力——在百万 token 上下文下 KV 缓存仅为 DeepSeek-V3.2 的 10%，推理 FLOPs 仅为 27%；(2) mHC Birkhoff 约束残差连接，支持万亿规模稳定训练；(3) Muon 优化器替代 Adam，保证一致的梯度谱范数。Think Max 模式下：SWE Verified 80.6%，LiveCodeBench 93.5，Codeforces 评分 3206。"
             )}
           </p>
         </section>
@@ -75,7 +75,7 @@ export default function DeepSeekV4Page() {
             },
             {
               title: t("DeepSeek-V4-Pro (2026)", "DeepSeek-V4-Pro（2026）"),
-              subtitle: t("1.6T / 49B active · 1M context · 33T tokens · Huawei Ascend · Apache 2.0", "1.6T / 49B 激活 · 百万上下文 · 33T token · 华为昇腾 · Apache 2.0"),
+              subtitle: t("1.6T / 49B active · 1M context · 32T+ tokens · MIT license", "1.6T / 49B 激活 · 百万上下文 · 32T+ token · MIT 协议"),
               color: "purple",
             },
           ]}
@@ -442,6 +442,19 @@ export default function DeepSeekV4Page() {
         {/* ── 10. Key Results ── */}
         <h2>{t("10. Key Results", "10. 关键实验结果")}</h2>
 
+        {/* Official benchmark figure from HuggingFace assets */}
+        <img
+          src="https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/resolve/main/assets/dsv4_performance.png"
+          alt="DeepSeek-V4-Pro-Max benchmark comparison: SimpleQA Verified, HLE, Apex Shortlist, Codeforces, SWE Verified, Terminal Bench 2.0, Toolathlon"
+          className="w-full rounded-lg my-4 border border-paper-200 dark:border-slate-700"
+        />
+        <p className="text-xs text-paper-800/50 dark:text-slate-500 text-center -mt-2 mb-6">
+          {t(
+            "Figure from official HuggingFace model page — DeepSeek-V4-Pro-Max vs Claude Opus 4.6 Max, GPT-5.4 xHigh, Gemini-3.1-Pro High across Knowledge & Reasoning and Agentic benchmarks.",
+            "来自官方 HuggingFace 模型页的图表——DeepSeek-V4-Pro-Max vs Claude Opus 4.6 Max、GPT-5.4 xHigh、Gemini-3.1-Pro High 在知识推理与智能体能力基准上的对比。"
+          )}
+        </p>
+
         <div className="bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 rounded-lg p-3 mb-4 text-xs text-blue-800 dark:text-blue-300">
           {t(
             "All benchmark numbers below are from the official README (huggingface.co/deepseek-ai/DeepSeek-V4-Pro), which mirrors the tables in the technical report. V4-Pro Max = maximum Think mode.",
@@ -517,7 +530,7 @@ export default function DeepSeekV4Page() {
             },
             {
               title: t("Open: Apache 2.0, 1.6T weights public", "开放：Apache 2.0，1.6T 权重公开"),
-              body: t("Releasing a 1.6T-parameter frontier model under Apache 2.0 puts extreme capability in the hands of the research community. Combined with the Huawei-only training stack, it signals that DeepSeek is optimising for influence over revenue.", "以 Apache 2.0 协议发布 1.6T 参数前沿模型，将极强的能力交到研究社区手中。结合仅使用华为的训练方案，这表明 DeepSeek 正在以影响力而非收益为优化目标。"),
+              body: t("Releasing a 1.6T-parameter frontier model under MIT license puts extreme capability in the hands of the research community. The full model weights (865 GB across 64 SafeTensors files) are publicly available on HuggingFace.", "以 MIT 协议发布 1.6T 参数前沿模型，将极强的能力交到研究社区手中。完整模型权重（64 个 SafeTensors 文件，共 865 GB）在 HuggingFace 公开可用。"),
             },
           ].map(({ title, body }) => (
             <div key={String(title)} className="bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg p-4">
@@ -549,7 +562,7 @@ export default function DeepSeekV4Page() {
             {
               slug: "scaling-laws",
               title: "Scaling Laws",
-              body: t("Motivated V4's 33T-token training budget for a 1.6T-parameter model — Chinchilla-style optimal compute allocation.", "激励 V4 对 1.6T 参数模型使用 33T token 训练预算——Chinchilla 风格的最优计算分配。"),
+              body: t("Motivated V4's 32T+ token pre-training budget for a 1.6T-parameter model — Chinchilla-style optimal compute allocation.", "激励 V4 对 1.6T 参数模型使用 32T+ token 预训练预算——Chinchilla 风格的最优计算分配。"),
             },
           ].map(({ slug, title, body }) => (
             <div key={slug} className="p-4 bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg">
