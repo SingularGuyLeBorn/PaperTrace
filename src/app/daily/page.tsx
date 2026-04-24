@@ -20,12 +20,12 @@ const newsItems: NewsItem[] = [
   // ── 2026 ──
   {
     date: "2026-04-23",
-    title: "DeepSeek V4 Pro Preview — 1.6T MoE, 1M Context",
-    titleZh: "DeepSeek V4 Pro 预览版 — 1.6T MoE，百万上下文",
-    description: "DeepSeek released V4 Pro as a preview on HuggingFace. 1.6T total parameters (49B activated) with MoE architecture. Features Engram conditional memory for 97% accuracy at 1M-token scale, and reportedly ~81% on SWE-bench Verified — a substantial leap over V3. Technical report available as PDF.",
-    descriptionZh: "DeepSeek 在 HuggingFace 发布 V4 Pro 预览版。1.6T 总参数（49B 激活）MoE 架构，Engram 条件记忆在百万 token 规模下达 97% 准确率，SWE-bench Verified 据报 ~81%——远超 V3。技术报告已公开。",
-    source: "DeepSeek HuggingFace",
-    sourceUrl: "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro",
+    title: "DeepSeek-V4 Officially Open-Sourced — 1.6T MoE, 1M Context",
+    titleZh: "DeepSeek-V4 正式开源 — 1.6T MoE，百万 token 上下文",
+    description: "DeepSeek-V4 is officially live and open-sourced. V4-Pro: 1.6T total / 49B active params, 1M context, 80.6% SWE Verified, 93.5 LiveCodeBench, Codeforces rating 3206. V4-Flash: 284B total / 13B active, same 1M context. Both support Expert Mode (Think) and Instant Mode (Non-Think). Pre-trained on 32T+ tokens with Muon optimizer. Weights on HuggingFace, API available, tech report released.",
+    descriptionZh: "DeepSeek-V4 正式发布并开源。V4-Pro：1.6T 总参数 / 49B 激活，1M 上下文，SWE Verified 80.6%，LiveCodeBench 93.5，Codeforces 评分 3206。V4-Flash：284B 总参数 / 13B 激活，同样支持 1M 上下文。两者均支持 Expert Mode（思考）和 Instant Mode（非思考）。在 32T+ token 上用 Muon 优化器预训练。权重已上 HuggingFace，API 今日可用，技术报告同步发布。",
+    source: "DeepSeek Official",
+    sourceUrl: "https://huggingface.co/collections/deepseek-ai/deepseek-v4",
     tag: "Release",
   },
   {
