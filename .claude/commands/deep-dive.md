@@ -11,7 +11,7 @@ Convert an academic paper into a full PaperTrace interactive deep-dive page.
 `$ARGUMENTS` can be:
 - An arXiv URL (e.g. `https://arxiv.org/abs/2106.09685`)
 - An arXiv ID (e.g. `2106.09685`)
-- A HuggingFace model page URL (e.g. `https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro`)
+- A HuggingFace model page URL (e.g. `https://huggingface.co/<org>/<model>`)
 - A slug of an existing paper to rebuild (e.g. `lora`)
 
 ---
@@ -36,7 +36,10 @@ Convert an academic paper into a full PaperTrace interactive deep-dive page.
 
 **If the paper is inaccessible:** write an explicit disclaimer in the page. Do NOT fill plausible-sounding numbers from memory.
 
-**After writing the page:** `grep` the whole file for any third-party-sourced claims that may have crept in (especially in TL;DR and Why It Matters sections — these are written quickly and are highest-risk for hallucination).
+**After writing the page:** `grep` the whole file for hallucination markers before committing — especially in TL;DR and Why It Matters, which are written quickly and are highest-risk:
+```
+reportedly | 据报 | ~[0-9] | claimed | sources say | is said to | estimated | speculated | unconfirmed
+```
 
 ---
 
@@ -105,7 +108,7 @@ Before adding any `<Math display>` block:
 3. In the `label` prop, include the equation/section reference: `"Eq. (3), §3.2 — GRPO advantage"`
 4. If the exact equation is not in the source, label it: `"(schematic — not verbatim from paper)"`
 
-**Common failure mode from this project:** the mHC formula was written from memory as a Frobenius-norm constraint, but the actual paper (arXiv 2512.24880) uses a Birkhoff polytope (doubly stochastic matrix) constraint enforced by Sinkhorn-Knopp. Always fetch and read.
+**Common failure mode:** a formula is reconstructed from memory or a description, producing something plausible but wrong. The only protection is fetching the paper and copying verbatim. If the paper is inaccessible, label the equation explicitly as `(schematic)` in the UI.
 
 ---
 
@@ -129,7 +132,7 @@ Always add a caption:
 </p>
 ```
 
-**Always include:** the main benchmark/results figure (e.g. `dsv4_performance.png`) and the architecture diagram.
+**Always include:** the main benchmark/results figure and the architecture diagram — these are the highest-value visuals for readers.
 
 ---
 
@@ -265,8 +268,8 @@ export default function <PascalCaseSlug>Page() {
 
 ```bash
 npm run build
-# Then grep for any remaining third-party claims:
-grep -n "华为\|Huawei\|据报\|reportedly\|~[0-9]" src/app/papers/<slug>/page.tsx
+# Then grep for hallucination markers:
+grep -n "reportedly\|据报\|~[0-9]\|claimed\|sources say\|is said to\|believed to\|estimated\|speculated\|unconfirmed" src/app/papers/<slug>/page.tsx
 ```
 
 Fix any TypeScript errors. Fix any flagged claims with verified data or remove them.
