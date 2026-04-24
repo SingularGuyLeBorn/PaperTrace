@@ -31,7 +31,7 @@ export const sections: Section[] = [
         venue: "Technical Report",
         tags: ["MoE", "Efficient Attention", "Long Context", "Code"],
         description:
-          "DeepSeek-V4-Pro: 1.6T-parameter MoE model (49B active) with three key innovations — Compressed Sparse Attention (10% KV cache vs V3), Engram conditional memory (97% NiAH at 1M tokens), and manifold-constrained hyper-connections for stable trillion-scale training. Reaches ~81% SWE-bench Verified on Huawei Ascend chips.",
+          "DeepSeek-V4-Pro: 1.6T-parameter MoE model (49B active) pre-trained on 32T+ tokens. Innovations: CSA/HCA compressed attention (10% KV cache vs V3.2), mHC Birkhoff-constrained residual connections, and Muon optimizer. 80.6% SWE Verified, 93.5 LiveCodeBench, Codeforces 3206 (Think Max). MIT license, open weights.",
         arxiv: "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf",
       },
     ],

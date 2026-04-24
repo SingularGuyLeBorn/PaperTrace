@@ -7,7 +7,7 @@ interface Resource {
   desc: string;
   descZh: string;
   href: string;
-  type: "youtube" | "bilibili" | "xiaohongshu" | "wechat" | "newsletter" | "podcast" | "blog" | "tool" | "bookmark" | "twitter" | "github";
+  type: "youtube" | "bilibili" | "xiaohongshu" | "wechat" | "newsletter" | "podcast" | "blog" | "tool" | "bookmark" | "twitter" | "github" | "productivity";
   tags?: string[];
   recommended?: boolean;
   note?: string;
@@ -58,11 +58,23 @@ const resources: Resource[] = [
     desc: "Top Chinese AI media. Fastest news coverage, industry updates.", descZh: "顶级中文 AI 媒体。最快的新闻报道，行业动态。", tags: ["News", "Chinese"] },
   { name: "量子位", href: "https://www.qbitai.com", type: "wechat",
     desc: "Chinese AI news + analysis. Covers both research papers and product launches.", descZh: "中文 AI 新闻 + 分析。同时报道研究论文和产品发布。", tags: ["News", "Chinese"] },
-  { name: "PaperWeekly", href: "https://www.paperweekly.site", type: "wechat",
-    desc: "Chinese ML paper summaries and reading groups. Community-driven.", descZh: "中文 ML 论文摘要和读书会。社区驱动。", tags: ["Paper Reading", "Chinese"], recommended: true },
+  { name: "新智元", href: "https://www.ainews.com.cn", type: "wechat",
+    desc: "Major Chinese AI media outlet. Deep coverage of AI research, industry, and policy — especially strong on frontier model releases.", descZh: "重要中文 AI 媒体。深度报道 AI 研究、行业和政策 — 对前沿模型发布覆盖尤为深入。", tags: ["News", "Chinese"], recommended: true },
   // X / Twitter
-  { name: "罗浮力 (@_LuoFuli)", href: "https://x.com/_LuoFuli", type: "twitter",
-    desc: "Sharp takes on AI industry trends, startup moves, and product launches from a Chinese tech insider perspective.", descZh: "从中文科技圈视角对 AI 行业动态、创业动向和产品发布的精准点评。", tags: ["Chinese", "Industry", "X"] },
+  { name: "DeepSeek (@deepseek_ai)", href: "https://x.com/deepseek_ai", type: "twitter",
+    desc: "Official DeepSeek account. First-hand announcements of model releases, technical reports, and API updates.", descZh: "DeepSeek 官方账号。第一手的模型发布、技术报告和 API 更新公告。", tags: ["Official", "Research"], recommended: true },
+  { name: "Andrej Karpathy (@karpathy)", href: "https://x.com/karpathy", type: "twitter",
+    desc: "Deep takes on LLMs, AI education, and the future of software. Essential follow for anyone serious about ML.", descZh: "对 LLM、AI 教育和软件未来的深度思考。认真学 ML 的人必关注。", recommended: true, tags: ["LLM", "Education"] },
+  { name: "Yann LeCun (@ylecun)", href: "https://x.com/ylecun", type: "twitter",
+    desc: "Meta AI Chief Scientist. Contrarian views on AGI, strong opinions on architecture and benchmarks. Always worth reading.", descZh: "Meta AI 首席科学家。对 AGI 的反主流观点，对架构和基准的独到见解。", tags: ["Research", "Industry"] },
+  { name: "Jim Fan (@drjimfan)", href: "https://x.com/drjimfan", type: "twitter",
+    desc: "NVIDIA AI researcher. Excellent explainer threads on embodied AI, agents, and frontier model capabilities.", descZh: "英伟达 AI 研究员。关于具身 AI、智能体和前沿模型能力的优质解说帖。", recommended: true, tags: ["Agents", "Embodied AI"] },
+  { name: "François Chollet (@fchollet)", href: "https://x.com/fchollet", type: "twitter",
+    desc: "Keras creator, ARC-AGI benchmark author. Sharp takes on reasoning, generalization, and what intelligence actually means.", descZh: "Keras 创始人，ARC-AGI 基准作者。对推理、泛化和智能本质的深刻见解。", tags: ["Research", "AGI"] },
+  { name: "宝玉xp (@dotey)", href: "https://x.com/dotey", type: "twitter",
+    desc: "High-quality Chinese translations of key AI papers, tweets, and threads. Essential bridge between English AI discourse and Chinese community.", descZh: "高质量中文翻译 AI 论文、推文和长帖。英文 AI 圈和中文社区之间的重要桥梁。", recommended: true, tags: ["Chinese", "Translation"] },
+  { name: "罗福莉 (@_LuoFuli)", href: "https://x.com/_LuoFuli", type: "twitter",
+    desc: "Sharp takes on AI industry trends, startup moves, and product launches from a Chinese tech insider perspective.", descZh: "从中文科技圈视角对 AI 行业动态、创业动向和产品发布的精准点评。", tags: ["Chinese", "Industry"] },
   // Blogs — International
   { name: "Lil'Log (Lilian Weng, OpenAI)", href: "https://lilianweng.github.io", type: "blog",
     desc: "Deep technical posts on RL, diffusion, and attention. The best technical summaries of entire subfields.", descZh: "关于 RL、扩散模型和注意力机制的深度技术文章。整个子领域最好的技术摘要。", recommended: true, tags: ["Survey", "LLM", "RL"] },
@@ -114,6 +126,22 @@ const resources: Resource[] = [
     descZh: "从零理解 LLM 训练，不再黑盒训练 — 通过对照实验彻底理解 LLM 的每个设计选择。",
     recommended: true, tags: ["Chinese", "From Scratch", "LLM", "Hands-on"] },
 
+  // Productivity
+  { name: "Claude / Claude Code", href: "https://claude.ai", type: "productivity",
+    desc: "Anthropic's AI assistant and Claude Code CLI. Best-in-class for reading papers, writing code, and research workflows. Claude Code integrates directly into your terminal.", descZh: "Anthropic 的 AI 助手和 Claude Code CLI。阅读论文、编写代码和研究工作流的最佳选择。Claude Code 直接集成到终端。", recommended: true, tags: ["AI Assistant", "Coding", "Research"] },
+  { name: "ChatGPT", href: "https://chat.openai.com", type: "productivity",
+    desc: "OpenAI's flagship AI assistant. Strong for brainstorming, drafting, and code explanation. GPT-4o supports multimodal input.", descZh: "OpenAI 的旗舰 AI 助手。擅长头脑风暴、起草和代码解释。GPT-4o 支持多模态输入。", tags: ["AI Assistant", "Multimodal"] },
+  { name: "Cursor", href: "https://cursor.sh", type: "productivity",
+    desc: "AI-native IDE built on VS Code. Fastest way to navigate, edit, and understand large codebases with AI assistance.", descZh: "基于 VS Code 的 AI 原生 IDE。利用 AI 辅助浏览、编辑和理解大型代码库的最快方式。", recommended: true, tags: ["Coding", "IDE"] },
+  { name: "Obsidian", href: "https://obsidian.md", type: "productivity",
+    desc: "Local-first knowledge management with Markdown and bidirectional links. Ideal for building a personal research knowledge base and linking paper notes.", descZh: "基于 Markdown 和双向链接的本地优先知识管理工具。适合构建个人研究知识库和关联论文笔记。", recommended: true, tags: ["Note-taking", "PKM", "Research"] },
+  { name: "Notion", href: "https://notion.so", type: "productivity",
+    desc: "All-in-one workspace for notes, databases, and project management. Useful for organizing reading lists, research projects, and team collaboration.", descZh: "集笔记、数据库和项目管理于一体的工作空间。适合整理阅读清单、科研项目和团队协作。", tags: ["Note-taking", "Collaboration"] },
+  { name: "Zotero", href: "https://www.zotero.org", type: "productivity",
+    desc: "Free, open-source reference manager designed for researchers. Automatically extracts metadata from PDFs, organizes citations, and syncs across devices.", descZh: "免费开源的文献管理工具，专为研究者设计。自动从 PDF 提取元数据，整理引用，多设备同步。", recommended: true, tags: ["Reference Management", "Research", "Free"] },
+  { name: "Elicit", href: "https://elicit.com", type: "productivity",
+    desc: "AI research assistant for finding, summarizing, and synthesizing papers. Useful for literature reviews.", descZh: "AI 研究助手，用于查找、总结和综合论文。适合文献综述。", tags: ["AI Assistant", "Research", "Literature Review"] },
+
   // GitHub
   { name: "TransformerVisualizer", href: "https://github.com/SingularGuyLeBorn/TransformerVisualizer", type: "github",
     desc: "Interactive visual walkthrough of the Transformer architecture — attention heads, positional encoding, encoder-decoder flow, built from scratch.",
@@ -145,6 +173,7 @@ const typeConfig: Record<Resource["type"], { label: string; labelZh: string; ico
   bookmark: { label: "Bookmarks", labelZh: "收藏", icon: "🔖", color: "bg-amber-100 text-amber-700" },
   twitter: { label: "X / Twitter", labelZh: "X / Twitter", icon: "𝕏", color: "bg-slate-100 text-slate-700" },
   github: { label: "GitHub", labelZh: "GitHub", icon: "⌥", color: "bg-zinc-100 text-zinc-700" },
+  productivity: { label: "Productivity", labelZh: "效率工具", icon: "⚡", color: "bg-violet-100 text-violet-700" },
 };
 
 const sections: { type: Resource["type"] | Resource["type"][]; title: string; titleZh: string }[] = [
@@ -155,6 +184,7 @@ const sections: { type: Resource["type"] | Resource["type"][]; title: string; ti
   { type: ["wechat", "blog", "twitter"], title: "Blogs, WeChat & X", titleZh: "博客 & 公众号 & X" },
   { type: "podcast", title: "Podcasts", titleZh: "播客" },
   { type: "tool", title: "Tools for Learning & Visualization", titleZh: "学习工具 & 可视化" },
+  { type: "productivity", title: "AI Assistants & Productivity", titleZh: "AI 助手 & 效率工具" },
   { type: "github", title: "GitHub & Open Source", titleZh: "GitHub & 开源项目" },
   { type: "bookmark", title: "Bookmarks & Favorites", titleZh: "收藏" },
 ];
