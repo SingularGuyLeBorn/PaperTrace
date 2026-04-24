@@ -19,6 +19,26 @@ interface NewsItem {
 const newsItems: NewsItem[] = [
   // ── 2026 ──
   {
+    date: "2026-04-23",
+    title: "DeepSeek V4 Pro Preview — 1.6T MoE, 1M Context",
+    titleZh: "DeepSeek V4 Pro 预览版 — 1.6T MoE，百万上下文",
+    description: "DeepSeek released V4 Pro as a preview on HuggingFace. 1.6T total parameters (49B activated) with MoE architecture. Features Engram conditional memory for 97% accuracy at 1M-token scale, and reportedly ~81% on SWE-bench Verified — a substantial leap over V3. Technical report available as PDF.",
+    descriptionZh: "DeepSeek 在 HuggingFace 发布 V4 Pro 预览版。1.6T 总参数（49B 激活）MoE 架构，Engram 条件记忆在百万 token 规模下达 97% 准确率，SWE-bench Verified 据报 ~81%——远超 V3。技术报告已公开。",
+    source: "DeepSeek HuggingFace",
+    sourceUrl: "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro",
+    tag: "Release",
+  },
+  {
+    date: "2026-04-21",
+    title: "GPT Image 2.0 — Reasoning-First Image Generation",
+    titleZh: "GPT Image 2.0 — 推理优先的图像生成",
+    description: "OpenAI launched gpt-image-2 (ChatGPT Images 2.0) with integrated o-series reasoning — the model plans and reasons before generating. Supports up to 8 coherent images per prompt, accurate multilingual text rendering (Chinese, Japanese, Korean), and 2K resolution. Hit #1 on Image Arena within 12 hours by a +242 point margin.",
+    descriptionZh: "OpenAI 发布 gpt-image-2（ChatGPT Images 2.0），集成 o 系列推理能力——模型生成前先规划推理。支持单次最多 8 张连贯图片、精准多语言文字渲染（中日韩）及 2K 分辨率，上线 12 小时以 +242 分差距登顶 Image Arena 第一。",
+    source: "OpenAI Blog",
+    sourceUrl: "https://openai.com/index/introducing-chatgpt-images-2-0/",
+    tag: "Release",
+  },
+  {
     date: "2026-04-04",
     title: "Claude Code Source Leaked via npm Source Maps",
     titleZh: "Claude Code 源码通过 npm Source Map 泄露",
@@ -422,7 +442,7 @@ export default function DailyPage() {
                     <div className="space-y-3">
                       {papers.map((paper) => (
                         <div
-                          key={paper.arxivId}
+                          key={paper.arxivId || paper.title}
                           className={`bg-white dark:bg-slate-800 border rounded-lg p-4 transition-all hover:shadow-sm ${
                             paper.pick
                               ? "border-amber-200 dark:border-amber-700/40 hover:border-amber-300 dark:hover:border-amber-600/50"
@@ -442,8 +462,13 @@ export default function DailyPage() {
                                   </p>
                                 </div>
                                 <div className="flex gap-2 flex-shrink-0">
-                                  <a href={`https://arxiv.org/abs/${paper.arxivId}`} target="_blank" rel="noopener noreferrer"
-                                    className="text-xs text-paper-800/40 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">arXiv ↗</a>
+                                  {paper.arxivId ? (
+                                    <a href={`https://arxiv.org/abs/${paper.arxivId}`} target="_blank" rel="noopener noreferrer"
+                                      className="text-xs text-paper-800/40 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">arXiv ↗</a>
+                                  ) : paper.paperUrl ? (
+                                    <a href={paper.paperUrl} target="_blank" rel="noopener noreferrer"
+                                      className="text-xs text-paper-800/40 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Paper ↗</a>
+                                  ) : null}
                                   {paper.slug && (
                                     <Link href={`/papers/${paper.slug}`}
                                       className="text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium">

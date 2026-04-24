@@ -4,6 +4,7 @@ export interface DailyPaper {
   titleZh?: string;
   authors: string;
   arxivId: string;
+  paperUrl?: string; // for non-arXiv papers (e.g. HuggingFace technical reports)
   tags: string[];
   /** One-line why it matters — English */
   why: string;
@@ -16,6 +17,19 @@ export interface DailyPaper {
 }
 
 export const dailyPapers: DailyPaper[] = [
+  {
+    date: "2026-04-23",
+    title: "DeepSeek-V4 Technical Report",
+    titleZh: "DeepSeek-V4 技术报告",
+    authors: "DeepSeek AI",
+    arxivId: "",
+    paperUrl: "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf",
+    tags: ["MoE", "Pre-training", "Code"],
+    why: "1.6T MoE (49B active) with 1M-token Engram memory — claims ~81% SWE-bench Verified, a major leap from V3.",
+    whyZh: "1.6T MoE（49B 激活），Engram 百万 token 记忆 — 宣称 SWE-bench Verified ~81%，远超 V3。",
+    pick: true,
+    slug: "deepseek-v4",
+  },
   {
     date: "2025-02-14",
     title: "Large Language Diffusion Models (LLaDA)",
