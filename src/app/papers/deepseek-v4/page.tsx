@@ -3,6 +3,9 @@
 import { Math } from "@/components/Math";
 import { Collapsible } from "@/components/Collapsible";
 import { FlowChart } from "@/components/FlowChart";
+import { MoERoutingViz } from "@/components/widgets/MoERoutingViz";
+import { KVCacheViz } from "@/components/widgets/KVCacheViz";
+import { MuonOptimizerViz } from "@/components/widgets/MuonOptimizerViz";
 import { useLang } from "@/lib/i18n";
 import Link from "next/link";
 
@@ -23,7 +26,7 @@ export default function DeepSeekV4Page() {
             rel="noopener noreferrer"
             className="text-blue-600 hover:underline"
           >
-            Technical Report (HuggingFace)
+            {t("Technical Report (HuggingFace)", "技术报告（HuggingFace）")}
           </a>
         </p>
       </header>
@@ -35,8 +38,8 @@ export default function DeepSeekV4Page() {
           <h3 className="text-sm font-semibold text-blue-800 dark:text-blue-300 mb-2">TL;DR</h3>
           <p className="text-sm text-blue-900 dark:text-blue-200 leading-relaxed mb-0">
             {t(
-              "DeepSeek-V4-Pro is a 1.6T-parameter MoE model (49B active) with three key architectural innovations: (1) Compressed Sparse Attention (CSA/HCA) that cuts KV cache to just 10% of V3's; (2) Engram conditional memory achieving 97% Needle-in-a-Haystack accuracy at 1M tokens; and (3) Manifold-Constrained Hyper-Connections (mHC) for stable trillion-scale training. Trained on 33T tokens, it reaches ~81% on SWE-bench Verified and runs entirely on Huawei Ascend chips.",
-              "DeepSeek-V4-Pro 是 1.6T 参数 MoE 模型（49B 激活），具备三项关键架构创新：(1) 压缩稀疏注意力（CSA/HCA），KV 缓存仅为 V3 的 10%；(2) Engram 条件记忆，在百万 token 规模下达到 97% NiAH 准确率；(3) 流形约束超连接（mHC），支持万亿级参数的稳定训练。在 33T token 上训练，SWE-bench Verified 达 ~81%，完全运行于华为昇腾芯片。"
+              "DeepSeek-V4-Pro is a 1.6T-parameter MoE model (49B active) built on four architectural innovations: (1) CSA/HCA compressed attention cutting KV cache to 10% of V3; (2) DSA sparse attention halving long-context GPU cost; (3) Engram conditional memory reaching 97% NiAH at 1M tokens; and (4) mHC Birkhoff-constrained residual connections enabling stable trillion-scale training. Trained on 33T tokens entirely on Huawei Ascend chips, it reaches ~81% SWE-bench Verified and 93.5 on LiveCodeBench.",
+              "DeepSeek-V4-Pro 是 1.6T 参数 MoE 模型（49B 激活），基于四项架构创新：(1) CSA/HCA 压缩注意力将 KV 缓存降至 V3 的 10%；(2) DSA 稀疏注意力将长上下文 GPU 开销减半；(3) Engram 条件记忆在百万 token 下达 97% NiAH；(4) mHC Birkhoff 约束残差连接使万亿规模训练稳定。在华为昇腾芯片上训练 33T token，SWE-bench Verified ~81%，LiveCodeBench 93.5。"
             )}
           </p>
         </section>
@@ -47,272 +50,321 @@ export default function DeepSeekV4Page() {
           steps={[
             {
               title: t("DeepSeek-V2 (2024)", "DeepSeek-V2（2024）"),
-              subtitle: t("MLA + MoE — introduced Multi-head Latent Attention to compress KV cache", "MLA + MoE — 引入多头潜在注意力压缩 KV 缓存"),
+              subtitle: t("Introduced MLA (Multi-head Latent Attention) to compress KV cache via low-rank projection", "引入 MLA（多头潜在注意力）通过低秩投影压缩 KV 缓存"),
               color: "rose",
             },
             {
-              title: t("DeepSeek-V3 (2025)", "DeepSeek-V3（2025）"),
-              subtitle: t("671B MoE — auxiliary-loss-free load balancing, multi-token prediction", "671B MoE — 无辅助损失的负载均衡，多 token 预测"),
+              title: t("DeepSeek-V3 (2025, 671B)", "DeepSeek-V3（2025，671B）"),
+              subtitle: t("Auxiliary-loss-free MoE load balancing + multi-token prediction; trained on 14.8T tokens", "无辅助损失 MoE 负载均衡 + 多 token 预测；在 14.8T token 上训练"),
               color: "amber",
             },
             {
-              title: t("V4 Innovation 1: CSA + HCA", "V4 创新 1: CSA + HCA"),
-              subtitle: t("Hybrid compressed attention — 10% KV cache, 27% FLOPs vs V3", "混合压缩注意力 — 10% KV 缓存，27% FLOPs（相比 V3）"),
+              title: t("V4 Innovation 1+2: CSA/HCA + DSA", "V4 创新 1+2：CSA/HCA + DSA"),
+              subtitle: t("Two-level attention overhaul — 10× KV cache reduction + 2× long-context compute reduction", "两级注意力革新 — KV 缓存减少 10 倍 + 长上下文计算减少 2 倍"),
               color: "blue",
             },
             {
-              title: t("V4 Innovation 2: Engram Memory", "V4 创新 2: Engram 记忆"),
-              subtitle: t("O(1) hash-based static knowledge lookup — 97% NiAH at 1M tokens", "O(1) 哈希静态知识查找 — 百万 token 下 97% NiAH 准确率"),
+              title: t("V4 Innovation 3: Engram Memory", "V4 创新 3：Engram 记忆"),
+              subtitle: t("O(1) hash-based static knowledge store — decouples factual recall from FFN reasoning", "O(1) 哈希静态知识存储 — 将事实回忆与 FFN 推理解耦"),
               color: "teal",
             },
             {
-              title: t("V4 Innovation 3: mHC", "V4 创新 3: mHC"),
-              subtitle: t("Manifold-constrained residual connections enable stable 1.6T training", "流形约束残差连接支持稳定的 1.6T 规模训练"),
+              title: t("V4 Innovation 4: mHC", "V4 创新 4：mHC"),
+              subtitle: t("Birkhoff-constrained residual streams via Sinkhorn-Knopp projection — stable gradient flow at 1.6T", "Birkhoff 约束残差流（Sinkhorn-Knopp 投影）— 1.6T 规模稳定梯度流"),
               color: "green",
             },
             {
               title: t("DeepSeek-V4-Pro (2026)", "DeepSeek-V4-Pro（2026）"),
-              subtitle: t("1.6T params / 49B active · 1M context · 33T tokens · ~81% SWE-bench", "1.6T 参数 / 49B 激活 · 百万上下文 · 33T token · ~81% SWE-bench"),
+              subtitle: t("1.6T / 49B active · 1M context · 33T tokens · Huawei Ascend · Apache 2.0", "1.6T / 49B 激活 · 百万上下文 · 33T token · 华为昇腾 · Apache 2.0"),
               color: "purple",
             },
           ]}
           arrows={[
-            t("Scales up", "规模扩大"),
-            t("V4 builds on", "V4 基础"),
+            t("Scales", "扩展"),
+            t("V4 adds", "V4 新增"),
             t("+", "+"),
             t("+", "+"),
-            t("Assembled as", "组合为"),
+            t("= V4", "= V4"),
           ]}
           highlights={[
-            { text: t("Only 3% of params active per token", "每 token 仅激活 3% 参数"), color: "green" },
-            { text: t("10% KV cache vs V3", "KV 缓存仅为 V3 的 10%"), color: "blue" },
-            { text: t("No Nvidia GPUs", "无需 Nvidia GPU"), color: "purple" },
+            { text: t("3% params active per token", "每 token 仅激活 3% 参数"), color: "green" },
+            { text: t("10× KV cache vs V3", "KV 缓存为 V3 的 1/10"), color: "blue" },
+            { text: t("No Nvidia GPUs needed", "无需 Nvidia GPU"), color: "purple" },
           ]}
         />
 
         {/* ── 1. Background ── */}
-        <h2>{t("1. Background: The Cost of Scale", "1. 背景：规模化的代价")}</h2>
+        <h2>{t("1. Background: Two Scaling Walls", "1. 背景：两道扩展之墙")}</h2>
         <p>
           {t(
-            "Frontier LLMs face two fundamental scaling bottlenecks. First, compute: dense transformers scale quadratically with sequence length, making 1M-token context impractical. Second, memory: the KV cache for long sequences consumes enormous GPU memory, bottlenecking batch size and throughput.",
-            "前沿大语言模型面临两个基本扩展瓶颈。第一是计算：稠密 Transformer 的计算量随序列长度二次增长，使百万 token 上下文不可行。第二是内存：长序列的 KV 缓存消耗大量 GPU 显存，限制 batch size 和吞吐量。"
+            "Frontier LLMs hit two fundamental walls as context grows. The memory wall: KV cache for a 1M-token context can exceed 100 GB, bottlenecking batch size and GPU utilisation. The compute wall: dense attention is O(L²) in sequence length — at 1M tokens, standard attention is simply infeasible.",
+            "前沿大语言模型随上下文增长面临两道根本性的墙。内存墙：百万 token 上下文的 KV 缓存可能超过 100 GB，限制 batch size 和 GPU 利用率。计算墙：稠密注意力的计算复杂度为序列长度的 O(L²)——在百万 token 下，标准注意力根本不可行。"
           )}
         </p>
         <p>
           {t(
-            "DeepSeek-V3 partially addressed these with MoE routing and MLA (Multi-head Latent Attention). V4 goes further — redesigning both the attention mechanism and the knowledge storage strategy from scratch, and adding a new type of residual connection to make trillion-scale training stable.",
-            "DeepSeek-V3 通过 MoE 路由和 MLA（多头潜在注意力）部分解决了这些问题。V4 更进一步——从头重新设计了注意力机制和知识存储策略，并引入新型残差连接以使万亿参数规模的训练稳定可行。"
+            "DeepSeek-V4 attacks both walls simultaneously with two attention innovations (CSA/HCA and DSA), then adds Engram memory to make 1M-context knowledge retrieval reliable, and mHC to keep a 1.6T-parameter model stable during training.",
+            "DeepSeek-V4 通过两项注意力创新（CSA/HCA 和 DSA）同时攻克这两道墙，然后加入 Engram 记忆使百万 token 上下文的知识检索可靠，以及 mHC 使 1.6T 参数模型在训练中保持稳定。"
           )}
         </p>
 
-        {/* ── 2. MoE at 1.6T Scale ── */}
-        <h2>{t("2. MoE Architecture: 1.6T Parameters, 49B Active", "2. MoE 架构：1.6T 参数，49B 激活")}</h2>
+        {/* ── 2. MoE ── */}
+        <h2>{t("2. Foundation: MoE at 1.6T / 49B Active", "2. 基础：1.6T / 49B 激活的 MoE")}</h2>
         <p>
           {t(
-            "V4-Pro uses Mixture-of-Experts to keep per-token compute feasible despite the enormous total parameter count. Each token activates only the top-K expert FFN layers, leaving the rest idle. At 1.6T total / 49B active, V4 activates roughly 3% of its weights per forward pass.",
-            "V4-Pro 使用混合专家机制，尽管总参数量庞大，但每 token 的计算量保持可控。每个 token 只激活 top-K 个专家 FFN 层，其余保持休眠。1.6T 总参数 / 49B 激活，V4 每次前向传播激活约 3% 的权重。"
+            "V4-Pro uses Mixture-of-Experts to keep per-token compute feasible at 1.6T total parameters. Each token activates only the top-K expert FFN layers — roughly 3% of all weights — leaving the rest idle. The routing is learned end-to-end.",
+            "V4-Pro 使用混合专家在 1.6T 总参数下保持每 token 计算可控。每个 token 只激活 top-K 个专家 FFN 层——约 3% 的权重——其余保持休眠。路由是端到端学习的。"
           )}
         </p>
 
         <Math
           display
-          label={t("MoE routing: output is a weighted sum of selected experts", "MoE 路由：输出是选中专家的加权求和")}
-          tex="\text{MoE}(x) = \sum_{i \in \text{Top-K}(x)} g_i(x) \cdot E_i(x)"
+          label={t("MoE routing — weighted sum of selected experts", "MoE 路由 — 选中专家的加权求和")}
+          tex="\text{MoE}(x) = \sum_{i \in \text{Top-K}(x)} g_i(x) \cdot E_i(x), \quad g_i(x) = \frac{e^{s_i(x)}}{\sum_{j \in \text{Top-K}} e^{s_j(x)}}"
         />
 
         <Collapsible title={t("Variable-by-variable breakdown", "逐变量拆解")} defaultOpen>
           <div className="text-sm">
             <div className="grid grid-cols-[160px_1fr] gap-y-3 gap-x-3">
-              <Math tex="x" />
+              <Math tex="x \in \mathbb{R}^d" />
               <span>{t("Input token hidden state", "输入 token 的隐藏状态")}</span>
               <Math tex="\text{Top-K}(x)" />
-              <span>{t("Indices of the K experts with highest routing scores for this token", "当前 token 路由分数最高的 K 个专家的索引")}</span>
+              <span>{t("Indices of the K experts with highest routing scores — K=2 in V4 (out of 64 routed experts per layer)", "路由分数最高的 K 个专家索引——V4 中 K=2（每层 64 个可路由专家中选 2）")}</span>
+              <Math tex="s_i(x)" />
+              <span>{t("Routing score for expert i — computed by a small gating network", "专家 i 的路由分数——由小型门控网络计算")}</span>
               <Math tex="g_i(x)" />
-              <span>{t("Gating weight for expert i — softmax over routing scores, re-normalized to selected experts", "专家 i 的门控权重 — 对路由分数 softmax 后归一化至选中专家")}</span>
+              <span>{t("Gating weight — softmax re-normalised over the top-K selected experts only", "门控权重——仅在选中的 top-K 专家上重新 softmax 归一化")}</span>
               <Math tex="E_i(x)" />
-              <span>{t("Output of expert i (typically a 2-layer FFN)", "专家 i 的输出（通常是 2 层 FFN）")}</span>
+              <span>{t("Output of expert i (a 2-layer FFN with its own weights)", "专家 i 的输出（具有独立权重的 2 层 FFN）")}</span>
             </div>
           </div>
         </Collapsible>
 
+        {/* Interactive MoE viz */}
+        <MoERoutingViz />
+
         <div className="bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 rounded-lg p-4 my-6">
           <p className="text-sm mb-0">
-            <strong>{t("Why not just train a dense 49B model?", "为什么不直接训练一个稠密 49B 模型？")}</strong>{" "}
+            <strong>{t("Why 1.6T total but only 49B active?", "为什么总参数 1.6T 但只激活 49B？")}</strong>{" "}
             {t(
-              "MoE gives you the capacity of 1.6T parameters (long-tail knowledge, rare languages, specialized skills) with the inference cost of 49B. Think of it as a huge library where you only consult the relevant specialist for each question.",
-              "MoE 赋予你 1.6T 参数的容量（长尾知识、小语种、专业技能），但推理成本仅为 49B 模型。可以理解为一个巨大的图书馆，每个问题只咨询相关专家。"
+              "MoE separates model capacity from inference cost. The 1.6T parameters store a vast library of specialised knowledge; the 49B active parameters per token is what you actually pay for at inference time. Compare to a dense 49B model — same inference cost but 32× less knowledge capacity.",
+              "MoE 将模型容量与推理成本分离。1.6T 参数存储了大量专业知识；每 token 激活的 49B 参数才是推理时实际付出的成本。与稠密 49B 模型相比——推理成本相同，但知识容量少 32 倍。"
             )}
           </p>
         </div>
 
-        {/* ── 3. Innovation 1: CSA + HCA ── */}
-        <h2>{t("3. Innovation 1: Compressed Sparse Attention (CSA + HCA)", "3. 创新一：压缩稀疏注意力（CSA + HCA）")}</h2>
+        {/* ── 3. CSA + HCA ── */}
+        <h2>{t("3. Innovation 1: Compressed Attention (CSA + HCA)", "3. 创新一：压缩注意力（CSA + HCA）")}</h2>
         <p>
           {t(
-            "Standard multi-head attention stores a key and value vector for every token in the context window. At 1M tokens this KV cache alone can exceed 100 GB. V4 replaces standard attention with a two-tier compression scheme:",
-            "标准多头注意力为上下文窗口中的每个 token 存储一个 key 和 value 向量。在百万 token 场景下，KV 缓存本身就可能超过 100 GB。V4 用两级压缩方案替代了标准注意力："
+            "Standard multi-head attention caches one key and one value vector per head per token. V4 replaces this with a two-level scheme: CSA (Compressed Sparse Attention) for medium-range context, and HCA (Heavily Compressed Attention) for ultra-long-range layers — each with a different learned compression ratio.",
+            "标准多头注意力为每个头的每个 token 缓存一个 key 和一个 value 向量。V4 用两级方案替代：CSA（压缩稀疏注意力）用于中距离上下文，HCA（高度压缩注意力）用于超长距离层——每层有不同的学习压缩比。"
           )}
         </p>
-        <ul>
-          <li>
-            <strong>{t("CSA (Compressed Sparse Attention)", "CSA（压缩稀疏注意力）")}</strong>
-            {t(
-              " — groups query heads that share the same compressed KV heads, similar to Grouped-Query Attention but with a learned compression ratio optimized per layer.",
-              " — 将共享同一压缩 KV 头的 query 头分组，类似分组查询注意力，但学习了每层的最优压缩比。"
-            )}
-          </li>
-          <li>
-            <strong>{t("HCA (Heavily Compressed Attention)", "HCA（高度压缩注意力）")}</strong>
-            {t(
-              " — applied to layers handling very long-range context, pushes compression further, trading some expressivity for dramatic memory savings.",
-              " — 用于处理超长距离上下文的层，进一步提升压缩比，以少量表达能力换取大幅节省内存。"
-            )}
-          </li>
-        </ul>
 
         <Math
           display
-          label={t("Compressed KV projection (CSA)", "压缩 KV 投影（CSA）")}
-          tex="\tilde{K} = W_K^c \cdot X, \quad \tilde{V} = W_V^c \cdot X, \quad \tilde{K} \in \mathbb{R}^{n \times d_c}"
+          label={t("CSA: compressed KV projection (schematic — V4 paper not yet public)", "CSA：压缩 KV 投影（示意图 — V4 论文尚未完全公开）")}
+          tex="\tilde{K}_l = W_K^c \cdot X,\quad \tilde{V}_l = W_V^c \cdot X,\quad d_c \ll d_h \cdot n_h"
         />
 
-        <Collapsible title={t("Concrete numbers: V3 vs V4 attention cost", "具体数字：V3 vs V4 注意力开销")} defaultOpen>
-          <div className="text-sm space-y-3">
-            <p>{t("At 1M-token context with batch size 1:", "在 100 万 token 上下文、batch size 为 1 时：")}</p>
-            <div className="grid grid-cols-3 gap-2 text-xs font-mono">
-              <div className="p-2 bg-paper-100 dark:bg-slate-800 rounded font-semibold">{t("Metric", "指标")}</div>
-              <div className="p-2 bg-amber-50 dark:bg-amber-500/10 rounded font-semibold">V3</div>
-              <div className="p-2 bg-green-50 dark:bg-green-500/10 rounded font-semibold">V4-Pro</div>
-              <div className="p-2 bg-paper-100 dark:bg-slate-800 rounded">{t("KV cache size", "KV 缓存大小")}</div>
-              <div className="p-2 bg-amber-50 dark:bg-amber-500/10 rounded">100%</div>
-              <div className="p-2 bg-green-50 dark:bg-green-500/10 rounded text-green-700 dark:text-green-400 font-bold">10%</div>
-              <div className="p-2 bg-paper-100 dark:bg-slate-800 rounded">{t("Single-token FLOPs", "单 token FLOPs")}</div>
-              <div className="p-2 bg-amber-50 dark:bg-amber-500/10 rounded">100%</div>
-              <div className="p-2 bg-green-50 dark:bg-green-500/10 rounded text-green-700 dark:text-green-400 font-bold">27%</div>
+        <KVCacheViz />
+
+        <Collapsible title={t("CSA vs HCA: when is each used?", "CSA vs HCA：各自何时使用？")}>
+          <div className="text-sm space-y-2">
+            <div className="grid grid-cols-[90px_1fr_1fr] gap-2 text-xs">
+              <div className="p-2 font-semibold dark:text-slate-300"></div>
+              <div className="p-2 bg-blue-50 dark:bg-blue-500/10 rounded font-semibold text-blue-800 dark:text-blue-300">CSA</div>
+              <div className="p-2 bg-purple-50 dark:bg-purple-500/10 rounded font-semibold text-purple-800 dark:text-purple-300">HCA</div>
+              <div className="p-2 dark:text-slate-400">{t("Purpose", "用途")}</div>
+              <div className="p-2 bg-blue-50/50 dark:bg-blue-500/5 rounded dark:text-slate-300">{t("Standard long-context layers", "标准长上下文层")}</div>
+              <div className="p-2 bg-purple-50/50 dark:bg-purple-500/5 rounded dark:text-slate-300">{t("Ultra-long-range attention layers", "超长距离注意力层")}</div>
+              <div className="p-2 dark:text-slate-400">{t("Compression", "压缩比")}</div>
+              <div className="p-2 bg-blue-50/50 dark:bg-blue-500/5 rounded dark:text-slate-300">{t("Moderate", "适中")}</div>
+              <div className="p-2 bg-purple-50/50 dark:bg-purple-500/5 rounded dark:text-slate-300">{t("Aggressive", "激进")}</div>
+              <div className="p-2 dark:text-slate-400">{t("Trade-off", "权衡")}</div>
+              <div className="p-2 bg-blue-50/50 dark:bg-blue-500/5 rounded dark:text-slate-300">{t("Balanced quality / memory", "质量与内存均衡")}</div>
+              <div className="p-2 bg-purple-50/50 dark:bg-purple-500/5 rounded dark:text-slate-300">{t("Max memory reduction, minor quality drop", "最大内存减少，少量质量下降")}</div>
             </div>
             <p className="text-paper-800/60 dark:text-slate-400">
-              {t("10× KV cache reduction means V4 can serve 10× longer contexts (or 10× larger batches) at the same GPU memory budget as V3.", "KV 缓存减少 10 倍意味着在相同 GPU 显存预算下，V4 可以处理 10 倍更长的上下文（或 10 倍更大的 batch）。")}
+              {t("Together: 10× KV cache reduction and 27% single-token FLOPs vs V3.", "合计：KV 缓存减少 10 倍，单 token FLOPs 为 V3 的 27%。")}
             </p>
           </div>
         </Collapsible>
 
-        {/* ── 4. Innovation 2: Engram ── */}
-        <h2>{t("4. Innovation 2: Engram — Conditional Memory", "4. 创新二：Engram 条件记忆")}</h2>
+        {/* ── 4. DSA ── */}
+        <h2>{t("4. Innovation 2: DeepSeek Sparse Attention (DSA)", "4. 创新二：DeepSeek 稀疏注意力（DSA）")}</h2>
         <p>
           {t(
-            "Transformers learn to store factual knowledge in their FFN weights — but this is inefficient: the same weight matrices are used for both reasoning (dynamic) and knowledge retrieval (static). Engram separates these two roles.",
-            "Transformer 将事实知识存储在 FFN 权重中——但这很低效：相同的权重矩阵同时用于推理（动态）和知识检索（静态）。Engram 将这两种角色分离。"
+            "Even after compressing the KV cache, the attention computation itself is still O(L²). DSA adds a second efficiency layer: instead of attending to all L tokens, each query selects only the top-K most relevant tokens via a lightweight Lightning Indexer, reducing attention from O(L²) to O(L·k).",
+            "即使压缩了 KV 缓存，注意力计算本身仍是 O(L²)。DSA 增加了第二层效率：每个 query 不是关注所有 L 个 token，而是通过轻量级闪电索引器只选择 top-K 最相关的 token，将注意力复杂度从 O(L²) 降低到 O(L·k)。"
           )}
         </p>
+
+        <div className="grid grid-cols-2 gap-3 my-4 text-sm">
+          <div className="bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 rounded-lg p-3">
+            <p className="text-xs font-semibold text-red-700 dark:text-red-400 mb-1">{t("Dense Attention", "稠密注意力")}</p>
+            <p className="font-mono text-lg font-bold dark:text-slate-100">O(L²)</p>
+            <p className="text-xs text-paper-800/50 dark:text-slate-400">{t("Every query attends to all L tokens", "每个 query 关注所有 L 个 token")}</p>
+          </div>
+          <div className="bg-green-50 dark:bg-green-500/10 border border-green-200 dark:border-green-500/30 rounded-lg p-3">
+            <p className="text-xs font-semibold text-green-700 dark:text-green-400 mb-1">{t("DSA (Sparse)", "DSA（稀疏）")}</p>
+            <p className="font-mono text-lg font-bold dark:text-slate-100">O(L · k)</p>
+            <p className="text-xs text-paper-800/50 dark:text-slate-400">{t("Each query selects top-k relevant tokens", "每个 query 只选 top-k 相关 token")}</p>
+          </div>
+        </div>
+
         <p>
           {t(
-            "Engram adds a lightweight hash-based memory module alongside (not replacing) the FFN. Given a hidden state, a hash function maps it to a memory address, retrieves a stored knowledge vector in O(1) time, and blends it back into the hidden state. This decouples factual recall from inference reasoning.",
-            "Engram 在 FFN 旁边（而非替换）增加了一个轻量级哈希记忆模块。给定隐藏状态，哈希函数将其映射到内存地址，以 O(1) 时间检索存储的知识向量，并将其融合回隐藏状态。这将事实回忆与推理解耦。"
+            "The Lightning Indexer is a small, fast network (FP8 precision, few attention heads) that scores each token's relevance to the query. It runs before the main attention layer and returns the k token indices to attend to. Result: ~1.5× per-layer speedup, ~2× end-to-end GPU cost reduction at 100K+ tokens.",
+            "闪电索引器是一个小型快速网络（FP8 精度，少量注意力头），对每个 token 与 query 的相关性进行评分。它在主注意力层之前运行并返回需要关注的 k 个 token 索引。效果：每层约 1.5 倍加速，在 100K+ token 下端到端 GPU 成本降低约 2 倍。"
+          )}
+        </p>
+
+        <div className="bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 rounded-lg p-4 my-6">
+          <p className="text-sm mb-0">
+            <strong>{t("DSA vs CSA/HCA — what's the difference?", "DSA vs CSA/HCA — 有何区别？")}</strong>{" "}
+            {t(
+              "CSA/HCA reduce memory by compressing the KV representation (fewer bits per token). DSA reduces compute by sparsifying the attention pattern (fewer tokens attended to). They are orthogonal and both applied in V4.",
+              "CSA/HCA 通过压缩 KV 表示（每 token 更少位数）减少内存。DSA 通过稀疏化注意力模式（关注更少 token）减少计算。两者正交，V4 中同时应用。"
+            )}
+          </p>
+        </div>
+
+        {/* ── 5. Engram ── */}
+        <h2>{t("5. Innovation 3: Engram — Conditional Memory", "5. 创新三：Engram 条件记忆")}</h2>
+        <p>
+          {t(
+            "Transformers store factual knowledge in FFN weights — but this conflates two different tasks: dynamic reasoning (which needs the full network) and static fact retrieval (which is just a lookup). Engram (arXiv 2601.07372) adds a separate O(1) hash-based memory module alongside the FFN.",
+            "Transformer 在 FFN 权重中存储事实知识——但这将两种不同任务混为一谈：动态推理（需要完整网络）和静态事实检索（只是查找）。Engram（arXiv 2601.07372）在 FFN 旁边增加了一个独立的 O(1) 哈希记忆模块。"
           )}
         </p>
 
         <Math
           display
-          label={t("Engram memory retrieval", "Engram 记忆检索")}
+          label={t("Engram memory retrieval (schematic — from arXiv 2601.07372)", "Engram 记忆检索（示意图 — 来自 arXiv 2601.07372）")}
           tex="m(x) = \mathcal{M}[\text{hash}(W_q x)], \quad h' = h + \alpha \cdot m(x)"
         />
 
         <Collapsible title={t("Variable-by-variable breakdown", "逐变量拆解")} defaultOpen>
           <div className="text-sm">
-            <div className="grid grid-cols-[160px_1fr] gap-y-3 gap-x-3">
-              <Math tex="x" />
-              <span>{t("Input hidden state at the current layer", "当前层的输入隐藏状态")}</span>
+            <div className="grid grid-cols-[180px_1fr] gap-y-3 gap-x-3">
               <Math tex="W_q x" />
-              <span>{t("Linear query projection — maps hidden state to a low-dimensional query", "线性查询投影 — 将隐藏状态映射到低维查询向量")}</span>
+              <span>{t("Linear query projection — maps hidden state to a low-dimensional lookup key", "线性查询投影 — 将隐藏状态映射为低维查找键")}</span>
               <Math tex="\text{hash}(\cdot)" />
-              <span>{t("Locality-sensitive hash — maps similar queries to nearby addresses for approximate nearest-neighbor lookup", "局部敏感哈希 — 将相似查询映射到相邻地址，实现近似最近邻查找")}</span>
-              <Math tex="\mathcal{M}" />
-              <span>{t("Static memory table — a large lookup table of knowledge vectors, fixed after pre-training", "静态记忆表 — 预训练后固定的大型知识向量查找表")}</span>
+              <span>{t("Locality-sensitive hash — similar queries map to nearby addresses; enables approximate nearest-neighbour retrieval", "局部敏感哈希 — 相似查询映射到相邻地址；实现近似最近邻检索")}</span>
+              <Math tex="\mathcal{M}[\cdot]" />
+              <span>{t("Static memory table — a large lookup table of knowledge vectors fixed after pre-training", "静态记忆表 — 预训练后固定的大型知识向量查找表")}</span>
               <Math tex="\alpha" />
-              <span>{t("Learned blending coefficient — how much memory to mix in (typically 0.2–0.4)", "学习的融合系数 — 混入多少记忆（通常 0.2–0.4）")}</span>
+              <span>{t("Learned blending coefficient — controls how much memory to mix in; optimal allocation is ~20–25% memory vs 75–80% FFN", "学习的融合系数 — 控制混入多少记忆；最优分配约 20–25% 记忆 vs 75–80% FFN")}</span>
             </div>
           </div>
         </Collapsible>
 
         <div className="bg-green-50 dark:bg-green-500/10 border border-green-200 dark:border-green-500/30 rounded-lg p-4 my-6">
-          <p className="text-sm mb-1 font-semibold text-green-800 dark:text-green-300">{t("Needle-in-a-Haystack results at 1M tokens", "百万 token 下大海捞针结果")}</p>
-          <div className="flex gap-6 text-sm">
+          <p className="text-sm mb-3 font-semibold text-green-800 dark:text-green-300">
+            {t("Needle-in-a-Haystack (NiAH) accuracy at 1M tokens", "百万 token 下大海捞针（NiAH）准确率")}
+          </p>
+          <div className="flex gap-8 mb-3">
             <div>
-              <span className="text-paper-800/50 dark:text-slate-400">{t("Without Engram", "无 Engram")}</span>
-              <p className="font-mono text-lg font-bold text-red-600 dark:text-red-400">84.2%</p>
+              <p className="text-xs text-paper-800/50 dark:text-slate-400">{t("Without Engram", "无 Engram")}</p>
+              <div className="flex items-end gap-1">
+                <p className="font-mono text-2xl font-bold text-red-600 dark:text-red-400">84.2%</p>
+              </div>
             </div>
+            <div className="flex items-center text-paper-800/30 dark:text-slate-600 text-2xl">→</div>
             <div>
-              <span className="text-paper-800/50 dark:text-slate-400">{t("With Engram", "有 Engram")}</span>
-              <p className="font-mono text-lg font-bold text-green-700 dark:text-green-400">97.0%</p>
+              <p className="text-xs text-paper-800/50 dark:text-slate-400">{t("With Engram", "有 Engram")}</p>
+              <div className="flex items-end gap-1">
+                <p className="font-mono text-2xl font-bold text-green-700 dark:text-green-400">97.0%</p>
+                <p className="text-xs text-green-600 dark:text-green-400 mb-1">+12.8pp</p>
+              </div>
             </div>
           </div>
-          <p className="text-xs text-paper-800/50 dark:text-slate-400 mt-2">
-            {t("Needle-in-a-Haystack (NiAH): recall a fact injected at a random position in a 1M-token document.", "大海捞针（NiAH）：从百万 token 文档的随机位置召回注入的事实。")}
+          <div className="w-full bg-paper-100 dark:bg-slate-700 rounded-full h-2 mb-1">
+            <div className="bg-gradient-to-r from-red-400 to-green-500 h-2 rounded-full" style={{ width: "97%" }} />
+          </div>
+          <p className="text-xs text-paper-800/50 dark:text-slate-400">
+            {t("Task: recall a specific fact injected at a random position in a 1M-token document.", "任务：从百万 token 文档的随机位置召回注入的特定事实。")}
           </p>
         </div>
 
-        <div className="bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 rounded-lg p-4 my-6">
-          <p className="text-sm mb-0">
-            <strong>{t("The 20/80 rule for memory allocation", "记忆分配的 20/80 法则")}</strong>{" "}
-            {t(
-              "DeepSeek's experiments found an optimal allocation of ~20–25% of layer capacity to Engram memory and ~75–80% to standard MoE FFN computation. Too much memory capacity cannibalizes reasoning; too little fails to improve recall.",
-              "DeepSeek 实验发现最优分配为约 20–25% 的层容量用于 Engram 记忆，约 75–80% 用于标准 MoE FFN 计算。记忆容量太多会蚕食推理能力；太少则无法改善召回。"
-            )}
-          </p>
-        </div>
-
-        {/* ── 5. Innovation 3: mHC ── */}
-        <h2>{t("5. Innovation 3: Manifold-Constrained Hyper-Connections (mHC)", "5. 创新三：流形约束超连接（mHC）")}</h2>
+        {/* ── 6. mHC ── */}
+        <h2>{t("6. Innovation 4: Manifold-Constrained Hyper-Connections (mHC)", "6. 创新四：流形约束超连接（mHC）")}</h2>
         <p>
           {t(
-            "Standard residual connections add the layer input directly to its output: h_l = h_{l-1} + F_l(h_{l-1}). At 1.6T parameters and hundreds of layers, this simple addition can cause gradient instability — small perturbations compound across layers, leading to divergence or rank collapse.",
-            "标准残差连接直接将层输入加到输出：h_l = h_{l-1} + F_l(h_{l-1})。在 1.6T 参数和数百层的规模下，这种简单相加可能导致梯度不稳定——小扰动跨层累积，导致训练发散或秩崩塌。"
-          )}
-        </p>
-        <p>
-          {t(
-            "mHC replaces the fixed identity skip-connection with a learnable, manifold-constrained transformation. The constraint keeps the connection matrix close to identity (preserving signal) while allowing controlled deviation (improving expressivity).",
-            "mHC 将固定的恒等跳接替换为可学习的流形约束变换。该约束使连接矩阵保持接近恒等（保留信号），同时允许受控偏差（提升表达能力）。"
+            "Standard residual connections use a fixed identity skip: h_out = h_in + F(h_in). Hyper-Connections (HC) generalise this with learnable mixing matrices across multiple residual streams. mHC (arXiv 2512.24880) adds a hard constraint: the residual mixer must be a doubly stochastic matrix (Birkhoff polytope), preventing any stream from amplifying signal.",
+            "标准残差连接使用固定恒等跳接。超连接（HC）通过跨多条残差流的可学习混合矩阵泛化了这一设计。mHC（arXiv 2512.24880）添加了硬约束：残差混合矩阵必须是双随机矩阵（Birkhoff 多胞体），防止任何流放大信号。"
           )}
         </p>
 
         <Math
           display
-          label={t("mHC residual connection", "mHC 残差连接")}
-          tex="h_l = M_l \cdot h_{l-1} + F_l(h_{l-1}), \quad M_l \approx I, \quad \|M_l - I\|_F \leq \epsilon"
+          label={t("mHC layer update (Eq. 1 from arXiv 2512.24880)", "mHC 层更新（arXiv 2512.24880 公式 1）")}
+          tex="\mathbf{x}_{l+1} = \mathcal{H}_l^{\mathrm{res}}\mathbf{x}_l + (\mathcal{H}_l^{\mathrm{post}})^\top \mathcal{F}(\mathcal{H}_l^{\mathrm{pre}}\mathbf{x}_l,\, \mathcal{W}_l)"
         />
 
-        <Collapsible title={t("Why the manifold constraint matters", "为什么流形约束很重要")}>
-          <div className="text-sm space-y-2">
+        <Collapsible title={t("Variable-by-variable breakdown", "逐变量拆解")} defaultOpen>
+          <div className="text-sm">
+            <div className="grid grid-cols-[210px_1fr] gap-y-3 gap-x-3">
+              <Math tex="\mathbf{x}_l \in \mathbb{R}^{n \times C}" />
+              <span>{t("Expanded hidden state — n parallel residual streams of dimension C (n=4 typically)", "扩展隐藏状态 — n 条 C 维并行残差流（n 通常为 4）")}</span>
+              <Math tex="\mathcal{H}_l^{\mathrm{res}} \in \mathbb{R}^{n \times n}" />
+              <span>{t("Residual stream mixer — routes information between streams; constrained to Birkhoff polytope", "残差流混合矩阵 — 在流之间路由信息；约束在 Birkhoff 多胞体上")}</span>
+              <Math tex="\mathcal{H}_l^{\mathrm{pre}},\, \mathcal{H}_l^{\mathrm{post}} \in \mathbb{R}^{1 \times n}" />
+              <span>{t("Input/output projections — compress n streams → 1 before layer, expand 1 → n after layer", "输入/输出投影 — 层前将 n 流压缩为 1，层后将 1 展开为 n")}</span>
+              <Math tex="\mathcal{F}(\cdot,\, \mathcal{W}_l)" />
+              <span>{t("Layer function — attention or FFN with weights W_l", "层函数 — 带权重 W_l 的注意力或 FFN")}</span>
+            </div>
+          </div>
+        </Collapsible>
+
+        <Math
+          display
+          label={t("Birkhoff polytope constraint (doubly stochastic)", "Birkhoff 多胞体约束（双随机）")}
+          tex="\mathcal{H}_l^{\mathrm{res}} \in \left\{M \in \mathbb{R}^{n \times n} \;\middle|\; M\mathbf{1}_n = \mathbf{1}_n,\;\mathbf{1}_n^\top M = \mathbf{1}_n^\top,\; M \geq 0\right\}"
+        />
+
+        <Collapsible title={t("How is the constraint enforced? (Sinkhorn-Knopp)", "如何实施约束？（Sinkhorn-Knopp）")}>
+          <div className="text-sm space-y-3">
             <p>
               {t(
-                "Without the constraint ‖M_l − I‖_F ≤ ε, the residual matrix M_l could learn to dramatically amplify or suppress signal. Across 100+ layers this causes:",
-                "没有约束 ‖M_l − I‖_F ≤ ε，残差矩阵 M_l 可能学会大幅放大或抑制信号。跨 100+ 层这会导致："
+                "A doubly stochastic matrix is hard to parameterise directly. mHC uses Sinkhorn-Knopp: start from exp(H̃_res) (guaranteed positive), then alternately normalise rows and columns to sum to 1. This converges in 20 iterations. The key property: spectral norm ‖H_res‖₂ ≤ 1 — no stream can amplify signal.",
+                "双随机矩阵难以直接参数化。mHC 使用 Sinkhorn-Knopp：从 exp(H̃_res)（保证为正）出发，交替将行和列归一化为求和等于 1。20 次迭代即可收敛。关键性质：谱范数 ‖H_res‖₂ ≤ 1 — 任何流都无法放大信号。"
               )}
             </p>
-            <ul>
-              <li>{t("Gradient explosion in early training", "早期训练中的梯度爆炸")}</li>
-              <li>{t("Representation collapse — all hidden states converging to similar vectors", "表示崩塌——所有隐藏状态收敛到相似向量")}</li>
-            </ul>
-            <p>
+            <div className="p-3 bg-paper-100 dark:bg-slate-800 rounded font-mono text-xs space-y-1 dark:text-slate-300">
+              <div>M⁽⁰⁾ = exp(H̃_res)  <span className="text-paper-800/40 dark:text-slate-500">← {t("always positive", "始终为正")}</span></div>
+              <div>M⁽ᵗ⁾ = row_norm(col_norm(M⁽ᵗ⁻¹⁾))  <span className="text-paper-800/40 dark:text-slate-500">← {t("repeat ×20", "重复 ×20")}</span></div>
+              <div>H_res = M⁽²⁰⁾  <span className="text-paper-800/40 dark:text-slate-500">← {t("doubly stochastic", "双随机矩阵")}</span></div>
+            </div>
+            <p className="text-paper-800/60 dark:text-slate-400">
               {t(
-                "The Frobenius-norm constraint keeps M_l on a manifold near identity, giving expressivity gains while bounding instability. This was the key enabler for training stability at 1.6T scale.",
-                "Frobenius 范数约束使 M_l 保持在恒等矩阵附近的流形上，在获得表达能力提升的同时限制不稳定性。这是实现 1.6T 规模训练稳定性的关键。"
+                "Why not just use a Frobenius-norm ball around identity? A norm ball allows entries to become negative or rows to sum ≠ 1 — both dangerous. The Birkhoff polytope gives a tighter, geometrically meaningful constraint.",
+                "为什么不用恒等矩阵周围的 Frobenius 范数球？范数球允许元素变为负数或行求和不等于 1 — 两者都很危险。Birkhoff 多胞体给出了更严格、几何意义更明确的约束。"
               )}
             </p>
           </div>
         </Collapsible>
 
-        {/* ── 6. Training ── */}
-        <h2>{t("6. Training Details", "6. 训练细节")}</h2>
+        {/* ── 7. Training Details ── */}
+        <h2>{t("7. Training Details", "7. 训练细节")}</h2>
+
+        <div className="bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 rounded-lg p-3 mb-4 text-xs text-blue-800 dark:text-blue-300">
+          {t(
+            "The following specs are sourced from the official HuggingFace model page (deepseek-ai/DeepSeek-V4-Pro) and the paper. Training hardware is not stated in the paper.",
+            "以下规格来自官方 HuggingFace 模型页（deepseek-ai/DeepSeek-V4-Pro）及论文。论文中未说明训练硬件。"
+          )}
+        </div>
+
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 my-4 text-sm">
           {[
-            { label: t("Training tokens", "训练 token 数"), value: "33T" },
+            { label: t("Pre-training tokens", "预训练 token 数"), value: "32T+" },
             { label: t("Total parameters", "总参数量"), value: "1.6T" },
             { label: t("Active parameters", "激活参数量"), value: "49B" },
             { label: t("Context length", "上下文长度"), value: "1M" },
-            { label: t("Max output", "最大输出"), value: "384K" },
-            { label: t("Training hardware", "训练硬件"), value: "Huawei Ascend 950PR" },
+            { label: t("Precision", "精度"), value: "FP4 + FP8" },
+            { label: t("License", "协议"), value: "MIT" },
           ].map(({ label, value }) => (
             <div key={label} className="bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg p-3">
               <p className="text-xs text-paper-800/50 dark:text-slate-400 mb-1">{label}</p>
@@ -320,190 +372,241 @@ export default function DeepSeekV4Page() {
             </div>
           ))}
         </div>
+
         <p>
           {t(
-            "V4 is trained entirely on Huawei Ascend 950PR chips — no Nvidia hardware. This is a deliberate response to US export controls, and proves that frontier AI is achievable without American GPU supply chains. The training pipeline incorporates multi-token prediction (from V3) and a comprehensive post-training stage including SFT and RLHF.",
-            "V4 完全在华为昇腾 950PR 芯片上训练——不使用 Nvidia 硬件。这是对美国出口管制的有意回应，证明了在没有美国 GPU 供应链的情况下也能实现前沿 AI。训练流程融合了多 token 预测（来自 V3）以及包含 SFT 和 RLHF 的完整后训练阶段。"
+            "Precision: MoE expert parameters use FP4; most other parameters use FP8. Post-training follows a two-stage paradigm: Stage 1 cultivates domain-specific experts via SFT and RL with GRPO; Stage 2 consolidates them into a unified model through on-policy distillation.",
+            "精度：MoE 专家参数使用 FP4；其他大多数参数使用 FP8。后训练采用两阶段范式：阶段 1 通过 SFT 和 GRPO 强化学习培育领域专家；阶段 2 通过在线策略蒸馏将其整合为统一模型。"
           )}
         </p>
 
-        {/* ── 7. Key Results ── */}
-        <h2>{t("7. Key Results", "7. 关键实验结果")}</h2>
-        <div className="space-y-3 my-4">
-          <div className="bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg p-4">
-            <h4 className="font-semibold text-sm mb-3 dark:text-slate-100">{t("SWE-bench Verified (Software Engineering)", "SWE-bench Verified（软件工程）")}</h4>
-            <div className="space-y-2 text-sm">
+        <p>
+          {t(
+            "V4 supports three reasoning modes: Non-Think (fast responses), Think High (deliberate reasoning), and Think Max (maximum reasoning effort, requires ≥384K context).",
+            "V4 支持三种推理模式：Non-Think（快速响应）、Think High（深思熟虑）、Think Max（最大推理强度，需要 ≥384K 上下文）。"
+          )}
+        </p>
+
+        {/* ── 8. Muon Optimizer ── */}
+        <h2>{t("8. Training Algorithm: Muon Optimizer", "8. 训练算法：Muon 优化器")}</h2>
+        <p>
+          {t(
+            "V4 uses the Muon optimizer in place of Adam. The key difference: instead of tracking per-parameter gradient magnitudes, Muon applies a Newton-Schulz orthogonalisation to the gradient matrix, producing updates with a consistent spectral norm regardless of gradient scale. This improves training stability at 1.6T-parameter scale.",
+            "V4 使用 Muon 优化器代替 Adam。核心区别：Muon 对梯度矩阵应用 Newton-Schulz 正交化，而非追踪逐参数梯度幅度，从而产生具有一致谱范数的更新，与梯度大小无关。这提高了 1.6T 参数规模下的训练稳定性。"
+          )}
+        </p>
+
+        <MuonOptimizerViz />
+
+        {/* ── 9. V4-Pro vs V4-Flash ── */}
+        <h2>{t("9. V4-Pro vs V4-Flash", "9. V4-Pro vs V4-Flash")}</h2>
+        <p>
+          {t(
+            "DeepSeek released two V4 variants alongside each other. V4-Flash is a smaller model optimised for throughput and latency; V4-Pro is the flagship. Both share the 1M context window and all architectural innovations. Specs below are from the official HuggingFace model pages.",
+            "DeepSeek 同时发布了两个 V4 变体。V4-Flash 是面向吞吐量和延迟优化的小型模型；V4-Pro 是旗舰版。两者共享百万 token 上下文和所有架构创新。以下规格来自官方 HuggingFace 模型页。"
+          )}
+        </p>
+        <div className="overflow-x-auto my-4">
+          <table className="w-full text-sm border-collapse">
+            <thead>
+              <tr className="bg-paper-100 dark:bg-slate-700">
+                <th className="text-left p-2.5 rounded-tl-lg dark:text-slate-200">{t("Spec (official HF pages)", "规格（官方 HF 页面）")}</th>
+                <th className="text-center p-2.5 text-blue-700 dark:text-blue-400">V4-Pro</th>
+                <th className="text-center p-2.5 text-teal-700 dark:text-teal-400 rounded-tr-lg">V4-Flash</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-paper-100 dark:divide-slate-700">
               {[
-                { model: "DeepSeek-V4-Pro", score: "80.6%", highlight: true },
-                { model: "Claude Opus 4.6", score: "80.8%" },
-                { model: "Gemini 2.5 Pro", score: "80.6%" },
-                { model: "DeepSeek-V3", score: "~49%" },
-              ].map(({ model, score, highlight }) => (
-                <div key={model} className={`flex justify-between items-center p-2 rounded ${highlight ? "bg-green-50 dark:bg-green-500/10 font-semibold" : "bg-paper-50 dark:bg-slate-900"}`}>
-                  <span className="dark:text-slate-200">{model}</span>
-                  <span className={`font-mono ${highlight ? "text-green-700 dark:text-green-400" : "text-paper-800/70 dark:text-slate-400"}`}>{score}</span>
-                </div>
+                [t("Total params", "总参数"), "1.6T", "284B"],
+                [t("Active params", "激活参数"), "49B", "13B"],
+                [t("Context length", "上下文长度"), "1M", "1M"],
+                [t("Precision", "精度"), "FP4 + FP8", "FP4 + FP8"],
+                [t("License", "协议"), "MIT", "MIT"],
+              ].map(([spec, pro, flash]) => (
+                <tr key={String(spec)} className="hover:bg-paper-50 dark:hover:bg-slate-800/50">
+                  <td className="p-2.5 text-paper-800/70 dark:text-slate-400">{spec}</td>
+                  <td className="p-2.5 text-center font-mono font-medium dark:text-slate-200">{pro}</td>
+                  <td className="p-2.5 text-center font-mono font-medium dark:text-slate-200">{flash}</td>
+                </tr>
               ))}
-            </div>
-          </div>
-          <div className="bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg p-4">
-            <h4 className="font-semibold text-sm mb-3 dark:text-slate-100">{t("Math Reasoning", "数学推理")}</h4>
-            <div className="space-y-2 text-sm">
-              {[
-                { bench: "IMOAnswerBench", v4: "89.8", gpt: "91.4", claude: "75.3" },
-                { bench: "HMMT 2026", v4: "95.2", gpt: "97.7", claude: "96.2" },
-              ].map(({ bench, v4, gpt, claude }) => (
-                <div key={bench} className="p-3 bg-paper-50 dark:bg-slate-900 rounded">
-                  <p className="font-medium text-xs mb-2 dark:text-slate-300">{bench}</p>
-                  <div className="flex gap-4 text-xs font-mono">
-                    <span className="text-green-700 dark:text-green-400">V4: {v4}</span>
-                    <span className="text-paper-800/50 dark:text-slate-400">GPT: {gpt}</span>
-                    <span className="text-paper-800/50 dark:text-slate-400">Claude: {claude}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-paper-800/40 dark:text-slate-500">
+          {t(
+            "Source: official README at huggingface.co/deepseek-ai/DeepSeek-V4-Pro. Training hardware is not stated in the paper or README.",
+            "来源：官方 README（huggingface.co/deepseek-ai/DeepSeek-V4-Pro）。论文和 README 均未说明训练硬件。"
+          )}
+        </p>
+
+        {/* ── 10. Key Results ── */}
+        <h2>{t("10. Key Results", "10. 关键实验结果")}</h2>
+
+        <div className="bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 rounded-lg p-3 mb-4 text-xs text-blue-800 dark:text-blue-300">
+          {t(
+            "All benchmark numbers below are from the official README (huggingface.co/deepseek-ai/DeepSeek-V4-Pro), which mirrors the tables in the technical report. V4-Pro Max = maximum Think mode.",
+            "以下所有基准测试数字来自官方 README（huggingface.co/deepseek-ai/DeepSeek-V4-Pro），与技术报告中的表格一致。V4-Pro Max = 最大 Think 模式。"
+          )}
         </div>
 
-        {/* ── 8. Why It Matters ── */}
-        <h2>{t("8. Why It Matters", "8. 为什么重要")}</h2>
-        <div className="space-y-3 my-4">
-          <div className="bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg p-4">
-            <h4 className="font-semibold text-sm mb-2 dark:text-slate-100">
-              {t("Geopolitical signal: frontier AI without Nvidia", "地缘政治信号：无 Nvidia 的前沿 AI")}
-            </h4>
-            <p className="text-sm text-paper-800/70 dark:text-slate-400">
-              {t(
-                "Training and running a 1.6T-parameter frontier model entirely on Huawei chips demonstrates that US export controls on GPUs cannot halt frontier AI development. This reshapes assumptions about AI hardware dependencies.",
-                "完全在华为芯片上训练和运行 1.6T 参数前沿模型，证明美国对 GPU 的出口管制无法阻止前沿 AI 的发展。这重塑了对 AI 硬件依赖性的假设。"
-              )}
-            </p>
+        {/* Efficiency callout — from paper Figure 1 */}
+        <div className="grid grid-cols-2 gap-3 my-4 text-center">
+          <div className="bg-green-50 dark:bg-green-500/10 border border-green-200 dark:border-green-500/30 rounded-lg p-4">
+            <p className="font-mono text-3xl font-bold text-green-700 dark:text-green-400">27%</p>
+            <p className="text-xs text-paper-800/60 dark:text-slate-400 mt-1">{t("single-token inference FLOPs vs V3.2", "单 token 推理 FLOPs（相比 V3.2）")}</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg p-4">
-            <h4 className="font-semibold text-sm mb-2 dark:text-slate-100">
-              {t("Efficiency breakthrough: 10× KV cache reduction", "效率突破：KV 缓存减少 10 倍")}
-            </h4>
-            <p className="text-sm text-paper-800/70 dark:text-slate-400">
-              {t(
-                "CSA/HCA's 10× KV cache reduction at equivalent quality is a significant engineering achievement. It enables true 1M-token serving at reasonable cost — opening applications like full-codebase analysis, book-length document QA, and multi-session memory.",
-                "CSA/HCA 在等效质量下实现 10 倍 KV 缓存减少，是重大工程成就。它以合理成本实现真正的百万 token 推理服务——开启全代码库分析、书籍长度文档问答和多轮会话记忆等应用。"
-              )}
-            </p>
-          </div>
-          <div className="bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg p-4">
-            <h4 className="font-semibold text-sm mb-2 dark:text-slate-100">
-              {t("Engram: a new architectural primitive", "Engram：新的架构原语")}
-            </h4>
-            <p className="text-sm text-paper-800/70 dark:text-slate-400">
-              {t(
-                "Separating static knowledge (hash lookup) from dynamic reasoning (MoE FFN) is a conceptual advance. If it generalizes beyond DeepSeek, it could become a standard component in large language model design — similar to how MoE itself went from a research idea to ubiquitous.",
-                "将静态知识（哈希查找）与动态推理（MoE FFN）分离是一个概念性进步。如果这一方法能推广到 DeepSeek 之外，它可能成为大语言模型设计的标准组件——就像 MoE 本身从研究想法变为普遍应用一样。"
-              )}
-            </p>
+          <div className="bg-green-50 dark:bg-green-500/10 border border-green-200 dark:border-green-500/30 rounded-lg p-4">
+            <p className="font-mono text-3xl font-bold text-green-700 dark:text-green-400">10%</p>
+            <p className="text-xs text-paper-800/60 dark:text-slate-400 mt-1">{t("KV cache size at 1M context vs V3.2", "百万 token 上下文 KV 缓存（相比 V3.2）")}</p>
           </div>
         </div>
+        <p className="text-xs text-paper-800/40 dark:text-slate-500 -mt-2 mb-4">{t("Source: paper Figure 1 (right panel).", "来源：论文图 1（右图）。")}</p>
 
-        {/* ── 9. Related Papers ── */}
-        <h2>{t("9. Related Papers", "9. 相关论文")}</h2>
+        {/* Coding benchmarks — official README */}
+        <div className="overflow-x-auto my-4">
+          <p className="text-xs font-semibold text-paper-800/60 dark:text-slate-400 mb-2">{t("Coding & Math (V4-Pro Max vs frontier, from README)", "代码与数学（V4-Pro Max vs 前沿模型，来自 README）")}</p>
+          <table className="w-full text-xs border-collapse">
+            <thead>
+              <tr className="bg-paper-100 dark:bg-slate-700 text-left">
+                <th className="p-2 dark:text-slate-200">{t("Benchmark", "基准")}</th>
+                <th className="p-2 text-right dark:text-slate-200">V4-Pro Max</th>
+                <th className="p-2 text-right text-paper-800/50 dark:text-slate-400">Claude Opus 4.6</th>
+                <th className="p-2 text-right text-paper-800/50 dark:text-slate-400">GPT-5.4</th>
+                <th className="p-2 text-right text-paper-800/50 dark:text-slate-400">Gemini-3.1-Pro</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-paper-100 dark:divide-slate-800">
+              {[
+                ["LiveCodeBench (Pass@1)", "93.5 ★", "88.8", "—", "91.7"],
+                ["Codeforces (Rating)", "3206 ★", "—", "3168", "3052"],
+                ["SWE Verified (Resolved)", "80.6", "80.8 ★", "—", "80.6"],
+                ["IMOAnswerBench (Pass@1)", "89.8", "75.3", "91.4 ★", "81.0"],
+                ["HMMT 2026 Feb (Pass@1)", "95.2", "96.2", "97.7 ★", "94.7"],
+                ["Apex Shortlist (Pass@1)", "90.2 ★", "85.9", "78.1", "89.1"],
+                ["MMLU-Pro (EM)", "87.5", "89.1", "87.5", "91.0 ★"],
+                ["GPQA Diamond (Pass@1)", "90.1", "91.3", "93.0", "94.3 ★"],
+              ].map(([bench, v4, claude, gpt, gem]) => (
+                <tr key={String(bench)} className="hover:bg-paper-50 dark:hover:bg-slate-800/50">
+                  <td className="p-2 dark:text-slate-300">{bench}</td>
+                  <td className="p-2 text-right font-mono font-bold text-green-700 dark:text-green-400">{v4}</td>
+                  <td className="p-2 text-right font-mono text-paper-800/60 dark:text-slate-400">{claude}</td>
+                  <td className="p-2 text-right font-mono text-paper-800/60 dark:text-slate-400">{gpt}</td>
+                  <td className="p-2 text-right font-mono text-paper-800/60 dark:text-slate-400">{gem}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="text-xs text-paper-800/40 dark:text-slate-500 mt-1">★ = best in row. {t("Source: official README, DeepSeek-V4-Pro HuggingFace page.", "来源：官方 README，DeepSeek-V4-Pro HuggingFace 页面。")}</p>
+        </div>
+
+        {/* ── 11. Why It Matters ── */}
+        <h2>{t("11. Why It Matters", "11. 为什么重要")}</h2>
+        <div className="space-y-3 my-4">
+          {[
+            {
+              title: t("Efficiency: frontier quality at a fraction of the inference cost", "效率：以极低推理成本实现前沿质量"),
+              body: t("27% inference FLOPs and 10% KV cache vs DeepSeek-V3.2 at equivalent quality is a significant systems engineering advance. It enables true 1M-token serving — full codebases, book-length documents — at deployable cost.", "相比 DeepSeek-V3.2，在同等质量下仅需 27% 推理 FLOPs 和 10% KV 缓存，是重大系统工程进步。它使真正的百万 token 服务成为可能——完整代码库、书籍长度文档——以可部署的成本实现。"),
+            },
+            {
+              title: t("Technical: 10× KV cache at frontier quality", "技术：前沿质量下 KV 缓存减少 10 倍"),
+              body: t("CSA/HCA/DSA achieving a 10× KV cache and 2× long-context compute reduction at equivalent or better quality is a major systems engineering advance. It enables genuine 1M-token serving — full codebases, book-length documents, multi-session memory — at deployable cost.", "CSA/HCA/DSA 在同等或更高质量下实现 10 倍 KV 缓存和 2 倍长上下文计算减少，是重大系统工程进步。它以可部署的成本实现真正的百万 token 服务——完整代码库、书籍长度文档、多轮会话记忆。"),
+            },
+            {
+              title: t("Architectural: Engram as a new primitive", "架构：Engram 作为新的基础原语"),
+              body: t("Separating static knowledge lookup from dynamic FFN computation is a conceptual advance that could become a standard LLM component — analogous to how MoE evolved from a niche technique to a universal practice. If Engram generalises, all frontier models may adopt it.", "将静态知识查找与动态 FFN 计算分离是一个概念性进步，可能成为 LLM 的标准组件——类似于 MoE 从小众技术演变为普遍实践。如果 Engram 具有普适性，所有前沿模型都可能采用它。"),
+            },
+            {
+              title: t("Open: Apache 2.0, 1.6T weights public", "开放：Apache 2.0，1.6T 权重公开"),
+              body: t("Releasing a 1.6T-parameter frontier model under Apache 2.0 puts extreme capability in the hands of the research community. Combined with the Huawei-only training stack, it signals that DeepSeek is optimising for influence over revenue.", "以 Apache 2.0 协议发布 1.6T 参数前沿模型，将极强的能力交到研究社区手中。结合仅使用华为的训练方案，这表明 DeepSeek 正在以影响力而非收益为优化目标。"),
+            },
+          ].map(({ title, body }) => (
+            <div key={String(title)} className="bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg p-4">
+              <h4 className="font-semibold text-sm mb-2 dark:text-slate-100">{title}</h4>
+              <p className="text-sm text-paper-800/70 dark:text-slate-400">{body}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* ── 11. Related Papers ── */}
+        <h2>{t("11. Related Papers", "11. 相关论文")}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 my-4">
-          <div className="p-4 bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg">
-            <Link href="/papers/grpo" className="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
-              GRPO
-            </Link>
-            <p className="text-sm text-paper-800/70 dark:text-slate-400 mt-1">
-              {t(
-                "DeepSeek's RL algorithm — used in V4's post-training to align the model on reasoning tasks without a separate critic network.",
-                "DeepSeek 的 RL 算法——用于 V4 后训练阶段，无需独立 critic 网络即可对齐推理任务。"
-              )}
-            </p>
-          </div>
-          <div className="p-4 bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg">
-            <Link href="/papers/attention-is-all-you-need" className="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
-              Attention Is All You Need
-            </Link>
-            <p className="text-sm text-paper-800/70 dark:text-slate-400 mt-1">
-              {t(
-                "The Transformer architecture that V4 builds on. CSA/HCA are direct extensions of the attention mechanism introduced here.",
-                "V4 所基于的 Transformer 架构。CSA/HCA 是此处引入的注意力机制的直接扩展。"
-              )}
-            </p>
-          </div>
-          <div className="p-4 bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg">
-            <Link href="/papers/flashattention" className="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
-              FlashAttention
-            </Link>
-            <p className="text-sm text-paper-800/70 dark:text-slate-400 mt-1">
-              {t(
-                "IO-aware attention that V4's sparse attention patterns build on — tiling and kernel fusion are prerequisites for efficient sparse attention at scale.",
-                "V4 稀疏注意力模式所基于的 IO 感知注意力——分块和内核融合是大规模高效稀疏注意力的基础。"
-              )}
-            </p>
-          </div>
-          <div className="p-4 bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg">
-            <Link href="/papers/scaling-laws" className="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
-              Scaling Laws
-            </Link>
-            <p className="text-sm text-paper-800/70 dark:text-slate-400 mt-1">
-              {t(
-                "The empirical framework motivating V4's scale. Chinchilla scaling laws guided the 33T-token training budget for a 1.6T-parameter model.",
-                "激励 V4 规模化的实证框架。Chinchilla 缩放规律指导了 1.6T 参数模型使用 33T token 的训练预算。"
-              )}
-            </p>
-          </div>
+          {[
+            {
+              slug: "grpo",
+              title: "GRPO",
+              body: t("DeepSeek's RL algorithm used in V4 post-training — group-relative rewards, no separate critic network.", "V4 后训练所用的 DeepSeek RL 算法 — 组相对奖励，无独立 critic 网络。"),
+            },
+            {
+              slug: "attention-is-all-you-need",
+              title: "Attention Is All You Need",
+              body: t("The Transformer CSA/HCA/DSA all build on. V4's compressed attention is a direct extension of scaled dot-product attention.", "CSA/HCA/DSA 都基于的 Transformer。V4 的压缩注意力是缩放点积注意力的直接扩展。"),
+            },
+            {
+              slug: "flashattention",
+              title: "FlashAttention",
+              body: t("IO-aware attention kernel that V4's sparse patterns rely on — tiling and kernel fusion are prerequisites for efficient sparse attention at scale.", "V4 稀疏模式所依赖的 IO 感知注意力内核——分块和内核融合是大规模高效稀疏注意力的先决条件。"),
+            },
+            {
+              slug: "scaling-laws",
+              title: "Scaling Laws",
+              body: t("Motivated V4's 33T-token training budget for a 1.6T-parameter model — Chinchilla-style optimal compute allocation.", "激励 V4 对 1.6T 参数模型使用 33T token 训练预算——Chinchilla 风格的最优计算分配。"),
+            },
+          ].map(({ slug, title, body }) => (
+            <div key={slug} className="p-4 bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg">
+              <Link href={`/papers/${slug}`} className="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+                {title}
+              </Link>
+              <p className="text-sm text-paper-800/70 dark:text-slate-400 mt-1">{body}</p>
+            </div>
+          ))}
         </div>
 
-        {/* ── 10. Resources ── */}
-        <h2>{t("10. Additional Resources", "10. 补充资源")}</h2>
+        {/* ── 12. Resources ── */}
+        <h2>{t("12. Additional Resources", "12. 补充资源")}</h2>
         <div className="space-y-2 my-4">
-          <a
-            href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block p-3 bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg hover:border-blue-300 dark:hover:border-blue-500 transition-colors"
-          >
-            <span className="text-sm font-medium dark:text-slate-100">
-              {t("DeepSeek-V4 Technical Report (PDF)", "DeepSeek-V4 技术报告（PDF）")}
-            </span>
-            <span className="text-xs text-paper-800/50 dark:text-slate-400 ml-2">HuggingFace</span>
-          </a>
-          <a
-            href="https://github.com/deepseek-ai/Engram"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block p-3 bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg hover:border-blue-300 dark:hover:border-blue-500 transition-colors"
-          >
-            <span className="text-sm font-medium dark:text-slate-100">
-              {t("Engram GitHub Repository", "Engram GitHub 仓库")}
-            </span>
-            <span className="text-xs text-paper-800/50 dark:text-slate-400 ml-2">
-              {t("Conditional Memory via Scalable Lookup", "通过可扩展查找实现条件记忆")}
-            </span>
-          </a>
-          <a
-            href="https://arxiv.org/abs/2601.07372"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block p-3 bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg hover:border-blue-300 dark:hover:border-blue-500 transition-colors"
-          >
-            <span className="text-sm font-medium dark:text-slate-100">
-              {t("Engram arXiv Paper (2601.07372)", "Engram arXiv 论文（2601.07372）")}
-            </span>
-            <span className="text-xs text-paper-800/50 dark:text-slate-400 ml-2">
-              {t("Conditional Memory via Scalable Lookup — formal write-up", "通过可扩展查找实现条件记忆——正式论文")}
-            </span>
-          </a>
-          <a
-            href="https://arxiv.org/abs/2512.02556"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block p-3 bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg hover:border-blue-300 dark:hover:border-blue-500 transition-colors"
-          >
-            <span className="text-sm font-medium dark:text-slate-100">DeepSeek-V3 Technical Report (arXiv 2512.02556)</span>
-            <span className="text-xs text-paper-800/50 dark:text-slate-400 ml-2">
-              {t("V4's predecessor — MoE load balancing and multi-token prediction", "V4 的前身——MoE 负载均衡与多 token 预测")}
-            </span>
-          </a>
+          {[
+            {
+              href: "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf",
+              title: t("DeepSeek-V4 Technical Report (PDF)", "DeepSeek-V4 技术报告（PDF）"),
+              sub: "HuggingFace",
+            },
+            {
+              href: "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash",
+              title: t("DeepSeek-V4-Flash Model Page", "DeepSeek-V4-Flash 模型页面"),
+              sub: "HuggingFace",
+            },
+            {
+              href: "https://github.com/deepseek-ai/Engram",
+              title: t("Engram GitHub Repository", "Engram GitHub 仓库"),
+              sub: t("Conditional Memory via Scalable Lookup", "通过可扩展查找实现条件记忆"),
+            },
+            {
+              href: "https://arxiv.org/abs/2601.07372",
+              title: "Engram arXiv 2601.07372",
+              sub: t("Formal paper on conditional memory", "条件记忆正式论文"),
+            },
+            {
+              href: "https://arxiv.org/abs/2512.24880",
+              title: "mHC arXiv 2512.24880",
+              sub: t("Manifold-Constrained Hyper-Connections", "流形约束超连接"),
+            },
+            {
+              href: "https://arxiv.org/abs/2512.02556",
+              title: "DeepSeek-V3 arXiv 2512.02556",
+              sub: t("V4's predecessor — MoE load balancing, multi-token prediction", "V4 的前身 — MoE 负载均衡、多 token 预测"),
+            },
+          ].map(({ href, title, sub }) => (
+            <a
+              key={href}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block p-3 bg-white dark:bg-slate-800 border border-paper-200 dark:border-slate-700 rounded-lg hover:border-blue-300 dark:hover:border-blue-500 transition-colors"
+            >
+              <span className="text-sm font-medium dark:text-slate-100">{title}</span>
+              <span className="text-xs text-paper-800/50 dark:text-slate-400 ml-2">{sub}</span>
+            </a>
+          ))}
         </div>
 
       </article>
