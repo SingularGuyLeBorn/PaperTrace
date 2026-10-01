@@ -439,6 +439,14 @@
           "title": "主流开源模型全景解析与技术报告精读"
         },
         {
+          "slug": "14-models/14.1-deepseek/00-deep-seek-v1/01-deep-seek-v1-jsbgjy",
+          "title": "DeepSeek-V1 技术报告精译"
+        },
+        {
+          "slug": "14-models/14.1-deepseek/00-deep-seek-v1/05-deep-seek-v1-index",
+          "title": "DeepSeek-V1"
+        },
+        {
           "slug": "14-models/14.1-deepseek/01-deep-seek-coder/01-deep-seek-coder-jsbgjy",
           "title": "DeepSeek-Coder 技术报告精译"
         },
@@ -629,6 +637,38 @@
         {
           "slug": "14-models/14.1-deepseek/10-deep-seek-v4/05-deep-seek-v4-index",
           "title": "DeepSeek-V4"
+        },
+        {
+          "slug": "14-models/14.1-deepseek/11-deep-seek-v4.1-flash/01-deep-seek-v4.1-flash-jsbgjy",
+          "title": "DeepSeek-V4.1-Flash 技术报告精译"
+        },
+        {
+          "slug": "14-models/14.1-deepseek/11-deep-seek-v4.1-flash/05-deep-seek-v4.1-flash-index",
+          "title": "DeepSeek-V4.1-Flash"
+        },
+        {
+          "slug": "14-models/14.1-deepseek/12-deep-seek-prover-v1-5/01-deep-seek-prover-v1-5-jsbgjy",
+          "title": "DeepSeek-Prover-V1.5 技术报告精译"
+        },
+        {
+          "slug": "14-models/14.1-deepseek/12-deep-seek-prover-v1-5/05-deep-seek-prover-v1-5-index",
+          "title": "DeepSeek-Prover-V1.5"
+        },
+        {
+          "slug": "14-models/14.1-deepseek/13-deep-seek-janus-pro/01-deep-seek-janus-pro-jsbgjy",
+          "title": "DeepSeek-Janus-Pro 技术报告精译"
+        },
+        {
+          "slug": "14-models/14.1-deepseek/13-deep-seek-janus-pro/05-deep-seek-janus-pro-index",
+          "title": "DeepSeek-Janus-Pro"
+        },
+        {
+          "slug": "14-models/14.1-deepseek/14-deep-seek-prover/01-deep-seek-prover-jsbgjy",
+          "title": "DeepSeek-Prover 技术报告精译"
+        },
+        {
+          "slug": "14-models/14.1-deepseek/14-deep-seek-prover/05-deep-seek-prover-index",
+          "title": "DeepSeek-Prover"
         },
         {
           "slug": "14-models/14.1-deepseek/14.1-deepseek",

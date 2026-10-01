@@ -17,6 +17,7 @@ export default function Page() {
 </ul>
 <h2 id="zml">子目录</h2>
 <ul>
+<li><a href="#broken-link">DeepSeek-V1</a></li>
 <li><a href="#broken-link">DeepSeek-Coder</a></li>
 <li><a href="#broken-link">DeepSeek-Math</a></li>
 <li><a href="#broken-link">DeepSeek-V2</a></li>
@@ -27,6 +28,10 @@ export default function Page() {
 <li><a href="#broken-link">DeepSeek-V3.2</a></li>
 <li><a href="#broken-link">DeepSeek-V3.2-Terminus</a></li>
 <li><a href="#broken-link">DeepSeek-V4</a></li>
+<li><a href="#broken-link">DeepSeek-V4.1-Flash</a></li>
+<li><a href="#broken-link">DeepSeek-Prover</a></li>
+<li><a href="#broken-link">DeepSeek-Prover-V1.5</a></li>
+<li><a href="#broken-link">DeepSeek-Janus-Pro</a></li>
 </ul>
 `;
   const toc: { level: number; id: string; text: string }[] = [{"level":2,"id":"zwd","text":"子文档"},{"level":2,"id":"zml","text":"子目录"}];
