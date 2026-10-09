@@ -60,12 +60,28 @@ export const KNOWLEDGE_GARDENS: readonly KnowledgeGarden[] = [
     descriptionZh: "从行动循环、工具与记忆，到运行时安全、训练与评测。",
   },
   {
+    id: "deepseek",
+    sourceName: "DeepSeek",
+    titleEn: "DeepSeek Systems and Models",
+    titleZh: "DeepSeek 模型与系统",
+    descriptionEn: "A connected reading path across model reports, architecture, training, inference, and open-source infrastructure.",
+    descriptionZh: "贯通模型报告、架构、训练、推理与开源基础设施的 DeepSeek 技术谱系。",
+  },
+  {
     id: "rag",
     sourceName: "RetrievalAugmentedGeneration",
     titleEn: "Retrieval-Augmented Generation",
     titleZh: "检索增强生成",
     descriptionEn: "A traceable path from corpus construction and retrieval to grounded generation and evaluation.",
     descriptionZh: "从语料、检索与排序，到证据化生成和生产评测。",
+  },
+  {
+    id: "sparse-attention",
+    sourceName: "SparseAttention",
+    titleEn: "Sparse Attention",
+    titleZh: "稀疏注意力机制",
+    descriptionEn: "Long-context attention from complexity and sparse topology to dynamic routing and kernels.",
+    descriptionZh: "从复杂度与稀疏拓扑，到动态路由、缓存选择与内核实现。",
   },
   {
     id: "long-horizon-agents",

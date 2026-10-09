@@ -18,8 +18,8 @@ export function KnowledgeIndex({ gardens }: { gardens: KnowledgeGardenSummary[] 
         </h1>
         <p className="text-paper-800/65 dark:text-slate-400 leading-7">
           {t(
-            "Five focused Chinese-language libraries connect papers into reusable maps of concepts, methods, systems, and evaluation. The Markdown source stays visible and maintainable instead of being expanded into hundreds of generated pages.",
-            "五个中文专题库把论文整理成可复用的概念、方法、系统与评测地图。Markdown 原文直接保留，避免再生成数百个难以维护的重复页面。"
+            "Seven focused Chinese-language libraries connect papers into reusable maps of concepts, methods, systems, and evaluation. The Markdown source stays visible and maintainable instead of being expanded into hundreds of generated pages.",
+            "七个中文专题库把论文整理成可复用的概念、方法、系统与评测地图。Markdown 原文直接保留，避免再生成数百个难以维护的重复页面。"
           )}
         </p>
       </header>
